@@ -11,7 +11,6 @@ namespace SeleniumLottoDataApp
     {
         static void Main(string[] args)
         {
-#if false
             LottoBase obj = new LottoBC49();
             obj.InsertDb();
 
@@ -61,10 +60,7 @@ namespace SeleniumLottoDataApp
             obj = new LottoSevenLotto();
             obj.InsertDb();
 
-#endif
-
-
-            LottoBase obj = new LottoSSQ();
+            obj = new LottoSSQ();
             obj.InsertDb();
 
         }
