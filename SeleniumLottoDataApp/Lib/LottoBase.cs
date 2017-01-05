@@ -1,5 +1,8 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Remote;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,14 +14,16 @@ namespace SeleniumLottoDataApp.Lib
 {
     public class LottoBase
     {
-        public IWebDriver Driver { get; set; }
+        public RemoteWebDriver Driver { get; set; }
         public LottoBase()
         {
             Driver = new ChromeDriver(); // Launches Browser for English version
+            //Driver = new InternetExplorerDriver(@"F:\Visual_Studio_2015_Apps\SeleniumLottoDataApp\SeleniumLottoDataApp\"); // Launches Browser for English version
+            //Driver = new EdgeDriver(@"F:\Visual_Studio_2015_Apps\SeleniumLottoDataApp\SeleniumLottoDataApp\"); // Launches Browser for English version
 
-            //driver.Manage().Window.Maximize(); // Maximizes Browser
+            //Driver.Manage().Window.Maximize(); // Maximizes Browser
 
-            Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(20));
+            Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(40));
         }
 
         internal virtual void InsertDb() { }

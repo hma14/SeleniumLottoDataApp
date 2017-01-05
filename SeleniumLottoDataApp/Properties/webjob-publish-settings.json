@@ -1,7 +1,7 @@
 ﻿{
   "$schema": "http://schemastore.org/schemas/json/webjob-publish-settings.json",
-  "webJobName": "SyncLottoDataDaily",
-  "startTime": "2016-10-23T22:00:00-08:00",
+  "webJobName": "SeleniumLottoDataApp",
+  "startTime": "2016-10-31T12:30:00-08:00",
   "endTime": null,
   "jobRecurrenceFrequency": "Day",
   "interval": 1,
