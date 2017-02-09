@@ -4,6 +4,7 @@ namespace SeleniumLottoDataApp
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using Models;
 
     public partial class LottoDb : DbContext
     {
@@ -48,6 +49,8 @@ namespace SeleniumLottoDataApp
         public virtual DbSet<SuperLotto_Rear> SuperLotto_Rear { get; set; }
         public virtual DbSet<LottoName> LottoNames { get; set; }
         public virtual DbSet<Lotto> Lottos { get; set; }
+        public virtual DbSet<NewYorkTake5> NewYorkTake5 { get; set; }
+        public virtual DbSet<TexasCashFive> TexasCashFive { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -180,6 +183,14 @@ namespace SeleniumLottoDataApp
                 .IsUnicode(false);
 
             modelBuilder.Entity<SuperLotto_Rear>()
+                .Property(e => e.DrawDate)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<NewYorkTake5>()
+                .Property(e => e.DrawDate)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<TexasCashFive>()
                 .Property(e => e.DrawDate)
                 .IsUnicode(false);
         }
