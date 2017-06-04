@@ -16,6 +16,7 @@ namespace SeleniumLottoDataApp.Lib
 
         private string searchDrawDate()
         {
+            Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(60));
             var ps = Driver.FindElements(By.XPath("//div[@class='gamePageNumbers']/p"));
             var txt = ps[1].Text;
             txt = txt.Replace(",", "");

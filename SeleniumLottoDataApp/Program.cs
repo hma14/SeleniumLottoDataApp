@@ -54,8 +54,8 @@ namespace SeleniumLottoDataApp
             obj = new LottoPowerBall();
             obj.InsertDb();
 
-            obj = new LottoSuperLotto();
-            obj.InsertDb();
+            //obj = new LottoSuperLotto();
+            //obj.InsertDb();
 
             obj = new LottoSevenLotto();
             obj.InsertDb();
