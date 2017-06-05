@@ -11,7 +11,8 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoBC49()
         {
-            Driver.Url = "http://lotto.bclc.com/winning-numbers/bc49-and-extra.html";           
+            string url = "http://lotto.bclc.com/winning-numbers/bc49-and-extra.html";
+            Driver.Navigate().GoToUrl(url);       
         }
 
         private string searchDrawDate()

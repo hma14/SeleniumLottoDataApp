@@ -1,14 +1,9 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Edge;
-using OpenQA.Selenium.IE;
+﻿using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Remote;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 
 namespace SeleniumLottoDataApp.Lib
 {
@@ -18,7 +13,15 @@ namespace SeleniumLottoDataApp.Lib
         public RemoteWebDriver Driver { get; set; }
         public LottoBase()
         {
-            Driver = new ChromeDriver(); // Launches Browser for English version
+            PhantomJSDriverService service = PhantomJSDriverService.CreateDefaultService();
+            service.IgnoreSslErrors = true;
+            service.LoadImages = false;
+            service.ProxyType = "none";
+            Driver = new PhantomJSDriver(service);
+            Driver.Manage().Window.Size = new Size(1024, 768);
+
+
+            //Driver = new ChromeDriver(); // Launches Browser for English version
             //Driver = new InternetExplorerDriver(@"F:\Visual_Studio_2015_Apps\SeleniumLottoDataApp\SeleniumLottoDataApp\"); // Launches Browser for English version
             //Driver = new EdgeDriver(@"F:\Visual_Studio_2015_Apps\SeleniumLottoDataApp\SeleniumLottoDataApp\"); // Launches Browser for English version
 
