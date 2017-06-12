@@ -1,5 +1,6 @@
 ﻿{
   "$schema": "http://schemastore.org/schemas/json/webjob-publish-settings.json",
   "webJobName": "SeleniumLottoDataApp",
-  "runMode": "OnDemand"
+  "runMode": "OnDemand",
+  "schedule": "0 24 15 * * *"
 }
