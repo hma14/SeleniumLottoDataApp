@@ -12,8 +12,8 @@ namespace SeleniumLottoDataGen
     {
         static void Main(string[] args)
         {
-            NewYorkTake5Gen obj1 = new NewYorkTake5Gen();
-            obj1.ParseCsv();
+            //NewYorkTake5Gen obj1 = new NewYorkTake5Gen();
+            //obj1.ParseCsv();
 
             TexasCashFiveGen obj2 = new TexasCashFiveGen();
             obj2.ParseCsv();

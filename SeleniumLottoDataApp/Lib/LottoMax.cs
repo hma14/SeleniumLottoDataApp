@@ -18,7 +18,7 @@ namespace SeleniumLottoDataApp.Lib
         {
             var dat = Driver.FindElements(By.ClassName("date"));
             var arr = dat[0].Text.Split();
-            var da = arr[2] + '-' + DicDateShort2[arr[0]] + "-" + arr[1].Substring(0, arr[1].Length - 1);
+            var da = arr[2] + '-' + DicDateShort2[arr[0].ToUpper()] + "-" + arr[1].Substring(0, arr[1].Length - 1);
             return da;
         }
 
