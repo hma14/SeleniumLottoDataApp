@@ -63,18 +63,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lib\FloridaFantasy5Gen.cs" />
     <Compile Include="Lib\NewYorkTake5Gen.cs" />
     <Compile Include="Lib\TexasCashFiveGen.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="Lotto.Data\nytake5.csv" />
     <None Include="Lotto.Data\Texas_cashfive.csv" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Lotto.Data\FloridaFantasy5_Data.txt" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SeleniumLottoDataApp\SeleniumLottoDataApp.csproj">
       <Project>{C4F71BCF-A6A4-42ED-9B40-15371AD1633F}</Project>

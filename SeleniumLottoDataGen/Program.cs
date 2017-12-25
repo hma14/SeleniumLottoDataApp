@@ -15,8 +15,11 @@ namespace SeleniumLottoDataGen
             //NewYorkTake5Gen obj1 = new NewYorkTake5Gen();
             //obj1.ParseCsv();
 
-            TexasCashFiveGen obj2 = new TexasCashFiveGen();
-            obj2.ParseCsv();
+            //TexasCashFiveGen obj2 = new TexasCashFiveGen();
+            //obj2.ParseCsv();
+
+            FloridaFantasy5Gen obj3 = new FloridaFantasy5Gen();
+            obj3.ParseData();
         }
     }
 }
