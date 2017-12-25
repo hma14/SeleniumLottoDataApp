@@ -14,28 +14,6 @@ namespace SeleniumLottoDataGen.Lib
 
         }
 
-        //public void ParseCsv()
-        //{
-        //    var parent = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-        //    var Path = parent + @"\Lotto.Data\nytake5.csv";
-        //    int drawNumber = 1;
-        //    using (StreamReader reader = new StreamReader(Path))
-        //    {
-        //        string line = reader.ReadLine(); // first line is header, don't care
-        //        while ((line = reader.ReadLine()) != null)
-        //        {
-        //            //Define pattern
-        //            Regex CSVParser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
-
-        //            //Separating columns to array
-        //            string[] arr = CSVParser.Split(line);
-        //            string drawDate = arr[0];
-        //            string[] numbers = arr[1].Split(' ');
-        //            InsertDb(drawNumber++, drawDate, numbers);
-
-        //        }
-        //    }
-        //}
 
         public void ParseData()
         {
@@ -78,7 +56,6 @@ namespace SeleniumLottoDataGen.Lib
                     };
                     drawNumber2--;
 
-                    string[] arr2 = new string[] { arr[10], arr[11], arr[13], arr[15], arr[17], arr[19] };
                     cols1.Add(entity1);
                     cols2.Add(entity2);
                 }
