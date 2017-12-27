@@ -1,9 +1,7 @@
 ﻿using SeleniumLottoDataApp;
-using SeleniumLottoDataApp.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 
 namespace SeleniumLottoDataGen.Lib
 {

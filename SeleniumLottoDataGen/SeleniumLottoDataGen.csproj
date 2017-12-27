@@ -70,8 +70,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Lotto.Data\nytake5.csv" />
+    <None Include="App.config" />
     <None Include="Lotto.Data\Texas_cashfive.csv" />
+    <None Include="Lotto.Data\nytake5.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
