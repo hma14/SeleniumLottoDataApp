@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{45A81A54-6924-4352-A2B4-6D780E554F09}</ProjectGuid>
+    <ProjectGuid>{89208E06-CF74-402C-8808-BC824F4DDE5E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SeleniumLottoDataGen</RootNamespace>
@@ -71,8 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Lotto.Data\Texas_cashfive.csv" />
+    <None Include="Lotto.Data\Lottery_Take_5_Winning_Numbers.csv" />
     <None Include="Lotto.Data\nytake5.csv" />
+    <None Include="Lotto.Data\Texas_cashfive.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -80,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SeleniumLottoDataApp\SeleniumLottoDataApp.csproj">
-      <Project>{C4F71BCF-A6A4-42ED-9B40-15371AD1633F}</Project>
+      <Project>{11a3fda8-608b-4f42-bfa4-89d37f022019}</Project>
       <Name>SeleniumLottoDataApp</Name>
     </ProjectReference>
   </ItemGroup>

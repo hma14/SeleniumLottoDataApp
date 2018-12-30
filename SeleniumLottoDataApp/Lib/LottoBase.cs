@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium.PhantomJS;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Remote;
 using System;
 using System.Collections;
@@ -17,7 +18,10 @@ namespace SeleniumLottoDataApp.Lib
             service.IgnoreSslErrors = true;
             service.LoadImages = false;
             service.ProxyType = "none";
-            Driver = new PhantomJSDriver(service);
+            service.SuppressInitialDiagnosticInformation = true;
+            service.AddArgument("--webdriver-loglevel=NONE");
+
+            Driver = new PhantomJSDriver(service);           
             Driver.Manage().Window.Size = new Size(1024, 768);
 
 
@@ -25,7 +29,7 @@ namespace SeleniumLottoDataApp.Lib
             //Driver = new InternetExplorerDriver(@"F:\Visual_Studio_2015_Apps\SeleniumLottoDataApp\SeleniumLottoDataApp\"); // Launches Browser for English version
             //Driver = new EdgeDriver(@"F:\Visual_Studio_2015_Apps\SeleniumLottoDataApp\SeleniumLottoDataApp\"); // Launches Browser for English version
 
-            //Driver.Manage().Window.Maximize(); // Maximizes Browser
+            //Driver.Manage().Window.Maximize(); // Maximizes Browser         
 
             Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(40));
         }

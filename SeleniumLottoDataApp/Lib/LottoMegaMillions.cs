@@ -17,10 +17,10 @@ namespace SeleniumLottoDataApp.Lib
 
         private string searchDrawDate()
         {
-            var dat = Driver.FindElement(By.TagName("h1"));
+            var dat = Driver.FindElement(By.Id("lastestDate"));
 
             var temp = dat.Text.Split();
-            var arr = temp[2].Split('/');
+            var arr = temp[1].Split('/');
             var da = arr[2] + "-" + arr[0] + "-" + arr[1];
            
             return da;
@@ -29,12 +29,13 @@ namespace SeleniumLottoDataApp.Lib
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var divs = Driver.FindElements(By.ClassName("winning-numbers-white-ball"));
-            foreach (var div in divs)
+            var balls = Driver.FindElements(By.ClassName("ball"));
+           foreach (var ball in balls.Take(5))
             {
-                numbers.Add(div.Text);
+                numbers.Add(ball.Text);
             }
-            var megaball = Driver.FindElement(By.ClassName("winning-numbers-mega-ball"));
+            var megaballs = Driver.FindElements(By.ClassName("winNumMB"));
+            var megaball = megaballs.Take(1).First();
             numbers.Add(megaball.Text);
 
             return numbers;

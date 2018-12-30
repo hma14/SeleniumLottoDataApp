@@ -11,32 +11,31 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoPowerBall()
         {
-            Driver.Url = "http://www.powerball.com/powerball/pb_numbers.asp";           
+            Driver.Url = "https://www.powerball.com/games/powerball";           
         }
 
         private string searchDrawDate()
         {
-            var tbl = Driver.FindElement(By.XPath("//table[@align='center']"));
-            var trs = tbl.FindElements(By.TagName("tr"));
-            var tds = trs[1].FindElements(By.TagName("td"));
-            var arr = tds[0].Text.Split('/');
-            var da = arr[2] + "-" + arr[0] + "-" + arr[1];
+
+            var divs = Driver.FindElements(By.ClassName("field_draw_date"));
+            if (divs == null || divs.Count == 0)
+                return null;
+
+            var dat = divs.Last().Text.Split();                       
+            var da = dat[2] + "-" + DicDateShort[dat[0]] + "-" + dat[1].Split(',')[0];
             return da;
         }
 
         private List<string> searchDrawNumbers()
         {
-            List<string> numbers = new List<string>();
-            var tbl = Driver.FindElement(By.XPath("//table[@align='center']"));
-            var trs = tbl.FindElements(By.TagName("tr"));
-            var tds = trs[1].FindElements(By.TagName("td"));
+            List<string> numbers = new List<string>();           
 
-            for (int i = 1; i < 8; i++)
+            var balls = Driver.FindElements(By.ClassName("numbers-ball")).Where(x => !string.IsNullOrEmpty(x.Text));
+            foreach (var ball in balls.Take(6))
             {
-                if (i == 6) continue;
-                numbers.Add(tds[i].Text);
-            }
-            
+                
+                numbers.Add(ball.Text);
+            }            
             return numbers;
         }
 

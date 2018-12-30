@@ -16,9 +16,11 @@ namespace SeleniumLottoDataApp.Lib
 
         private string searchDrawDate()
         {
-            var div = Driver.FindElement(By.ClassName("latest-result-euro"));
-            var dat = div.FindElement(By.ClassName("date"));
-            var arr = dat.Text.Split();
+            var divs = Driver.FindElements(By.ClassName("date"));
+
+            var dat = divs.First().Text;
+
+            var arr = dat.Split();
             var da = arr[3] + '-' + DicDate[arr[2]] + "-" + arr[1].Substring(0, arr[1].Length - 2);
             return da;
         }
