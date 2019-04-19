@@ -18,11 +18,8 @@ namespace SeleniumLottoDataApp.Lib
         {
 
             var divs = Driver.FindElements(By.ClassName("field_draw_date"));
-            if (divs == null || divs.Count == 0)
-                return null;
-
-            var dat = divs.Last().Text.Split();                       
-            var da = dat[2] + "-" + DicDateShort[dat[0]] + "-" + dat[1].Split(',')[0];
+            var dat = divs.First().Text.Split();                       
+            var da = dat[5] + "-" + DicDateShort[dat[3]] + "-" + dat[4].Trim(',');
             return da;
         }
 
