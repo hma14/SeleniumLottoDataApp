@@ -44,11 +44,11 @@ namespace SeleniumLottoDataApp
             obj = new LottoMegaMillions();
             obj.InsertDb();
 
-            //obj = new LottoNYLotto();
-            //obj.InsertDb();
+            obj = new LottoNYLotto();
+            obj.InsertDb();
 
-            //obj = new LottoPowerBall();
-            //obj.InsertDb();
+            obj = new LottoPowerBall();
+            obj.InsertDb();
 
             obj = new LottoSuperLotto();
             obj.InsertDb();

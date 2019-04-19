@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C4F71BCF-A6A4-42ED-9B40-15371AD1633F}</ProjectGuid>
+    <ProjectGuid>{11A3FDA8-608B-4F42-BFA4-89D37F022019}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SeleniumLottoDataApp</RootNamespace>

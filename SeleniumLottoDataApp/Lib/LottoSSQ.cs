@@ -45,7 +45,7 @@ namespace SeleniumLottoDataApp.Lib
                     var lastDrawDate = dates.Last().Item2;
                     var currentDrawDate = searchDrawDate();
 
-                    if (currentDrawDate == lastDrawDate)
+                    if (currentDrawDate != lastDrawDate)
                     {
                         var lastDrawNumber = dates.Last().Item1;
                         var numbers = searchDrawNumbers();
