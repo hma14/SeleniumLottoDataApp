@@ -1,40 +1,54 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.PhantomJS;
-using OpenQA.Selenium.Remote;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Net;
 
 namespace SeleniumLottoDataApp.Lib
 {
 
     public class LottoBase
     {
-        public RemoteWebDriver Driver { get; set; }
+        //public RemoteWebDriver Driver { get; set; }
+        public ChromeDriver Driver { get; set; }
 
         public LottoBase()
         {
-            PhantomJSDriverService service = PhantomJSDriverService.CreateDefaultService();
-            service.IgnoreSslErrors = true;
-            service.LoadImages = false;
-            service.ProxyType = "none";
-            service.SuppressInitialDiagnosticInformation = true;
-            service.AddArgument("--webdriver-loglevel=NONE");
+            //PhantomJSDriverService service = PhantomJSDriverService.CreateDefaultService();
+            //service.IgnoreSslErrors = true;
+            //service.LoadImages = false;
+            //service.ProxyType = "none";
+            //service.SuppressInitialDiagnosticInformation = true;
+            //service.AddArgument("--webdriver-loglevel=NONE");
 
-            Driver = new PhantomJSDriver(service);
-            Driver.Manage().Window.Size = new Size(1024, 768);
-
-
-            Driver = new ChromeDriver(); // Launches Browser for English version
-            //Driver = new InternetExplorerDriver(@"F:\Visual_Studio_2015_Apps\SeleniumLottoDataApp\SeleniumLottoDataApp\"); // Launches Browser for English version
-            //Driver = new EdgeDriver(@"F:\Visual_Studio_2015_Apps\SeleniumLottoDataApp\SeleniumLottoDataApp\"); // Launches Browser for English version
-
-            //Driver.Manage().Window.Maximize(); // Maximizes Browser         
+            ////Driver = new PhantomJSDriver(service);
+            //Driver.Manage().Window.Size = new Size(1024, 768);
 
             //Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(60));
+
+            var chromeOptions = new ChromeOptions
+            {
+                BinaryLocation = @"C:\Program Files(x86)\Google\Chrome\Application\chrome.exe", 
+                //DebuggerAddress = "127.0.0.1:9222"
+            };
+
+            chromeOptions.AddArguments(new List<string>()
+            {
+                "--silent-launch",
+                "--no-startup-window",
+                "no-sandbox",
+                "--window-size=1920,1080",
+                "--disable-gpu",
+                "--disable-extensions",
+                "--proxy-server='direct://'",
+                "--proxy-bypass-list=*",
+                "--start-maximized",
+                "--headless",
+            });
+
+            var chromeDriverService = ChromeDriverService.CreateDefaultService();
+            chromeDriverService.HideCommandPromptWindow = true;    // This is to hidden the console.
+            Driver = new ChromeDriver(chromeDriverService, chromeOptions);
+            
         }
 
         internal virtual void InsertDb() { }
