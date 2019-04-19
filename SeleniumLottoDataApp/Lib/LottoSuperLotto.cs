@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SeleniumLottoDataApp.Lib
 {
@@ -11,30 +9,30 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoSuperLotto()
         {
-            Driver.Url = "http://www.lottery.gov.cn/historykj/history.jspx?_ltype=dlt";
-
+            string url = "https://www.magayo.com/lotto/china/super-lotto-results";
+            Driver.Navigate().GoToUrl(url);
         }
 
         private string searchDrawDate()
         {
-            var tbl = Driver.FindElement(By.XPath("//div[@class='result']/table"));
-            var tds = tbl.FindElements(By.TagName("td"));
-            var da = tds[19].Text;
+            var p = Driver.FindElement(By.XPath("//div[@class='small-12 medium-7 large-7 columns']/p"));
+            var dat = p.Text.Split('(')[0];
 
+            var d = dat.Replace(",", "").Split();
+            var da = $"{d[2]}-{DicDateShort[d[0]]}-{d[1]}";
             return da;
         }
 
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var tbl = Driver.FindElement(By.XPath("//div[@class='result']/table"));
-            var tds = tbl.FindElements(By.TagName("td"));
-
-            for (int i = 1; i < 8; i++)
+            var p = Driver.FindElement(By.XPath("//div[@class='small-12 medium-7 large-7 columns']/p"));
+            var nums = p.FindElements(By.TagName("img"));
+            foreach (var num in nums)
             {
-                numbers.Add(tds[i].Text);
+                var n = num.GetAttribute("src").Split('=')[2].Split('.')[0];
+                numbers.Add(n);
             }
-
             return numbers;
         }
 

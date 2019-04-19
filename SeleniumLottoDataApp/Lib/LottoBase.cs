@@ -1,9 +1,12 @@
-﻿using OpenQA.Selenium.PhantomJS;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Remote;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Net;
 
 namespace SeleniumLottoDataApp.Lib
 {
@@ -11,23 +14,27 @@ namespace SeleniumLottoDataApp.Lib
     public class LottoBase
     {
         public RemoteWebDriver Driver { get; set; }
+
         public LottoBase()
         {
             PhantomJSDriverService service = PhantomJSDriverService.CreateDefaultService();
             service.IgnoreSslErrors = true;
             service.LoadImages = false;
             service.ProxyType = "none";
+            service.SuppressInitialDiagnosticInformation = true;
+            service.AddArgument("--webdriver-loglevel=NONE");
+
             Driver = new PhantomJSDriver(service);
             Driver.Manage().Window.Size = new Size(1024, 768);
 
 
-            //Driver = new ChromeDriver(); // Launches Browser for English version
+            Driver = new ChromeDriver(); // Launches Browser for English version
             //Driver = new InternetExplorerDriver(@"F:\Visual_Studio_2015_Apps\SeleniumLottoDataApp\SeleniumLottoDataApp\"); // Launches Browser for English version
             //Driver = new EdgeDriver(@"F:\Visual_Studio_2015_Apps\SeleniumLottoDataApp\SeleniumLottoDataApp\"); // Launches Browser for English version
 
-            //Driver.Manage().Window.Maximize(); // Maximizes Browser
+            //Driver.Manage().Window.Maximize(); // Maximizes Browser         
 
-            Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(40));
+            //Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(60));
         }
 
         internal virtual void InsertDb() { }

@@ -12,31 +12,29 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoNewYorkTake5()
         {
-            Driver.Url = "http://nylottery.ny.gov/wps/portal/Home/Lottery/Home/Daily+Games/TAKE+5";           
+            Driver.Url = "https://www.lotteryusa.com/new-york/take-5/";
         }
 
         private string searchDrawDate()
         {
-            var div = Driver.FindElement(By.ClassName("WinningNumbersText"));
-            var txt = div.Text;
-            txt = txt.Replace(",", "");
-            var arr = txt.Split();
-            var da = DicDateShort[arr[0]] + "/" + arr[1] + '/' + arr[2];
-            return da;
+            var tags = Driver.FindElements(By.TagName("time"));
+            var tag = tags.Take(1).First();
+            var dat = tag.Text.Split();
+            var date = dat[4] + "-" + DicDateShort[dat[2]] + "-" + dat[3].Split(',')[0];
+            return date;
         }
+
 
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var divs = Driver.FindElements(By.ClassName("WinningNumbersResultsTake5Landing"));
-            foreach (var div in divs)
+            var uls = Driver.FindElements(By.ClassName("draw-result"));
+            var ul = uls.First();
+            var lis = ul.FindElements(By.TagName("li"));
+            foreach(var li in lis.Take(5))
             {
-                if (Char.IsDigit(div.Text[0]) == true)
-                {
-                    numbers.Add(div.Text);
-                }               
+                numbers.Add(li.Text);
             }
-            
             return numbers;
         }
 
@@ -49,7 +47,7 @@ namespace SeleniumLottoDataApp.Lib
                 var lastDrawDate = dates.LastOrDefault().Item2;
                 var currentDrawDate = searchDrawDate();
 
-                if (currentDrawDate != lastDrawDate)
+                if (DateTime.Parse(currentDrawDate) != DateTime.Parse(lastDrawDate))
                 {
                     var lastDrawNumber = dates.LastOrDefault().Item1;
                     var numbers = searchDrawNumbers();
@@ -63,7 +61,7 @@ namespace SeleniumLottoDataApp.Lib
                     entity.Number4 = int.Parse(numbers[3]);
                     entity.Number5 = int.Parse(numbers[4]);
 
-                    
+
                     // save to db
                     db.NewYorkTake5.Add(entity);
                     db.SaveChanges();

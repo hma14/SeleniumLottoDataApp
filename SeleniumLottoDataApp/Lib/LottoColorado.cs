@@ -7,42 +7,40 @@ using System.Threading.Tasks;
 
 namespace SeleniumLottoDataApp.Lib
 {
-    public class LottoFloridaFantasy5 : LottoBase
+    public class LottoColorado : LottoBase
     {
-        public LottoFloridaFantasy5()
+        public LottoColorado()
         {
-            Driver.Url = "http://flalottery.com/fantasy5.do";           
+            string url = "https://www.coloradolottery.com/en/games/lotto/";
+            Driver.Navigate().GoToUrl(url);       
         }
 
         private string searchDrawDate()
         {
-            //Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(60));
-            var ps = Driver.FindElements(By.XPath("//div[@class='gamePageNumbers']/p"));
-            var txt = ps[1].Text;
-            txt = txt.Replace(",", "");
-            var arr = txt.Split();
-            var da = arr[3] + '-' + DicDate[arr[1]] + "-" + arr[2];
-            return da;
+            var cls = Driver.FindElement(By.ClassName("winningNumbers"));
+            var a = cls.FindElement(By.TagName("a"));
+            var href = a.GetAttribute("href");
+            var dat = href.Split('/')[7];
+            return dat;
         }
 
         private List<string> searchDrawNumbers()
         {
-            List<string> numbers = new List<string>();
-            var spans = Driver.FindElements(By.XPath("//div[@class='gamePageBalls']/p/span"));
+            List<string> NList = new List<string>();
+            var draw = Driver.FindElements(By.ClassName("draw")).First();
+            var spans = draw.FindElements(By.TagName("span"));
             foreach (var span in spans)
             {
-                var num = span.GetAttribute("title");
-                if (num != string.Empty)
-                numbers.Add(num);
+                NList.Add(span.Text);
             }
-            return numbers;
+            return NList;
         }
 
-        internal override void InsertDb()
+        internal override  void InsertDb()
         {
             using (var db = new LottoDb())
             {
-                var list = db.FloridaFantasy5.ToList();
+                var list = db.ColoradoLottoes.ToList();
                 IList<Tuple<int, string>> dates = list.Select(x => new Tuple<int, string>(x.DrawNumber, x.DrawDate)).ToList();
                 var lastDrawDate = dates.LastOrDefault().Item2;
                 var currentDrawDate = searchDrawDate();
@@ -52,7 +50,7 @@ namespace SeleniumLottoDataApp.Lib
                     var lastDrawNumber = dates.LastOrDefault().Item1;
                     var numbers = searchDrawNumbers();
 
-                    var entity = new FloridaFantasy5();
+                    var entity = new ColoradoLotto();
                     entity.DrawNumber = lastDrawNumber + 1;
                     entity.DrawDate = currentDrawDate;
                     entity.Number1 = int.Parse(numbers[0]);
@@ -60,10 +58,11 @@ namespace SeleniumLottoDataApp.Lib
                     entity.Number3 = int.Parse(numbers[2]);
                     entity.Number4 = int.Parse(numbers[3]);
                     entity.Number5 = int.Parse(numbers[4]);
+                    entity.Number6 = int.Parse(numbers[5]);
 
                     
                     // save to db
-                    db.FloridaFantasy5.Add(entity);
+                    db.ColoradoLottoes.Add(entity);
                     db.SaveChanges();
                 }
             }

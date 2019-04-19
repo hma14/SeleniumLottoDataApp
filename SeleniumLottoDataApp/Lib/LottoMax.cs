@@ -11,31 +11,28 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoMAX()
         {
-            Driver.Url = "http://lotto.bclc.com/winning-numbers/lotto-max-and-extra.html";           
+            Driver.Url = "https://www.playnow.com/lottery/lotto-max-winning-numbers/";           
         }
 
         private string searchDrawDate()
         {
-            var dat = Driver.FindElements(By.ClassName("date"));
+            var dat = Driver.FindElements(By.ClassName("product-date-picker__draw-date"));
             var arr = dat[0].Text.Split();
-            var da = arr[2] + '-' + DicDateShort2[arr[0].ToUpper()] + "-" + arr[1].Substring(0, arr[1].Length - 1);
+            var da = arr[3] + '-' + DicDateShort2[arr[1].ToUpper()] + "-" + arr[2].Trim(',');
             return da;
         }
 
         private List<string> searchDrawNumbers()
         {
             List<string> NList = new List<string>();
-            var list = Driver.FindElements(By.XPath("//ul[@class='list-items']/li"));
+            var list = Driver.FindElements(By.ClassName("product-winning-numbers__number_lmax"));
             foreach (var lst in list)
             {
                 NList.Add(lst.Text);
             }
-
-            NList[1] = NList[1].Replace("Bonus", "").Trim();
-            NList[0] = NList[0] + " " + NList[1];
-            var numbers = NList[0].Split();
-
-            return numbers.ToList();
+            var list2 = Driver.FindElements(By.ClassName("product-winning-numbers__bonus-number_lmax"));
+            NList.Add(list2[0].Text);
+            return NList;
         }
 
         internal override void InsertDb()

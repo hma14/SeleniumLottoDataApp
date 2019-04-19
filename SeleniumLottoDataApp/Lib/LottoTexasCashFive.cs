@@ -10,37 +10,29 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoTexasCashFive()
         {
-            Driver.Url = "https://www.txlottery.org/export/sites/lottery/Games/Cash_Five/index.html";           
+            Driver.Url = "https://www.lotteryusa.com/texas/cash-5/";
         }
 
         private string searchDrawDate()
         {
-            var hs = Driver.FindElements(By.TagName("h3"));
-            foreach( var h in hs)
-            {
-                if (h.Text.Contains("Cash Five Winning Numbers for"))
-                {
-                    var txts = h.Text.Split(' ');
-                    var da = txts[5];
-                    return da;
-                }
-            }
-            return null;
+            var tds = Driver.FindElements(By.ClassName("date"));
+            var dats = tds.First().FindElement(By.TagName("time"));
+            var dat = dats.GetAttribute("datetime");
+            return dat;
+
         }
 
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var spans = Driver.FindElements(By.XPath("//ol[@class='winningNumberBalls']/li"));
-            foreach (var span in spans)
+            var td = Driver.FindElementsByClassName("result").First();
+            var lis = td.FindElements(By.TagName("li"));
+            foreach (var li in lis)
             {
-                if (!string.IsNullOrEmpty(span.Text) && Char.IsDigit(span.Text[0]) == true)
-                {
-                    numbers.Add(span.Text);
-                }               
+                numbers.Add(li.Text);
             }
-            
             return numbers;
+
         }
 
         internal override void InsertDb()

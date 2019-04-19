@@ -32,6 +32,18 @@ namespace SeleniumLottoDataApp.Lib
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
+#if true
+            var newBalls = Driver.FindElements(By.ClassName("ball")).Take(5);
+            foreach(var ball in newBalls)
+            {
+                numbers.Add(ball.Text);
+            }
+            var luckyStars = Driver.FindElements(By.ClassName("lucky-star")).Take(2);
+            foreach(var star in luckyStars)
+            {
+                numbers.Add(star.Text);
+            }
+#else           
             var table = Driver.FindElement(By.ClassName("resultsTable"));
             var trs = table.FindElements(By.TagName("tr"));
             var tds = trs[2].FindElements(By.TagName("td"));
@@ -39,7 +51,7 @@ namespace SeleniumLottoDataApp.Lib
             var stars = trs[2].Text.Split('-').ToList();
             numbers.Add(stars[4].Trim().Split()[1]);
             numbers.Add(stars[5].Trim().Split()[0]);
-
+#endif
             return numbers;
         }
 

@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SeleniumLottoDataApp.Lib
 {
@@ -11,32 +9,27 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoNYLotto()
         {
-            Driver.Url = "http://nylottery.ny.gov/wps/portal/!ut/p/c5/04_SB8K8xLLM9MSSzPy8xBz9CP0os_jggBC3kDBPE0MLC0dnA09vT0fLQDNvA0dfU30_j_zcVP1I_ShzXKoCgw30I3NS0xOTK_ULst0cAYmfjdU!/dl3/d3/L0lJSklna21BL0lKakFBRXlBQkVSQ0pBISEvNEZHZ3NvMFZ2emE5SUFnIS83X1NQVEZUVkk0MTg4QUMwSUtJQTlRNkswUVMwL2tvS2ExNjY5MDAwMDE!/?PC_7_SPTFTVI4188AC0IKIA9Q6K0QS0_WCM_CONTEXT=/wps/wcm/connect/NYSL+Content+Library/NYSL+Internet+Site/Home/Jackpot+Games/LOTTO";
-
+            Driver.Url = "https://nylottery.ny.gov/lotto";
         }
 
         private string searchDrawDate()
         {
-            var dat = Driver.FindElements(By.ClassName("WinningNumbersText"));
-            var txt = dat[0].Text;
-            txt = txt.Replace(",", "");
-            var arr = txt.Split();
-            var da = arr[2] + "-" + DicDateShort[arr[0]] + "-" + arr[1];
-
-            return da;
+            var hds = Driver.FindElements(By.ClassName("header4"));
+            var hd = hds.Take(1).First();
+            var dat = hd.Text.Split();
+            var date = DateTime.Today.Year.ToString() + "-" + DicDateShort2[dat[1]] + "-" + dat[2];
+            return date;
         }
+
 
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var divs = Driver.FindElements(By.ClassName("WinningNumbersResultsLotto"));
-            foreach (var div in divs)
-            {                
-                numbers.Add(div.Text);
+            var nums = Driver.FindElements(By.ClassName("winning-number"));
+            foreach (var num in nums)
+            {
+                numbers.Add(num.Text);
             }
-            var bonus = Driver.FindElement(By.ClassName("WinningNumbersMegaBallLotto"));
-            numbers.Add(bonus.Text);
-
             return numbers;
         }
 
@@ -49,7 +42,7 @@ namespace SeleniumLottoDataApp.Lib
                 var lastDrawDate = dates.LastOrDefault().Item2;
                 var currentDrawDate = searchDrawDate();
 
-                if (currentDrawDate != lastDrawDate)
+                if (currentDrawDate != null && currentDrawDate != lastDrawDate)
                 {
                     var lastDrawNumber = dates.LastOrDefault().Item1;
                     var numbers = searchDrawNumbers();

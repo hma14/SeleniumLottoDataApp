@@ -11,25 +11,24 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoSSQ()
         {
-            Driver.Url = "http://www.zhcw.com/ssq/";           
+            Driver.Url = "http://www.cwl.gov.cn/kjxx/ssq/";           
         }
 
         private string searchDrawDate()
         {
             List<string> numbers = new List<string>();
-            var dat = Driver.FindElement(By.Id("kj_date"));
+            var dat = Driver.FindElement(By.XPath("//div[@class='kjrq']/span"));
             return dat.Text;
         }
 
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var nums = Driver.FindElement(By.Id("kj_num"));
-            var arr = nums.Text.Split('\n');
+            var lis = Driver.FindElements(By.XPath("//ul[@class='hmj']/li"));
 
-           foreach(var a in arr)
+           foreach(var li in lis)
             {
-                numbers.Add(a.TrimEnd('\r'));
+                numbers.Add(li.Text);
             }
 
             return numbers;
@@ -41,38 +40,41 @@ namespace SeleniumLottoDataApp.Lib
             {
                 var list = db.SSQs.ToList();
                 IList<Tuple<int, string>> dates = list.Select(x => new Tuple<int, string>(x.DrawNumber, x.DrawDate)).ToList();
-                var lastDrawDate = dates.LastOrDefault().Item2;
-                var currentDrawDate = searchDrawDate();
-
-                if (currentDrawDate != lastDrawDate)
+                if (dates != null && dates.Any())
                 {
-                    var lastDrawNumber = dates.LastOrDefault().Item1;
-                    var numbers = searchDrawNumbers();
+                    var lastDrawDate = dates.Last().Item2;
+                    var currentDrawDate = searchDrawDate();
 
-                    var entity = new SSQ();
-                    entity.DrawNumber = lastDrawNumber + 1;
-                    entity.DrawDate = currentDrawDate;
-                    entity.Number1 = int.Parse(numbers[0]);
-                    entity.Number2 = int.Parse(numbers[1]);
-                    entity.Number3 = int.Parse(numbers[2]);
-                    entity.Number4 = int.Parse(numbers[3]);
-                    entity.Number5 = int.Parse(numbers[4]);
-                    entity.Number6 = int.Parse(numbers[5]);
+                    if (currentDrawDate == lastDrawDate)
+                    {
+                        var lastDrawNumber = dates.Last().Item1;
+                        var numbers = searchDrawNumbers();
 
-                    // save to db
-                    db.SSQs.Add(entity);
-                    db.SaveChanges();
+                        var entity = new SSQ();
+                        entity.DrawNumber = lastDrawNumber + 1;
+                        entity.DrawDate = currentDrawDate;
+                        entity.Number1 = int.Parse(numbers[0]);
+                        entity.Number2 = int.Parse(numbers[1]);
+                        entity.Number3 = int.Parse(numbers[2]);
+                        entity.Number4 = int.Parse(numbers[3]);
+                        entity.Number5 = int.Parse(numbers[4]);
+                        entity.Number6 = int.Parse(numbers[5]);
+
+                        // save to db
+                        db.SSQs.Add(entity);
+                        db.SaveChanges();
 
 
-                    // save to db for Euros
-                    var blue = new SSQ_Blue();
-                    blue.DrawNumber = lastDrawNumber + 1;
-                    blue.DrawDate = currentDrawDate;
-                    blue.Blue = int.Parse(numbers[6]);
+                        // save to db for Euros
+                        var blue = new SSQ_Blue();
+                        blue.DrawNumber = lastDrawNumber + 1;
+                        blue.DrawDate = currentDrawDate;
+                        blue.Blue = int.Parse(numbers[6]);
 
-                    db.SSQ_Blue.Add(blue);
-                    db.SaveChanges();
+                        db.SSQ_Blue.Add(blue);
+                        db.SaveChanges();
 
+                    }
                 }
             }
             Driver.Close();
