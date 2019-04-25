@@ -41,13 +41,12 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
 
 
-            obj = new LottoMegaMillions();
-            obj.InsertDb();
+
 
             obj = new LottoNYLotto();
             obj.InsertDb();
 
-            
+
 
             obj = new LottoSuperLotto();
             obj.InsertDb();
@@ -71,6 +70,9 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
 
             obj = new LottoPowerBall();
+            obj.InsertDb();
+
+            obj = new LottoMegaMillions();
             obj.InsertDb();
         }
     }

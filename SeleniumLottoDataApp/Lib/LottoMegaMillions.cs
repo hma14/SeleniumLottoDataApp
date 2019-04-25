@@ -31,14 +31,10 @@ namespace SeleniumLottoDataApp.Lib
         {
             List<string> numbers = new List<string>();
             var balls = Driver.FindElements(By.ClassName("ball"));
-           foreach (var ball in balls.Take(5))
+           foreach (var ball in balls.Take(6))
             {
                 numbers.Add(ball.Text);
-            }
-            var megaballs = Driver.FindElements(By.ClassName("winNumMB"));
-            var megaball = megaballs.Take(1).First();
-            numbers.Add(megaball.Text);
-
+            }            
             return numbers;
         }
 
