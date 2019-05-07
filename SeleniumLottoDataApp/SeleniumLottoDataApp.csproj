@@ -79,6 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lib\LottoColorado.cs" />
     <Compile Include="Lib\LottoTexasCashFive.cs" />
     <Compile Include="Lib\LottoNewYorkTake5.cs" />
     <Compile Include="Lib\LottoSSQ.cs" />
