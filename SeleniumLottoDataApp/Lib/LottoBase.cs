@@ -50,6 +50,11 @@ namespace SeleniumLottoDataApp.Lib
             Driver = new ChromeDriver(chromeDriverService, chromeOptions);
             
         }
+        
+        public void CloseDriver()
+        {
+            Driver.Quit();
+        }
 
         internal virtual void InsertDb() { }
         public virtual void InsertDb(int drawNumber, string drawDate, string[] numbers) { }
