@@ -66,9 +66,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Lotto.Data\Lottery_Take_5_Winning_Numbers.csv" />
     <None Include="Lotto.Data\nytake5.csv" />
     <None Include="Lotto.Data\Texas_cashfive.csv" />
