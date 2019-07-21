@@ -11,6 +11,7 @@ namespace SeleniumLottoDataApp
     {
         static void Main(string[] args)
         {
+            
             LottoBase obj = new LottoBC49();
             obj.InsertDb();
 
@@ -73,6 +74,9 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
 
             obj = new LottoMegaMillions();
+            obj.InsertDb();
+
+            obj = new LottoDailyGrand();
             obj.InsertDb();
 
             obj.CloseDriver();
