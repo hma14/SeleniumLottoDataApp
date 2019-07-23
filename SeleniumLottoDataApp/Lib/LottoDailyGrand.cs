@@ -20,8 +20,8 @@ namespace SeleniumLottoDataApp.Lib
             var ta = txt.Split(',');
             var year = ta[2];
             var da = ta[1].Split();
-            var mon = DicDate[da[0]];
-            var day = da[1];
+            var mon = DicDateShort[da[1]];
+            var day = da[2];
             var dat = $"{year}-{mon}-{day}";
             return dat;
 
@@ -30,12 +30,15 @@ namespace SeleniumLottoDataApp.Lib
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var td = Driver.FindElementsByClassName("result").First();
+            var td = Driver.FindElementsByClassName("product-winning-numbers__numbers-list").First();
             var lis = td.FindElements(By.TagName("li"));
             foreach (var li in lis)
             {
                 numbers.Add(li.Text);
             }
+
+            var grand = Driver.FindElementsByClassName("product-winning-numbers__bonus-number_dgrd").First();
+            numbers.Add(grand.Text);
             return numbers;
 
         }
