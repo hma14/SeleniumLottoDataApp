@@ -142,6 +142,7 @@
     <Compile Include="Models\OZLottoTue.cs" />
     <Compile Include="Models\OZLottoWed.cs" />
     <Compile Include="Models\PowerBall.cs" />
+    <Compile Include="Models\DailyGrand_GrandNumber.cs" />
     <Compile Include="Models\PowerBall_PowerBall.cs" />
     <Compile Include="Models\DailyGrand.cs" />
     <Compile Include="Models\TexasCashFive.cs" />

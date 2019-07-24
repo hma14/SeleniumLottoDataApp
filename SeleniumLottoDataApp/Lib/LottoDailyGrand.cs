@@ -69,12 +69,20 @@ namespace SeleniumLottoDataApp.Lib
                     entity.Number3 = int.Parse(numbers[2]);
                     entity.Number4 = int.Parse(numbers[3]);
                     entity.Number5 = int.Parse(numbers[4]);
-                    entity.Grand = int.Parse(numbers[5]);
-
 
                     // save to db
                     db.DailyGrand.Add(entity);
+
+                    // save to GrandNumber
+                    var grand = new DailyGrand_GrandNumber();
+                    grand.DrawNumber = lastDrawNumber + 1;
+                    grand.DrawDate = currentDrawDate;
+                    grand.GrandNumber = int.Parse(numbers[5]);
+
+                    db.DailyGrand_GrandNumber.Add(grand);
+
                     db.SaveChanges();
+
                 }
             }
             Driver.Close();
