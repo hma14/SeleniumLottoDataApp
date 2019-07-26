@@ -36,7 +36,6 @@ namespace SeleniumLottoDataGen.Lib
                         Number3 = int.Parse(arr[7]),
                         Number4 = int.Parse(arr[8]),
                         Number5 = int.Parse(arr[9]),
-                        Grand = int.Parse(arr[10]),
                     };
                     rows.Add(entity);                  
                 }

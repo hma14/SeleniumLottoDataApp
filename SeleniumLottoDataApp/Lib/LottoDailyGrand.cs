@@ -47,7 +47,7 @@ namespace SeleniumLottoDataApp.Lib
         {
             using (var db = new LottoDb())
             {
-                var list = db?.DailyGrand?.ToList();
+                var list = db.DailyGrand?.ToList();
                 if (list.Count == 0)
                 {
                     return;

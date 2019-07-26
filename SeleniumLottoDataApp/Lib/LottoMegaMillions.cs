@@ -20,7 +20,7 @@ namespace SeleniumLottoDataApp.Lib
         {
             var dat = Driver.FindElement(By.Id("lastestDate"));
 
-            var temp = dat.Text.Split(' ');
+            var temp = dat.Text.Split(',');
             var arr = temp[1].Split('/');                      
             var da = arr[2] + "-" + arr[0] + "-" + arr[1];
            

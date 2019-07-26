@@ -27,7 +27,6 @@ namespace SeleniumLottoDataApp.Models
         public int? Number4 { get; set; }
 
         public int? Number5 { get; set; }
-        public int? Grand { get; set; }
 
     }
 }

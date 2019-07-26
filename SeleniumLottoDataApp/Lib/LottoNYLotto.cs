@@ -28,7 +28,15 @@ namespace SeleniumLottoDataApp.Lib
             var nums = Driver.FindElements(By.ClassName("winning-number"));
             foreach (var num in nums)
             {
-                numbers.Add(num.Text);
+                if (!string.IsNullOrWhiteSpace(num.Text))
+                {
+                    numbers.Add(num.Text);
+                }
+            }
+            if (string.IsNullOrWhiteSpace(numbers[6]))
+            {
+                var bonus = Driver.FindElementByClassName("special-ball-number");
+                numbers[6] = bonus.Text;
             }
             return numbers;
         }
