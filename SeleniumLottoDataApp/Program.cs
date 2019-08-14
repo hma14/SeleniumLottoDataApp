@@ -24,8 +24,6 @@ namespace SeleniumLottoDataApp
             obj = new LottoCaSuperlottoPlus();
             obj.InsertDb();
 
-
-
             obj = new LottoEuroJackpot();
             obj.InsertDb();
 

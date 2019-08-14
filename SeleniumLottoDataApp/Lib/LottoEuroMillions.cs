@@ -17,22 +17,21 @@ namespace SeleniumLottoDataApp.Lib
         private string searchDrawDate()
         {
             List<string> numbers = new List<string>();
-            var table = Driver.FindElement(By.ClassName("resultsTable"));
-            
-            var trs = table.FindElements(By.TagName("tr"));
-            var th = trs[1].FindElement(By.TagName("th")).Text.Split();
-            var mo = DicDate[th[0]];
-            var yr = th[1];
-            var tds = trs[2].FindElements(By.TagName("td"));
-            var dat = yr + "-" + mo + "-" +  tds[0].Text.Split()[2];
-           
-            return dat;
+            var trs = Driver.FindElementsByClassName("dateRow");
+            var td = trs.First().FindElement(By.TagName("td"));
+            var date = td.Text.Split(' ');
+            var year = date[2];
+            var mon = DicDate[date[1]];
+            var day = date[0];
+            var da = $"{year}-{mon}-{day}";
+
+            return da;
         }
 
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-#if true
+
             var newBalls = Driver.FindElements(By.ClassName("ball")).Take(5);
             foreach(var ball in newBalls)
             {
@@ -43,15 +42,7 @@ namespace SeleniumLottoDataApp.Lib
             {
                 numbers.Add(star.Text);
             }
-#else           
-            var table = Driver.FindElement(By.ClassName("resultsTable"));
-            var trs = table.FindElements(By.TagName("tr"));
-            var tds = trs[2].FindElements(By.TagName("td"));
-            numbers = tds[1].Text.Split('-').ToList();
-            var stars = trs[2].Text.Split('-').ToList();
-            numbers.Add(stars[4].Trim().Split()[1]);
-            numbers.Add(stars[5].Trim().Split()[0]);
-#endif
+
             return numbers;
         }
 
