@@ -15,7 +15,7 @@ namespace SeleniumLottoDataApp.Lib
         private string searchDrawDate()
         {
             var hds = Driver.FindElements(By.ClassName("header4"));
-            var hd = hds.Take(1).First();
+            var hd = hds[2];
             var dat = hd.Text.Split();
             var date = DateTime.Today.Year.ToString() + "-" + DicDateShort2[dat[1]] + "-" + dat[2];
             return date;

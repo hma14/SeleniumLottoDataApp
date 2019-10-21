@@ -11,25 +11,28 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoConnecticutLotto()
         {
-            Driver.Url = "http://www.ctlottery.org/Modules/Games/default.aspx?id=6";           
+            Driver.Url = "https://www.ctlottery.org/#f";           
         }
 
         private string searchDrawDate()
         {
-            var dat = Driver.FindElement(By.ClassName("date"));
-            var arr = dat.Text.Split();         
-            var date = arr[2] + "-" + DicDate[arr[0]] + "-" + arr[1].Substring(0, arr[1].Length - 1);
+            var devs = Driver.FindElements(By.ClassName("winning-list-wrap"));
+            var dat = devs.First().FindElement(By.TagName("time"));
+            var arr = dat.Text.Split();
+            var mon = arr[1].TrimEnd('.');
+            var day = arr[2].TrimEnd(',');
+            var date = arr[3] + "-" + DicDateShort[mon] + "-" + day;
             return date;
         }
 
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var cls = Driver.FindElement(By.ClassName("p1"));
-            var balls = cls.FindElements(By.ClassName("ball"));
-            foreach(var ball in balls)
+            var cls = Driver.FindElements(By.ClassName("number-list"));
+            var lis = cls.First().FindElements(By.TagName("li"));
+            foreach(var li in lis)
             {
-                numbers.Add(ball.Text);
+                numbers.Add(li.Text);
             }
 
             return numbers;          

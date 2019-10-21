@@ -16,23 +16,26 @@ namespace SeleniumLottoDataApp.Lib
 
         private string searchDrawDate()
         {
-            var dat = Driver.FindElement(By.ClassName("date"));
-            var arr = dat.Text.Split(',');
-            var mo = arr[1].Trim().Split()[0];
-            var da = arr[1].Trim().Split()[1];
-            var yr = arr[2].Trim().Split()[0];
-            var date = yr + "-" + DicDate[mo] + "-" + da;
+            var dats = Driver.FindElements(By.ClassName("draw-cards--draw-date"));
+            var dat = dats.First().FindElement(By.TagName("strong"));
+            var arr = dat.Text.Split();
+            var mo = arr[0].Split('/')[1];
+            var da = arr[1].Trim(',');
+            var yr = arr[2];
+            var date = yr + "-" + DicDateShort2[mo] + "-" + da;
             return date;
         }
 
         private List<string> searchDrawNumbers()
         {
             List<string> NList = new List<string>();
-            var list = Driver.FindElements(By.XPath("//ul[@class='winning_number_sm']/li"));
-            foreach (var lst in list)
+            var cls = Driver.FindElements(By.ClassName("draw-cards--winning-numbers"));
+            var lis = cls.First().FindElements(By.TagName("li"));
+            foreach (var li in lis)
             {
-                NList.Add(lst.Text);
+                NList.Add(li.Text);
             }
+            NList[5] = NList[5].Split('\r')[0];
             return NList;
         }
 

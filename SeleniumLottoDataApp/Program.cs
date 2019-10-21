@@ -12,16 +12,16 @@ namespace SeleniumLottoDataApp
         static void Main(string[] args)
         {
 
-            LottoBase obj = new LottoBC49();
-            obj.InsertDb();
+            //LottoBase obj = new LottoBC49();
+            //obj.InsertDb();
 
-            obj = new Lotto649();
-            obj.InsertDb();
+            //obj = new Lotto649();
+            //obj.InsertDb();
 
-            obj = new LottoMAX();
-            obj.InsertDb();
+            //obj = new LottoMAX();
+            //obj.InsertDb();
 
-            obj = new LottoCaSuperlottoPlus();
+            LottoBase  obj = new LottoCaSuperlottoPlus();
             obj.InsertDb();
 
             obj = new LottoEuroJackpot();
@@ -46,15 +46,12 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
 
 
-
             obj = new LottoSuperLotto();
             obj.InsertDb();
 
             obj = new LottoSevenLotto();
             obj.InsertDb();
 
-            obj = new LottoSSQ();
-            obj.InsertDb();
 
             obj = new LottoNewYorkTake5();
             obj.InsertDb();
@@ -76,6 +73,10 @@ namespace SeleniumLottoDataApp
 
             obj = new LottoDailyGrand();
             obj.InsertDb();
+
+            obj = new LottoSSQ();
+            obj.InsertDb();
+
 
             obj.CloseDriver();
         }
