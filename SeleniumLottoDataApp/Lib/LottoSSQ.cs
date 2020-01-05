@@ -11,20 +11,20 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoSSQ()
         {
-            Driver.Url = "http://www.cwl.gov.cn/kjxx/ssq/";           
+            Driver.Url = "http://www.cwl.gov.cn/";           
         }
 
         private string searchDrawDate()
         {
             List<string> numbers = new List<string>();
-            var dat = Driver.FindElement(By.XPath("//div[@class='kjrq']/span"));
+            var dat = Driver.FindElement(By.XPath("//div[@class='kjh']/span"));
             return dat.Text;
         }
 
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var lis = Driver.FindElements(By.XPath("//ul[@class='hmj']/li"));
+            var lis = Driver.FindElements(By.XPath("//ul[@class='hjh']/li"));
 
            foreach(var li in lis)
             {

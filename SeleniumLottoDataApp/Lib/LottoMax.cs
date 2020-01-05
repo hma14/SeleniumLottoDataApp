@@ -31,6 +31,8 @@ namespace SeleniumLottoDataApp.Lib
                 NList.Add(lst.Text);
             }
             var list2 = Driver.FindElements(By.ClassName("product-winning-numbers__bonus-number_lmax"));
+            if (list2 == null || !list2.Any())
+                return null;
             NList.Add(list2[0].Text);
             return NList;
         }
@@ -48,23 +50,25 @@ namespace SeleniumLottoDataApp.Lib
                 {
                     var lastDrawNumber = dates.LastOrDefault().Item1;
                     var numbers = searchDrawNumbers();
+                    if (numbers != null)
+                    {
+                        var entity = new LottoMax();
+                        entity.DrawNumber = lastDrawNumber + 1;
+                        entity.DrawDate = currentDrawDate;
+                        entity.Number1 = int.Parse(numbers[0]);
+                        entity.Number2 = int.Parse(numbers[1]);
+                        entity.Number3 = int.Parse(numbers[2]);
+                        entity.Number4 = int.Parse(numbers[3]);
+                        entity.Number5 = int.Parse(numbers[4]);
+                        entity.Number6 = int.Parse(numbers[5]);
+                        entity.Number7 = int.Parse(numbers[6]);
+                        entity.Bonus = int.Parse(numbers[7]);
 
-                    var entity = new LottoMax();
-                    entity.DrawNumber = lastDrawNumber + 1;
-                    entity.DrawDate = currentDrawDate;
-                    entity.Number1 = int.Parse(numbers[0]);
-                    entity.Number2 = int.Parse(numbers[1]);
-                    entity.Number3 = int.Parse(numbers[2]);
-                    entity.Number4 = int.Parse(numbers[3]);
-                    entity.Number5 = int.Parse(numbers[4]);
-                    entity.Number6 = int.Parse(numbers[5]);
-                    entity.Number7 = int.Parse(numbers[6]);
-                    entity.Bonus = int.Parse(numbers[7]);
 
-                    
-                    // save to db
-                    db.LottoMaxes.Add(entity);
-                    db.SaveChanges();
+                        // save to db
+                        db.LottoMaxes.Add(entity);
+                        db.SaveChanges();
+                    }
                 }
             }
             Driver.Close();

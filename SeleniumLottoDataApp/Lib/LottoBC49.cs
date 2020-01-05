@@ -34,6 +34,8 @@ namespace SeleniumLottoDataApp.Lib
                 NList.Add(lst.Text);
             }
             var list2 = Driver.FindElements(By.ClassName("product-winning-numbers__bonus-number_bc49"));
+            if (list2 == null || !list2.Any())
+                return null;
             NList.Add(list2[0].Text);
             return NList;
         }
@@ -51,22 +53,24 @@ namespace SeleniumLottoDataApp.Lib
                 {
                     var lastDrawNumber = dates.LastOrDefault().Item1;
                     var numbers = searchDrawNumbers();
+                    if (numbers != null)
+                    {
+                        var entity = new BC49();
+                        entity.DrawNumber = lastDrawNumber + 1;
+                        entity.DrawDate = currentDrawDate;
+                        entity.Number1 = int.Parse(numbers[0]);
+                        entity.Number2 = int.Parse(numbers[1]);
+                        entity.Number3 = int.Parse(numbers[2]);
+                        entity.Number4 = int.Parse(numbers[3]);
+                        entity.Number5 = int.Parse(numbers[4]);
+                        entity.Number6 = int.Parse(numbers[5]);
+                        entity.Bonus = int.Parse(numbers[6]);
 
-                    var entity = new BC49();
-                    entity.DrawNumber = lastDrawNumber + 1;
-                    entity.DrawDate = currentDrawDate;
-                    entity.Number1 = int.Parse(numbers[0]);
-                    entity.Number2 = int.Parse(numbers[1]);
-                    entity.Number3 = int.Parse(numbers[2]);
-                    entity.Number4 = int.Parse(numbers[3]);
-                    entity.Number5 = int.Parse(numbers[4]);
-                    entity.Number6 = int.Parse(numbers[5]);
-                    entity.Bonus = int.Parse(numbers[6]);
 
-                    
-                    // save to db
-                    db.BC49.Add(entity);
-                    db.SaveChanges();
+                        // save to db
+                        db.BC49.Add(entity);
+                        db.SaveChanges();
+                    }
                 }
             }
             Driver.Close();

@@ -74,8 +74,8 @@ namespace SeleniumLottoDataApp
             obj = new LottoDailyGrand();
             obj.InsertDb();
 
-            obj = new LottoSSQ();
-            obj.InsertDb();
+            //obj = new LottoSSQ();
+            //obj.InsertDb();
 
 
             obj.CloseDriver();
