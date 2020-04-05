@@ -17,12 +17,13 @@ namespace SeleniumLottoDataApp.Lib
         private string searchDrawDate()
         {
             List<string> numbers = new List<string>();
-            var trs = Driver.FindElementsByClassName("dateRow");
-            var td = trs.First().FindElement(By.TagName("td"));
-            var date = td.Text.Split(' ');
-            var year = date[2];
-            var mon = DicDate[date[1]];
-            var day = date[0];
+            //var trs = Driver.FindElementsByClassName("dateRow");
+            var td = Driver.FindElementByClassName("date");
+            var array = td.Text.Split(' ');
+            var day = array[0].Split('\n')[1];
+            day = day.Remove(day.Length - 2);
+            var year = DateTime.Now.Year;
+            var mon = DicDate[array[1]];
             var da = $"{year}-{mon}-{day}";
 
             return da;
