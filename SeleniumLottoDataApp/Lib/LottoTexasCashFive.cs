@@ -15,9 +15,7 @@ namespace SeleniumLottoDataApp.Lib
 
         private string searchDrawDate()
         {
-            var tds = Driver.FindElements(By.ClassName("date"));
-            var dats = tds.First().FindElement(By.TagName("time"));
-            var dat = dats.GetAttribute("datetime");
+            var dat = Driver.FindElementByXPath("//time[@class='c-game-table__game-date']").GetAttribute("datetime");
             return dat;
 
         }
@@ -25,9 +23,10 @@ namespace SeleniumLottoDataApp.Lib
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var td = Driver.FindElementsByClassName("result").First();
-            var lis = td.FindElements(By.TagName("li"));
-            foreach (var li in lis)
+            var uls = Driver.FindElements(By.ClassName("c-result"));
+            var ul = uls.First();
+            var lis = ul.FindElements(By.TagName("li"));
+            foreach (var li in lis.Take(5))
             {
                 numbers.Add(li.Text);
             }

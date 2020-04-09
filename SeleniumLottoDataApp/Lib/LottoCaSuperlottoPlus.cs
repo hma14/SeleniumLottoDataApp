@@ -11,15 +11,15 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoCaSuperlottoPlus()
         {
-            Driver.Url = "http://www.calottery.com/play/draw-games/superlotto-plus";           
+            Driver.Url = "https://www.calottery.com/draw-games/superlotto-plus#section-content-2-3";           
         }
 
         private string searchDrawDate()
         {
-            var dats = Driver.FindElements(By.ClassName("draw-cards--draw-date"));
-            var dat = dats.First().FindElement(By.TagName("strong"));
-            var arr = dat.Text.Split();
-            var mo = arr[0].Split('/')[1];
+            var devs = Driver.FindElements(By.ClassName("pwns"));
+            var ps = devs.First().FindElements(By.TagName("p"));
+            var arr = ps.First().Text.Split();
+            var mo = arr[0];
             var da = arr[1].Trim(',');
             var yr = arr[2];
             var date = yr + "-" + DicDateShort2[mo] + "-" + da;
@@ -29,13 +29,15 @@ namespace SeleniumLottoDataApp.Lib
         private List<string> searchDrawNumbers()
         {
             List<string> NList = new List<string>();
-            var cls = Driver.FindElements(By.ClassName("draw-cards--winning-numbers"));
+            var cls = Driver.FindElements(By.ClassName("winning-numbers"));
             var lis = cls.First().FindElements(By.TagName("li"));
             foreach (var li in lis)
             {
                 NList.Add(li.Text);
             }
-            NList[5] = NList[5].Split('\r')[0];
+            var devs = Driver.FindElements(By.ClassName("pwns"));
+            var ps = devs.First().FindElements(By.TagName("p"));
+            NList[5] = ps.Skip(3).First().Text;
             return NList;
         }
 
