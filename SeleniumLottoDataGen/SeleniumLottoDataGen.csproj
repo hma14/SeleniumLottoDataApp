@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Lotto.Data\FloridaFantasy5_Data.txt" />
+    <Content Include="Lotto.Data\FloridaFantasy5_Data_old.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SeleniumLottoDataApp\SeleniumLottoDataApp.csproj">

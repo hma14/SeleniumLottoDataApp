@@ -20,10 +20,7 @@ namespace SeleniumLottoDataApp
 
             obj = new LottoMAX();
             obj.InsertDb();
-
-            obj = new LottoCaSuperlottoPlus();
-            obj.InsertDb();
-
+           
             obj = new LottoEuroJackpot();
             obj.InsertDb();
 
@@ -77,6 +74,8 @@ namespace SeleniumLottoDataApp
             obj = new LottoSSQ();
             obj.InsertDb();
 
+            obj = new LottoCaSuperlottoPlus();
+            obj.InsertDb();
 
             obj.CloseDriver();
         }

@@ -12,8 +12,8 @@ namespace SeleniumLottoDataGen
     {
         static void Main(string[] args)
         {
-            DailyGrandGen obj4 = new DailyGrandGen();
-            obj4.ParseCsv();
+            //DailyGrandGen obj4 = new DailyGrandGen();
+            //obj4.ParseCsv();
 
             //NewYorkTake5Gen obj1 = new NewYorkTake5Gen();
             //obj1.ParseCsv();
@@ -21,8 +21,8 @@ namespace SeleniumLottoDataGen
             //TexasCashFiveGen obj2 = new TexasCashFiveGen();
             //obj2.ParseCsv();
 
-            //FloridaFantasy5Gen obj3 = new FloridaFantasy5Gen();
-            //obj3.ParseData();
+            FloridaFantasy5Gen obj3 = new FloridaFantasy5Gen();
+            obj3.ParseData();
         }
     }
 }
