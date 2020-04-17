@@ -18,7 +18,7 @@ namespace SeleniumLottoDataApp.Lib
         {
             List<string> numbers = new List<string>();
             var dat = Driver.FindElement(By.XPath("//div[@class='kjrq']/span"));
-            return dat.Text;
+            return dat?.Text;
         }
 
         private List<string> searchDrawNumbers()

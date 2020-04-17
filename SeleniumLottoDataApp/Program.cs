@@ -69,12 +69,12 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
 
             obj = new LottoDailyGrand();
+            obj.InsertDb();            
+
+            obj = new LottoCaSuperlottoPlus();
             obj.InsertDb();
 
             obj = new LottoSSQ();
-            obj.InsertDb();
-
-            obj = new LottoCaSuperlottoPlus();
             obj.InsertDb();
 
             obj.CloseDriver();
