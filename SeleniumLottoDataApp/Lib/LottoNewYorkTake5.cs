@@ -18,7 +18,7 @@ namespace SeleniumLottoDataApp.Lib
         private string searchDrawDate()
         {
             var tags = Driver.FindElements(By.TagName("time"));
-            var tag = tags.Take(1).First();
+            var tag = tags.Take(2).Last();
             var dat = tag.Text.Split();
             var date = dat[3] + "-" + DicDateShort[dat[1]] + "-" + dat[2].Split(',')[0];
             return date;

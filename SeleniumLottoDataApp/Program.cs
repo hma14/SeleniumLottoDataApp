@@ -47,11 +47,7 @@ namespace SeleniumLottoDataApp
 
             obj = new LottoSevenLotto();
             obj.InsertDb();
-
-
-            obj = new LottoNewYorkTake5();
-            obj.InsertDb();
-
+            
             obj = new LottoTexasCashFive();
             obj.InsertDb();
 
@@ -77,6 +73,9 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
 
             obj = new LottoEuroMillions();
+            obj.InsertDb();
+
+            obj = new LottoNewYorkTake5();
             obj.InsertDb();
 
             obj.CloseDriver();
