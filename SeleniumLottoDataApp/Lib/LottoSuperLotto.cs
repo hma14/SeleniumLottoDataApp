@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace SeleniumLottoDataApp.Lib
 {
@@ -9,29 +10,27 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoSuperLotto()
         {
-            string url = "https://www.magayo.com/lotto/china/super-lotto-results";
+            string url = "http://www.lottery.gov.cn/dlt/";
             Driver.Navigate().GoToUrl(url);
         }
 
         private string searchDrawDate()
         {
-            var p = Driver.FindElement(By.XPath("//div[@class='small-12 medium-7 large-7 columns']/p"));
-            var dat = p.Text.Split('(')[0];
+            var span = Driver.FindElement(By.Id("_openTime_kj"));
+            var dat = span.Text.Split()[0];
+            dat = Regex.Replace(dat, @"[^\u0000-\u007F]+", "-").TrimEnd('-');
 
-            var d = dat.Replace(",", "").Split();
-            var da = $"{d[2]}-{DicDateShort[d[0]]}-{d[1]}";
-            return da;
+            return dat;
         }
 
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var p = Driver.FindElement(By.XPath("//div[@class='small-12 medium-7 large-7 columns']/p"));
-            var nums = p.FindElements(By.TagName("img"));
-            foreach (var num in nums)
+            var ul = Driver.FindElement(By.Id("_codeNum_kj"));
+            var lis = ul.FindElements(By.TagName("li"));
+            foreach (var li in lis)
             {
-                var n = num.GetAttribute("src").Split('=')[2].Split('.')[0];
-                numbers.Add(n);
+                numbers.Add(li.Text);
             }
             return numbers;
         }
