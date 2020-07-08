@@ -16,9 +16,10 @@ namespace SeleniumLottoDataApp.Lib
 
         private string searchDrawDate()
         {
-            var devs = Driver.FindElements(By.ClassName("pwns"));
+            var devs = Driver.FindElements(By.ClassName("card-body"));
             var ps = devs.First().FindElements(By.TagName("p"));
-            var arr = ps.First().Text.Split();
+            var p = ps[1].Text.Split('/')[1];
+            var arr = p.Split();
             var mo = arr[0];
             var da = arr[1].Trim(',');
             var yr = arr[2];
