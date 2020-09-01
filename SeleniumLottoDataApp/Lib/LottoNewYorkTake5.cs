@@ -12,14 +12,15 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoNewYorkTake5()
         {
-            Driver.Url = "https://nylottery.ny.gov/take-5";
+            Driver.Url = "https://nylottery.ny.gov/draw-game?game=take5";
         }
 
         private string searchDrawDate()
         {
-            var datestr = Driver.FindElement(By.XPath("//div[@id='replace_LatestWinningNumbers']/p[@class='header4']"));
-            var dat = datestr.Text.Split();
-            var date = DateTime.Now.Year + "-" + DicDateShort2[dat[1]] + "-" + dat[2];
+            var hds = Driver.FindElements(By.ClassName("fprWXx"));
+            var hd = hds[0];
+            var dat = hd.Text.Split();
+            var date = dat[1];
             return date;
         }
 
@@ -27,13 +28,15 @@ namespace SeleniumLottoDataApp.Lib
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var dev = Driver.FindElement(By.XPath("//div[@id='replace_LatestWinningNumbers']"));
-            var lis = dev.FindElements(By.TagName("li"));
-            foreach(var li in lis.Take(5))
+            var nums = Driver.FindElements(By.ClassName("jsyPzH"));
+            foreach (var num in nums)
             {
-                var span = li.FindElement(By.TagName("span"));
-                numbers.Add(span.Text);
-            }
+                if (!string.IsNullOrWhiteSpace(num.Text))
+                {
+                    numbers.Add(num.Text);
+                }
+            }         
+
             return numbers;
         }
 

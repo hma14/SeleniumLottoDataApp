@@ -9,15 +9,15 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoNYLotto()
         {
-            Driver.Url = "https://nylottery.ny.gov/lotto";
+            Driver.Url = "https://nylottery.ny.gov/draw-game?game=lotto";
         }
 
         private string searchDrawDate()
         {
-            var hds = Driver.FindElements(By.ClassName("header4"));
-            var hd = hds[2];
+            var hds = Driver.FindElements(By.ClassName("fprWXx"));
+            var hd = hds[0];
             var dat = hd.Text.Split();
-            var date = DateTime.Today.Year.ToString() + "-" + DicDateShort2[dat[1]] + "-" + dat[2];
+            var date = dat[1];
             return date;
         }
 
@@ -25,7 +25,7 @@ namespace SeleniumLottoDataApp.Lib
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var nums = Driver.FindElements(By.ClassName("winning-number"));
+            var nums = Driver.FindElements(By.ClassName("jsyPzH"));
             foreach (var num in nums)
             {
                 if (!string.IsNullOrWhiteSpace(num.Text))
@@ -33,11 +33,9 @@ namespace SeleniumLottoDataApp.Lib
                     numbers.Add(num.Text);
                 }
             }
-            if (string.IsNullOrWhiteSpace(numbers[6]))
-            {
-                var bonus = Driver.FindElementByClassName("special-ball-number");
-                numbers[6] = bonus.Text;
-            }
+            var bonus = Driver.FindElements(By.ClassName("jaSWZA"));
+            numbers.Add(bonus[0].Text);
+            
             return numbers;
         }
 
