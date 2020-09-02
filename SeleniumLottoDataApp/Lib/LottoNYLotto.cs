@@ -9,7 +9,7 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoNYLotto()
         {
-            Driver.Url = "https://nylottery.ny.gov/draw-game?game=lotto";
+            Driver.Url = "https://nylottery.ny.gov/draw-game/?game=lotto";
         }
 
         private string searchDrawDate()
