@@ -11,7 +11,7 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoCaSuperlottoPlus()
         {
-            Driver.Url = "https://www.calottery.com/draw-games/superlotto-plus#section-content-2-3";           
+            Driver.Url = "https://www.calottery.com/draw-games/superlotto-plus";           
         }
 
         private string searchDrawDate()
@@ -30,15 +30,13 @@ namespace SeleniumLottoDataApp.Lib
         private List<string> searchDrawNumbers()
         {
             List<string> NList = new List<string>();
-            var cls = Driver.FindElements(By.ClassName("winning-numbers"));
-            var lis = cls.First().FindElements(By.TagName("li"));
+            var cls = Driver.FindElements(By.ClassName("list-inline-item"));
+            var lis = cls.Take(6); 
             foreach (var li in lis)
             {
                 NList.Add(li.Text);
-            }
-            var devs = Driver.FindElements(By.ClassName("pwns"));
-            var ps = devs.First().FindElements(By.TagName("p"));
-            NList[5] = ps.Skip(3).First().Text;
+            }     
+            NList[5] = NList[5].Split('\r')[0];
             return NList;
         }
 

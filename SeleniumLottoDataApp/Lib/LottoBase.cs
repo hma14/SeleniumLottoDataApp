@@ -100,7 +100,7 @@ namespace SeleniumLottoDataApp.Lib
                     { "JUN","6" },
                     { "JUL","7" },
                     { "AUG","8" },
-                    { "SEPT","9" },
+                    { "SEP","9" },
                     { "OCT","10" },
                     { "NOV","11" },
                     { "DEC","12" }

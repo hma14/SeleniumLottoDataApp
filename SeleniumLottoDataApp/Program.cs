@@ -65,10 +65,10 @@ namespace SeleniumLottoDataApp
             obj = new LottoCaSuperlottoPlus();
             obj.InsertDb();
 
+            obj = new LottoSuperLotto();
+            obj.InsertDb();
 
-
-            //obj = new LottoSuperLotto();
-            //obj.InsertDb();
+            ////////
 
             //obj = new LottoSSQ();
             //obj.InsertDb();
