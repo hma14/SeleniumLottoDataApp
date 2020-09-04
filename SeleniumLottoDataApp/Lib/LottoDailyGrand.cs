@@ -20,7 +20,7 @@ namespace SeleniumLottoDataApp.Lib
             var ta = txt.Split(',');
             var year = ta[2];
             var da = ta[1].Split();
-            var mon = DicDateShort[da[1]];
+            var mon = DicDateShort3[da[1]];
             var day = da[2];
             var dat = $"{year}-{mon}-{day}";
             return dat;
