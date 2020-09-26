@@ -79,6 +79,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lib\OZLottoMonday.cs" />
+    <Compile Include="Lib\OZLottoSaturday.cs" />
+    <Compile Include="Lib\OZLottoWednesday.cs" />
+    <Compile Include="Lib\OZLottoTuesday.cs" />
     <Compile Include="Lib\LottoColorado.cs" />
     <Compile Include="Lib\LottoDailyGrand.cs" />
     <Compile Include="Lib\LottoTexasCashFive.cs" />
