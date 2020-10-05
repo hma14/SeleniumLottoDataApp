@@ -11,7 +11,7 @@ namespace SeleniumLottoDataApp
     {
         static void Main(string[] args)
         {
-            
+
             LottoBase obj = new LottoNewYorkTake5();
             obj.InsertDb();
 

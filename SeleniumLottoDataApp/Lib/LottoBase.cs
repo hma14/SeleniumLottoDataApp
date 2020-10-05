@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -20,7 +21,7 @@ namespace SeleniumLottoDataApp.Lib
             //service.SuppressInitialDiagnosticInformation = true;
             //service.AddArgument("--webdriver-loglevel=NONE");
 
-            ////Driver = new PhantomJSDriver(service);
+            //Driver = new PhantomJSDriver(service);
             //Driver.Manage().Window.Size = new Size(1024, 768);
 
             //Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(60));

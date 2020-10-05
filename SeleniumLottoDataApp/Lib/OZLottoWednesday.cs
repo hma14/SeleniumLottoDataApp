@@ -16,6 +16,7 @@ namespace SeleniumLottoDataApp.Lib
 
         private string searchDrawDate()
         {
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(60);
             var dat = Driver.FindElements(By.XPath("//div[@class='css-1b5vidf-Results e17om90p4']/div"));
             var arr = dat[0].Text.Split();
             var da = arr[2].Split('D')[0] + '-' + DicDate[arr[1]] + "-" + arr[0];
