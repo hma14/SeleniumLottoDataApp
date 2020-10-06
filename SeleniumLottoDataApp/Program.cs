@@ -63,14 +63,13 @@ namespace SeleniumLottoDataApp
             obj = new LottoMAX();
             obj.InsertDb();
 
-            obj = new LottoDailyGrand();
-            obj.InsertDb();
-
             obj = new LottoMegaMillions();
             obj.InsertDb();
 
             obj = new LottoCaSuperlottoPlus();
             obj.InsertDb();
+
+            // OZ Lottos
 
             obj = new OZLottoMonday();
             obj.InsertDb();
@@ -82,6 +81,9 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
 
             obj = new OZLottoSaturday();
+            obj.InsertDb();
+
+            obj = new LottoDailyGrand();
             obj.InsertDb();
 
             ////////////////
