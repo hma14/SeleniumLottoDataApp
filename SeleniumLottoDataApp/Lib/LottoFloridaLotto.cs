@@ -28,15 +28,17 @@ namespace SeleniumLottoDataApp.Lib
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var spans = Driver.FindElements(By.XPath("//div[@class='gamePageBalls']/p/span"));
+            //var spans = Driver.FindElements(By.XPath("//div[@class='gamePageBalls']/p/span"));
 
+            var div = Driver.FindElements(By.ClassName("gamePageBalls")).First();
+            var spans = div.FindElements(By.ClassName("balls"));
             foreach (var span in spans)
             {
                 if (Char.IsDigit(span.Text[0]) == true)
                 numbers.Add(span.Text);
             }
-            var mb = Driver.FindElement(By.ClassName("multiplier"));
-            numbers.Add(mb.Text[1].ToString());
+            //var mb = Driver.FindElement(By.ClassName("multiplier"));
+            //numbers.Add(mb.Text[1].ToString());
 
             return numbers;
         }
@@ -64,7 +66,7 @@ namespace SeleniumLottoDataApp.Lib
                     entity.Number4 = int.Parse(numbers[3]);
                     entity.Number5 = int.Parse(numbers[4]);
                     entity.Number6 = int.Parse(numbers[5]);
-                    entity.Xtra = int.Parse(numbers[6]);
+                    entity.Xtra = 0;
 
                     // save to db
                     db.FloridaLottoes.Add(entity);

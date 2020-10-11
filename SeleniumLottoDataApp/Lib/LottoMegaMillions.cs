@@ -19,7 +19,7 @@ namespace SeleniumLottoDataApp.Lib
         private string searchDrawDate()
         {
             var da = Driver.FindElement(By.Id("lastestDate"));
-            var dat = da.Text.Split(',')[1];
+            var dat = da.Text.Split()[1];
             return dat;
         }
 
