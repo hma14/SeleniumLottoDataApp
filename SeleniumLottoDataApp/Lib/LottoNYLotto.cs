@@ -14,6 +14,7 @@ namespace SeleniumLottoDataApp.Lib
 
         private string searchDrawDate()
         {
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(60);
             var hds = Driver.FindElements(By.ClassName("fprWXx"));
             var hd = hds[0];
             var dat = hd.Text.Split();
@@ -25,6 +26,7 @@ namespace SeleniumLottoDataApp.Lib
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(60);
             var nums = Driver.FindElements(By.ClassName("jsyPzH"));
             foreach (var num in nums)
             {

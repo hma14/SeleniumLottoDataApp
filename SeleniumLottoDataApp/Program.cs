@@ -67,7 +67,7 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
 
             obj = new LottoCaSuperlottoPlus();
-            //obj.InsertDb();
+            obj.InsertDb();
 
             // OZ Lottos
 
