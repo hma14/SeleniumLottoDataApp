@@ -24,7 +24,7 @@ namespace SeleniumLottoDataApp.Lib
             //Driver = new PhantomJSDriver(service);
             //Driver.Manage().Window.Size = new Size(1024, 768);
 
-            //Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(60));
+            
 
             var chromeOptions = new ChromeOptions
             {
@@ -49,7 +49,8 @@ namespace SeleniumLottoDataApp.Lib
             var chromeDriverService = ChromeDriverService.CreateDefaultService();
             chromeDriverService.HideCommandPromptWindow = true;    // This is to hidden the console.
             Driver = new ChromeDriver(chromeDriverService, chromeOptions);
-            
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(120);
+
         }
         
         public void CloseDriver()

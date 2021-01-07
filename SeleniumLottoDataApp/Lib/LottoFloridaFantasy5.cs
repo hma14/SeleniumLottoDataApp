@@ -11,12 +11,13 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoFloridaFantasy5()
         {
-            Driver.Url = "http://flalottery.com/fantasy5.do";           
+            Driver.Url = "http://flalottery.com/fantasy5.do";
+           
         }
 
         private string searchDrawDate()
         {
-            //Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(60));
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(60);
             var ps = Driver.FindElements(By.XPath("//div[@class='gamePageNumbers']/p"));
             var txt = ps[1].Text;
             txt = txt.Replace(",", "");

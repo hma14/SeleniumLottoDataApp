@@ -18,7 +18,6 @@ namespace SeleniumLottoDataApp.Migrations
                         Number3 = c.Int(),
                         Number4 = c.Int(),
                         Number5 = c.Int(),
-                        Grand = c.Int(),
                     })
                 .PrimaryKey(t => t.DrawNumber);
             
@@ -26,7 +25,7 @@ namespace SeleniumLottoDataApp.Migrations
         
         public override void Down()
         {
-            DropTable("dbo.DailyGrand");
+            //DropTable("dbo.DailyGrand");
         }
     }
 }

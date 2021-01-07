@@ -109,14 +109,6 @@
       <DependentUpon>201702090756369_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201907202110326_add_DailyGrand_table.cs" />
-    <Compile Include="Migrations\201907261909066_add_new_table_DailyGrand_GrandNumber.cs" />
-    <Compile Include="Migrations\201907261909066_add_new_table_DailyGrand_GrandNumber.Designer.cs">
-      <DependentUpon>201907261909066_add_new_table_DailyGrand_GrandNumber.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907261940022_removed_grand_from_DailyGrand.cs" />
-    <Compile Include="Migrations\201907261940022_removed_grand_from_DailyGrand.Designer.cs">
-      <DependentUpon>201907261940022_removed_grand_from_DailyGrand.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BC49.cs" />
     <Compile Include="Models\BritishLotto.cs" />
@@ -186,12 +178,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201702090756369_init.resx">
       <DependentUpon>201702090756369_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907261909066_add_new_table_DailyGrand_GrandNumber.resx">
-      <DependentUpon>201907261909066_add_new_table_DailyGrand_GrandNumber.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907261940022_removed_grand_from_DailyGrand.resx">
-      <DependentUpon>201907261940022_removed_grand_from_DailyGrand.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

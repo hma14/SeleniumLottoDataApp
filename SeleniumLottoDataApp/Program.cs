@@ -19,15 +19,35 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
 
 
+            try
+            {
+                obj = new LottoFloridaFantasy5();
+                obj.InsertDb();
+            }
+            catch
+            {
 
-            obj = new LottoFloridaFantasy5();
-            obj.InsertDb();
+            }
 
-            obj = new LottoFloridaLotto();
-            obj.InsertDb();
+            try
+            {
+                obj = new LottoFloridaLotto();
+                obj.InsertDb();
+            }
+            catch
+            {
 
-            obj = new LottoFloridaLucky();
-            obj.InsertDb();
+            }
+
+            try
+            {
+                obj = new LottoFloridaLucky();
+                obj.InsertDb();
+            }
+            catch
+            {
+
+            }
 
             obj = new LottoColorado();
             obj.InsertDb();
