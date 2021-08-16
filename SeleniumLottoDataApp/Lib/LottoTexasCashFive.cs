@@ -15,7 +15,11 @@ namespace SeleniumLottoDataApp.Lib
 
         private string searchDrawDate()
         {
-            var dat = Driver.FindElementByXPath("//time[@class='c-game-table__game-date']").GetAttribute("datetime");
+            var da = Driver.FindElementByXPath("//time[@class='c-result-card__title']");
+            var txt = da.Text;
+            txt = txt.Replace(',', ' ');
+            var arr = txt.Split(' ');
+            var dat = arr[5] + "-" + DicDateShort[arr[2]] + "-" + arr[3]; 
             return dat;
 
         }
