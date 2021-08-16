@@ -18,6 +18,8 @@ namespace SeleniumLottoDataApp
             obj = new LottoNYLotto();
             obj.InsertDb();
 
+            obj = new LottoCash4Life();
+            obj.InsertDb();
 
             try
             {

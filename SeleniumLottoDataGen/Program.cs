@@ -21,8 +21,11 @@ namespace SeleniumLottoDataGen
             //TexasCashFiveGen obj2 = new TexasCashFiveGen();
             //obj2.ParseCsv();
 
-            FloridaFantasy5Gen obj3 = new FloridaFantasy5Gen();
-            obj3.ParseData();
+            //FloridaFantasy5Gen obj3 = new FloridaFantasy5Gen();
+            //obj3.ParseData();
+
+            Cash4LifeGen obj = new Cash4LifeGen();
+            obj.ParseData();
         }
     }
 }

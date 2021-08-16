@@ -28,8 +28,7 @@ namespace SeleniumLottoDataApp.Lib
 
             var chromeOptions = new ChromeOptions
             {
-                BinaryLocation = @"C:\Program Files (x86)\google\chrome\Application\chrome.exe", 
-                //DebuggerAddress = "127.0.0.1:9222"
+                BinaryLocation = @"C:\Program Files (x86)\google\chrome\Application\chrome.exe",
             };
 
             chromeOptions.AddArguments(new List<string>()

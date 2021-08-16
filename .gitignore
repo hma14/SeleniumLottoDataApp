@@ -245,3 +245,5 @@ ModelManifest.xml
 .fake/
 
 SeleniumLottoDataApp/App.config
+SeleniumLottoDataApp/chromedriver
+SeleniumLottoDataApp/chromedriver.exe
