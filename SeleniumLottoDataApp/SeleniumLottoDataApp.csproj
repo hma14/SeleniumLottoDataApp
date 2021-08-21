@@ -117,9 +117,14 @@
     <Compile Include="Migrations\202108160000248_Added_Cash4Life_table.Designer.cs">
       <DependentUpon>202108160000248_Added_Cash4Life_table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108212156448_updated_Cash4Life.cs" />
+    <Compile Include="Migrations\202108212156448_updated_Cash4Life.Designer.cs">
+      <DependentUpon>202108212156448_updated_Cash4Life.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BC49.cs" />
     <Compile Include="Models\BritishLotto.cs" />
+    <Compile Include="Models\Cash4Life_CashBall.cs" />
     <Compile Include="Models\CaSuperlottoPlu.cs" />
     <Compile Include="Models\CaSuperlottoPlus_Mega.cs" />
     <Compile Include="Models\ColoradoLotto.cs" />
@@ -188,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108160000248_Added_Cash4Life_table.resx">
       <DependentUpon>202108160000248_Added_Cash4Life_table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108212156448_updated_Cash4Life.resx">
+      <DependentUpon>202108212156448_updated_Cash4Life.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

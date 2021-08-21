@@ -20,11 +20,12 @@ namespace SeleniumLottoDataGen.Lib
             using (StreamReader reader = new StreamReader(Path))
             {
                 string line = string.Empty;
-                List<Cash4Life> records = new List<Cash4Life>();
+                List<Cash4Life> records = new List<Cash4Life>(); 
+                List<Cash4Life_CashBall> records2 = new List<Cash4Life_CashBall>();
                 List<List<string>> rows = new List<List<string>>();
                 char[] separator = new[] { ' ', '\t' };
-                int drawNumber = 0;
-                //int drawNumber2 = 3639;
+                int drawNumber = 1305;
+       
                 while ((line = reader.ReadLine()) != null)
                 {
                     if (drawNumber == 0)
@@ -43,15 +44,24 @@ namespace SeleniumLottoDataGen.Lib
                         Number3 = int.Parse(arr[3]),
                         Number4 = int.Parse(arr[4]),
                         Number5 = int.Parse(arr[5]),
+                    };
+
+                    var entity2 = new Cash4Life_CashBall()
+                    {
+                        DrawNumber = drawNumber,
+                        DrawDate = arr[0],                     
                         CashBall = int.Parse(arr[6])
                     };
-                    drawNumber++;
+                    drawNumber--;
 
                     records.Add(entity1);
+                    records2.Add(entity2);
                 }
+                
                 InsertDb(records);
+                InsertDb_CashBall(records2);
 
-            }           
+            }
         }
 
         public void InsertDb(List<Cash4Life> rows)
@@ -61,6 +71,14 @@ namespace SeleniumLottoDataGen.Lib
                 db.Cash4Life.AddRange(rows);
                 db.SaveChanges();
             }
-        }       
+        }
+        public void InsertDb_CashBall(List<Cash4Life_CashBall> rows)
+        {
+            using (var db = new LottoDb())
+            {
+                db.Cash4Life_CashBall.AddRange(rows);
+                db.SaveChanges();
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace SeleniumLottoDataApp
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Cash4Life
+    public partial class Cash4Life_CashBall
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -15,14 +15,7 @@ namespace SeleniumLottoDataApp
         [StringLength(25)]
         public string DrawDate { get; set; }
 
-        public int? Number1 { get; set; }
-
-        public int? Number2 { get; set; }
-
-        public int? Number3 { get; set; }
-
-        public int? Number4 { get; set; }
-
-        public int? Number5 { get; set; }
+        
+        public int? CashBall { get; set; }
     }
 }
