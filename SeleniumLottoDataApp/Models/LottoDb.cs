@@ -54,6 +54,7 @@ namespace SeleniumLottoDataApp
         public virtual DbSet<DailyGrand> DailyGrand { get; set; }
         public virtual DbSet<DailyGrand_GrandNumber> DailyGrand_GrandNumber { get; set; }
         public virtual DbSet<Cash4Life> Cash4Life { get; set; }
+        public virtual DbSet<Cash4Life_CashBall> Cash4Life_CashBall { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

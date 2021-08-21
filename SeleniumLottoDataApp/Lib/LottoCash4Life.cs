@@ -67,11 +67,18 @@ namespace SeleniumLottoDataApp.Lib
                     entity.Number3 = int.Parse(numbers[2]);
                     entity.Number4 = int.Parse(numbers[3]);
                     entity.Number5 = int.Parse(numbers[4]);
-                    entity.CashBall = int.Parse(numbers[5]);
 
 
                     // save to db
                     db.Cash4Life.Add(entity);
+
+                    // save to CashBall table
+                    var cashball = new Cash4Life_CashBall();
+                    cashball.DrawNumber = lastDrawNumber + 1;
+                    cashball.DrawDate = currentDrawDate;
+                    cashball.CashBall = int.Parse(numbers[5]);
+                    db.Cash4Life_CashBall.Add(cashball);
+
                     db.SaveChanges();
                 }
             }
