@@ -127,7 +127,7 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Number4 == i ||
                                     lotto.Number5 == i ||
                                     lotto.Number6 == i ||
-                                    lotto.Bonus == i) ? prevDistance + 1 : 0,
+                                    lotto.Bonus == i) ? prevDistance : 0,
 
                         IsBonusNumber = lotto.Bonus == i ? true : false,
                     };

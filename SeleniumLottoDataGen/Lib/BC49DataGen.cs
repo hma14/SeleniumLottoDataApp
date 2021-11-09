@@ -62,7 +62,7 @@ namespace SeleniumLottoDataGen.Lib
                     {
                         if (n.IsHit == true)
                         {                            
-                            n.NumberofDrawsWhenHit = n.Distance;
+                            n.NumberofDrawsWhenHit = prevRow[n.Number - 1].Distance;
                             n.Distance = 0;
                         }
                         else
