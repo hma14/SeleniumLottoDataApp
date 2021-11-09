@@ -1,9 +1,11 @@
 ﻿using OpenQA.Selenium;
+using SeleniumLottoDataApp.BusinessModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static SeleniumLottoDataApp.BusinessModels.Constants;
 
 namespace SeleniumLottoDataApp.Lib
 {
@@ -14,12 +16,12 @@ namespace SeleniumLottoDataApp.Lib
             Driver.Url = "https://www.playnow.com/lottery/lotto-max-winning-numbers/";           
         }
 
-        private string searchDrawDate()
+        private DateTime searchDrawDate()
         {
             var dat = Driver.FindElements(By.ClassName("product-date-picker__draw-date"));
             var arr = dat[0].Text.Split();
             var da = arr[3] + '-' + DicDateShort3[arr[1].ToUpper()] + "-" + arr[2].Trim(',');
-            return da;
+            return DateTime.Parse(da);
         }
 
         private List<string> searchDrawNumbers()
@@ -42,13 +44,13 @@ namespace SeleniumLottoDataApp.Lib
             using (var db = new LottoDb())
             {
                 var list = db.LottoMaxes.ToList();
-                IList<Tuple<int, string>> dates = list.Select(x => new Tuple<int, string>(x.DrawNumber, x.DrawDate)).ToList();
-                var lastDrawDate = dates.LastOrDefault().Item2;
+                IList<Tuple<int, DateTime>> dates = list.Select(x => new Tuple<int, DateTime>(x.DrawNumber, x.DrawDate)).ToList();
+                var lastDrawDate = dates.LastOrDefault()?.Item2 ?? DateTime.Now.AddYears(-5);
                 var currentDrawDate = searchDrawDate();
 
-                if (DateTime.Parse(currentDrawDate) > DateTime.Parse(lastDrawDate))
+                if (currentDrawDate > lastDrawDate)
                 {
-                    var lastDrawNumber = dates.LastOrDefault().Item1;
+                    var lastDrawNumber = dates.LastOrDefault()?.Item1 ?? 0;
                     var numbers = searchDrawNumbers();
                     if (numbers != null)
                     {
@@ -73,6 +75,62 @@ namespace SeleniumLottoDataApp.Lib
             }
             Driver.Close();
             Driver.Quit();
+        }
+
+        internal override void InsertLottoNumberTable()
+        {
+            using (var db = new LottoDb())
+            {
+                var lotto = db.LottoMaxes.ToList().Last();
+                var prevLottoNumber = db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.LottoMax).LastOrDefault();
+                var prevDistance = prevLottoNumber != null ? prevLottoNumber.Distance : 0;
+
+                if (lotto.DrawNumber == prevLottoNumber.DrawNumber)
+                    return;
+
+                for (int i = 1; i <= (int)LottoNumberRange.LottoMax; i++)
+                {
+                    LottoNumber entity = new LottoNumber
+                    {
+                        LottoName = LottoNames.LottoMax,
+                        DrawNumber = lotto.DrawNumber,
+                        DrawDate = lotto.DrawDate,
+                        Number = i,
+                        Distance = (lotto.Number1 != i &&
+                                    lotto.Number2 != i &&
+                                    lotto.Number3 != i &&
+                                    lotto.Number4 != i &&
+                                    lotto.Number5 != i &&
+                                    lotto.Number6 != i &&
+                                    lotto.Number7 != i &&
+                                    lotto.Bonus != i) ? prevDistance + 1 : 0,
+
+                        IsHit = (lotto.Number1 == i ||
+                                    lotto.Number2 == i ||
+                                    lotto.Number3 == i ||
+                                    lotto.Number4 == i ||
+                                    lotto.Number5 == i ||
+                                    lotto.Number6 == i ||
+                                    lotto.Number7 == i ||
+                                    lotto.Bonus == i) ? true : false,
+
+                        NumberofDrawsWhenHit =
+                                   (lotto.Number1 == i ||
+                                    lotto.Number2 == i ||
+                                    lotto.Number3 == i ||
+                                    lotto.Number4 == i ||
+                                    lotto.Number5 == i ||
+                                    lotto.Number6 == i ||
+                                    lotto.Number7 == i ||
+                                    lotto.Bonus == i) ? prevDistance + 1 : 0,
+
+                        IsBonusNumber = lotto.Bonus == i ? true : false,
+                    };
+
+                    db.LottoNumber.Add(entity);
+                    db.SaveChanges();
+                }
+            }
         }
     }
 }

@@ -7,13 +7,13 @@ namespace SeleniumLottoDataApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class Added_Cash4Life_table : IMigrationMetadata
+    public sealed partial class Changed_Database_Lottotrydb : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Added_Cash4Life_table));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Changed_Database_Lottotrydb));
         
         string IMigrationMetadata.Id
         {
-            get { return "202108160000248_Added_Cash4Life_table"; }
+            get { return "202111070044356_Changed_Database_Lottotrydb"; }
         }
         
         string IMigrationMetadata.Source

@@ -59,6 +59,7 @@ namespace SeleniumLottoDataApp.Lib
 
         internal virtual void InsertDb() { }
         public virtual void InsertDb(int drawNumber, string drawDate, string[] numbers) { }
+        internal virtual void InsertLottoNumberTable() { }
 
 
 

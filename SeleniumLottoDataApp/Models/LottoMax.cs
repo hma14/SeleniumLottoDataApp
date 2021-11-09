@@ -13,8 +13,7 @@ namespace SeleniumLottoDataApp
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int DrawNumber { get; set; }
 
-        [StringLength(25)]
-        public string DrawDate { get; set; }
+        public DateTime DrawDate { get; set; }
 
         public int? Number1 { get; set; }
 

@@ -6,15 +6,16 @@ namespace SeleniumLottoDataApp
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Lottery")]
-    public partial class Lottery
+    [Table("Lotto649")]
+    public partial class Lotto649
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int DrawNumber { get; set; }
 
-        [StringLength(25)]
-        public string DrawDate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        public DateTime DrawDate { get; set; }
 
         public int? Number1 { get; set; }
 
