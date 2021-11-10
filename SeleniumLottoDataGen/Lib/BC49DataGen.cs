@@ -62,7 +62,7 @@ namespace SeleniumLottoDataGen.Lib
                     {
                         if (n.IsHit == true)
                         {                            
-                            n.NumberofDrawsWhenHit = prevRow[n.Number - 1].Distance;
+                            n.NumberofDrawsWhenHit = prevRow[n.Number - 1].Distance + 1;
                             n.Distance = 0;
                         }
                         else
@@ -99,19 +99,10 @@ namespace SeleniumLottoDataGen.Lib
             }
         }
 
-
-#if true
         private List<LottoNumber> GetLottoNumberRecord(BC49 lotto)
         {
             using (var db = new LottoDb())
             {
-
-                //var prevLottoNumber = db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.BC49).LastOrDefault();
-                //var prevDistance = prevLottoNumber != null ? prevLottoNumber.Distance : 0;
-
-                //if (lotto.DrawNumber == prevLottoNumber?.DrawNumber)
-                //    return null;
-
                 List<LottoNumber> rows = new List<LottoNumber>();
                 for (int i = 1; i <= (int)LottoNumberRange.BC49; i++)
                 {
@@ -122,14 +113,6 @@ namespace SeleniumLottoDataGen.Lib
                         DrawDate = lotto.DrawDate,
                         Number = i,
                         Distance = 0,
-                        //Distance = (lotto.Number1 != i &&
-                        //            lotto.Number2 != i &&
-                        //            lotto.Number3 != i &&
-                        //            lotto.Number4 != i &&
-                        //            lotto.Number5 != i &&
-                        //            lotto.Number6 != i &&
-                        //            lotto.Bonus != i) ? prevDistance + 1 : 0,
-
                         IsHit = (lotto.Number1 == i ||
                                     lotto.Number2 == i ||
                                     lotto.Number3 == i ||
@@ -138,76 +121,12 @@ namespace SeleniumLottoDataGen.Lib
                                     lotto.Number6 == i ||
                                     lotto.Bonus == i) ? true : false,
                         NumberofDrawsWhenHit = 0,
-                        //NumberofDrawsWhenHit =
-                        //           (lotto.Number1 == i ||
-                        //            lotto.Number2 == i ||
-                        //            lotto.Number3 == i ||
-                        //            lotto.Number4 == i ||
-                        //            lotto.Number5 == i ||
-                        //            lotto.Number6 == i ||
-                        //            lotto.Bonus == i) ? prevDistance + 1 : 0,
-
-                        IsBonusNumber = lotto.Bonus == i ? true : false,
-                        
+                        IsBonusNumber = lotto.Bonus == i ? true : false,                     
                     };
                     rows.Add(entity);
                 }
                 return rows;
             }
         }
-#else
-        private void InsertLottoNumberTable(BC49 lotto)
-        {
-            using (var db = new LottoDb())
-            {
-                //var lotto = db.BC49.ToList().Last();
-                var prevLottoNumber = db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.BC49).LastOrDefault();
-                var prevDistance = prevLottoNumber != null ? prevLottoNumber.Distance : 0;
-
-                if (lotto.DrawNumber == prevLottoNumber.DrawNumber)
-                    return;
-
-                for (int i = 1; i <= (int)LottoNumberRange.BC49; i++)
-                {
-                    LottoNumber entity = new LottoNumber
-                    {
-                        LottoName = LottoNames.BC49,
-                        DrawNumber = lotto.DrawNumber,
-                        DrawDate = lotto.DrawDate,
-                        Number = i,
-                        Distance = (lotto.Number1 != i &&
-                                    lotto.Number2 != i &&
-                                    lotto.Number3 != i &&
-                                    lotto.Number4 != i &&
-                                    lotto.Number5 != i &&
-                                    lotto.Number6 != i &&
-                                    lotto.Bonus != i) ? prevDistance + 1 : 0,
-
-                        IsHit = (lotto.Number1 == i ||
-                                    lotto.Number2 == i ||
-                                    lotto.Number3 == i ||
-                                    lotto.Number4 == i ||
-                                    lotto.Number5 == i ||
-                                    lotto.Number6 == i ||
-                                    lotto.Bonus == i) ? true : false,
-
-                        NumberofDrawsWhenHit =
-                                   (lotto.Number1 == i ||
-                                    lotto.Number2 == i ||
-                                    lotto.Number3 == i ||
-                                    lotto.Number4 == i ||
-                                    lotto.Number5 == i ||
-                                    lotto.Number6 == i ||
-                                    lotto.Bonus == i) ? prevDistance + 1 : 0,
-
-                        IsBonusNumber = lotto.Bonus == i ? true : false,
-                    };
-
-                    db.LottoNumber.Add(entity);
-                    db.SaveChanges();
-                }
-            }
-        }
-#endif
     }
 }
