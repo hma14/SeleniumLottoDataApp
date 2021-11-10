@@ -95,11 +95,7 @@ namespace SeleniumLottoDataApp.Lib
             using(var db = new LottoDb())
             {
                 var lotto = db.BC49.ToList().Last();
-                var prevLottoNumber = db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.BC49).LastOrDefault();
-                var prevDistance = prevLottoNumber != null ? prevLottoNumber.Distance : 0;
-
-                if (lotto.DrawNumber == prevLottoNumber.DrawNumber)
-                    return;
+                var prevDraw = db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.BC49 && x.DrawNumber + 1 == lotto.DrawNumber).ToList();
 
                 for (int i = 1; i <= (int) LottoNumberRange.BC49; i++)
                 {
@@ -115,7 +111,7 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Number4 != i &&
                                     lotto.Number5 != i &&
                                     lotto.Number6 != i &&
-                                    lotto.Bonus != i) ? prevDistance + 1 : 0,
+                                    lotto.Bonus != i) ? prevDraw[i-1].Distance + 1 : 0,   
 
                         IsHit =    (lotto.Number1 == i ||
                                     lotto.Number2 == i ||
@@ -132,7 +128,7 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Number4 == i ||
                                     lotto.Number5 == i ||
                                     lotto.Number6 == i ||
-                                    lotto.Bonus == i) ? prevDistance : 0,
+                                    lotto.Bonus == i) ? prevDraw[i-1].Distance : 0,
 
                         IsBonusNumber = lotto.Bonus == i ? true : false,
                     };
