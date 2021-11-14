@@ -108,6 +108,7 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Number4 != i &&
                                     lotto.Number5 != i &&
                                     lotto.Number6 != i &&
+                                    lotto.Number7 != i &&
                                     lotto.Bonus != i) ? prevDraw[i - 1].Distance + 1 : 0,
 
                         IsHit = (lotto.Number1 == i ||
@@ -116,6 +117,7 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Number4 == i ||
                                     lotto.Number5 == i ||
                                     lotto.Number6 == i ||
+                                    lotto.Number7 == i ||
                                     lotto.Bonus == i) ? true : false,
 
                         NumberofDrawsWhenHit =
@@ -125,6 +127,7 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Number4 == i ||
                                     lotto.Number5 == i ||
                                     lotto.Number6 == i ||
+                                    lotto.Number7 == i ||
                                     lotto.Bonus == i) ? prevDraw[i - 1].Distance + 1 : 0,
 
                         IsBonusNumber = lotto.Bonus == i ? true : false,
@@ -134,6 +137,7 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Number4 == i ||
                                     lotto.Number5 == i ||
                                     lotto.Number6 == i ||
+                                    lotto.Number7 == i ||
                                     lotto.Bonus == i) ? prevDraw[i - 1].TotalHits + 1 : prevDraw[i - 1].TotalHits,
                     };
 
