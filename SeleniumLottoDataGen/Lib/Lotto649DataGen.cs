@@ -9,9 +9,9 @@ using static SeleniumLottoDataApp.BusinessModels.Constants;
 
 namespace SeleniumLottoDataGen.Lib
 {
-    public class BC49DataGen
+    public class Lotto649DataGen
     {
-        public BC49DataGen()
+        public Lotto649DataGen()
         {
 
         }
@@ -19,11 +19,11 @@ namespace SeleniumLottoDataGen.Lib
         public void ParseData()
         {
             var parent = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            var Path = parent + @"\Lotto.Data\BC49.csv";
+            var Path = parent + @"\Lotto.Data\649.csv";
             using (StreamReader reader = new StreamReader(Path))
             {
                 string line = string.Empty;
-                List<BC49> rows = new List<BC49>();
+                List<Lotto649> rows = new List<Lotto649>();
                 List<List<LottoNumber>> rows2 = new List<List<LottoNumber>>();
 
                 char[] separator = new[] { ',' };
@@ -34,7 +34,7 @@ namespace SeleniumLottoDataGen.Lib
                     int pastDays = int.Parse(ConfigurationManager.AppSettings["HistoryDays"]);
                     if (dat < DateTime.Now.AddDays(-pastDays)) continue;
 
-                    var entity = new BC49()
+                    var entity = new Lotto649()
                     {
                         DrawNumber = int.Parse(arr[1]),
                         DrawDate = dat,
@@ -79,12 +79,13 @@ namespace SeleniumLottoDataGen.Lib
             }
         }
 
-        public void InsertDb(List<BC49> rows)
+        public void InsertDb(List<Lotto649> rows)
         {
+            
             using (var db = new LottoDb())
             {
-                if (db.BC49.ToList().LastOrDefault()?.DrawNumber >= rows.FirstOrDefault().DrawNumber) return;
-                db.BC49.AddRange(rows);
+                if (db.Lotto649.ToList().LastOrDefault()?.DrawNumber >= rows.FirstOrDefault().DrawNumber) return;
+                db.Lotto649.AddRange(rows);
                 db.SaveChanges();
             }
         }
@@ -101,16 +102,16 @@ namespace SeleniumLottoDataGen.Lib
             }
         }
 
-        private List<LottoNumber> GetLottoNumberRecord(BC49 lotto)
+        private List<LottoNumber> GetLottoNumberRecord(Lotto649 lotto)
         {
             using (var db = new LottoDb())
             {
                 List<LottoNumber> rows = new List<LottoNumber>();
-                for (int i = 1; i <= (int)LottoNumberRange.BC49; i++)
+                for (int i = 1; i <= (int)LottoNumberRange.Lotto649; i++)
                 {
                     LottoNumber entity = new LottoNumber
                     {
-                        LottoName = LottoNames.BC49,
+                        LottoName = LottoNames.Lotto649,
                         DrawNumber = lotto.DrawNumber,
                         DrawDate = lotto.DrawDate,
                         Number = i,

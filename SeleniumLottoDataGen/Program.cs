@@ -6,8 +6,14 @@ namespace SeleniumLottoDataGen
     {
         static void Main(string[] args)
         {
-            BC49DataGen obj = new BC49DataGen();
+            LottoMaxDataGen obj = new LottoMaxDataGen();
             obj.ParseData();
+
+            //Lotto649DataGen obj = new Lotto649DataGen();
+            //obj.ParseData();
+
+            //BC49DataGen obj = new BC49DataGen();
+            //obj.ParseData();
 
             //DailyGrandGen obj4 = new DailyGrandGen();
             //obj4.ParseCsv();

@@ -67,8 +67,6 @@ namespace SeleniumLottoDataApp.Lib
                         entity.Number5 = int.Parse(numbers[4]);
                         entity.Number6 = int.Parse(numbers[5]);
                         entity.Bonus = int.Parse(numbers[6]);
-
-
                         
                         try
                         {
@@ -95,6 +93,7 @@ namespace SeleniumLottoDataApp.Lib
             using(var db = new LottoDb())
             {
                 var lotto = db.BC49.ToList().Last();
+                if (lotto.DrawNumber == db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.BC49).Select(x => x.DrawNumber).Last()) return;
                 var prevDraw = db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.BC49 && x.DrawNumber + 1 == lotto.DrawNumber).ToList();
 
                 for (int i = 1; i <= (int) LottoNumberRange.BC49; i++)
@@ -131,6 +130,13 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Bonus == i) ? prevDraw[i-1].Distance + 1 : 0,
 
                         IsBonusNumber = lotto.Bonus == i ? true : false,
+                        TotalHits = (lotto.Number1 == i ||
+                                    lotto.Number2 == i ||
+                                    lotto.Number3 == i ||
+                                    lotto.Number4 == i ||
+                                    lotto.Number5 == i ||
+                                    lotto.Number6 == i ||
+                                    lotto.Bonus == i) ? prevDraw[i - 1].TotalHits + 1 : prevDraw[i - 1].TotalHits,
                     };
 
                     db.LottoNumber.Add(entity);

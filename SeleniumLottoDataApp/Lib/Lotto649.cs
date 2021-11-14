@@ -46,7 +46,7 @@ namespace SeleniumLottoDataApp.Lib
                 var list = db.Lotto649.ToList();
                 IList<Tuple<int, DateTime>> dates = list.Select(x => new Tuple<int, DateTime>(x.DrawNumber, x.DrawDate)).ToList();
                 var lastDrawDate = dates.LastOrDefault()?.Item2 ?? DateTime.Now.AddYears(-5);
-                var currentDrawDate = searchDrawDate();
+               var currentDrawDate = searchDrawDate();
 
                 if (currentDrawDate > lastDrawDate)
                 {
@@ -90,11 +90,8 @@ namespace SeleniumLottoDataApp.Lib
             using (var db = new LottoDb())
             {
                 var lotto = db.Lotto649.ToList().Last();
-                var prevLottoNumber = db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.Lotto649).LastOrDefault();
-                var prevDistance = prevLottoNumber != null ? prevLottoNumber.Distance : 0;
-
-                if (lotto.DrawNumber == prevLottoNumber?.DrawNumber)
-                    return;
+                if (lotto.DrawNumber == db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.Lotto649).Select(x => x.DrawNumber).Last()) return;
+                var prevDraw = db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.Lotto649 && x.DrawNumber + 1 == lotto.DrawNumber).ToList();
 
                 for (int i = 1; i <= (int)LottoNumberRange.Lotto649; i++)
                 {
@@ -110,7 +107,7 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Number4 != i &&
                                     lotto.Number5 != i &&
                                     lotto.Number6 != i &&
-                                    lotto.Bonus != i) ? prevDistance + 1 : 0,
+                                    lotto.Bonus != i) ? prevDraw[i - 1].Distance + 1 : 0,
 
                         IsHit = (lotto.Number1 == i ||
                                     lotto.Number2 == i ||
@@ -127,9 +124,16 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Number4 == i ||
                                     lotto.Number5 == i ||
                                     lotto.Number6 == i ||
-                                    lotto.Bonus == i) ? prevDistance : 0,
+                                    lotto.Bonus == i) ? prevDraw[i - 1].Distance + 1 : 0,
 
                         IsBonusNumber = lotto.Bonus == i ? true : false,
+                        TotalHits = (lotto.Number1 == i ||
+                                    lotto.Number2 == i ||
+                                    lotto.Number3 == i ||
+                                    lotto.Number4 == i ||
+                                    lotto.Number5 == i ||
+                                    lotto.Number6 == i ||
+                                    lotto.Bonus == i) ? prevDraw[i - 1].TotalHits + 1 : prevDraw[i - 1].TotalHits,
                     };
 
                     db.LottoNumber.Add(entity);

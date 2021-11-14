@@ -28,5 +28,6 @@ namespace SeleniumLottoDataApp.BusinessModels
         public bool IsHit { get; set; }
         public int NumberofDrawsWhenHit { get; set; }
         public bool IsBonusNumber { get; set; }
+        public int TotalHits { get; set; }
     }
 }
