@@ -123,6 +123,7 @@ namespace SeleniumLottoDataGen.Lib
                                     lotto.Number5 == i ||
                                     lotto.Number6 == i ||
                                     lotto.Bonus == i) ? true : false,
+                        NumberRange = LottoNumberRange.Lotto649,
                         NumberofDrawsWhenHit = 0,
                         IsBonusNumber = lotto.Bonus == i ? true : false,
                         TotalHits = 0,

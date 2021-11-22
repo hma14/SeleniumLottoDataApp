@@ -119,6 +119,7 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Number6 == i ||
                                     lotto.Number7 == i ||
                                     lotto.Bonus == i) ? true : false,
+                        NumberRange = LottoNumberRange.LottoMax,
 
                         NumberofDrawsWhenHit =
                                    (lotto.Number1 == i ||
