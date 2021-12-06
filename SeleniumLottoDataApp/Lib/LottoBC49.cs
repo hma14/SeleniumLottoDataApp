@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SeleniumLottoDataApp.BusinessModels;
+using SeleniumLottoDataApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,16 +68,16 @@ namespace SeleniumLottoDataApp.Lib
                         entity.Number5 = int.Parse(numbers[4]);
                         entity.Number6 = int.Parse(numbers[5]);
                         entity.Bonus = int.Parse(numbers[6]);
-                        
+
                         try
                         {
                             // save to db
                             db.BC49.Add(entity);
                             db.SaveChanges();
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
-                            var error = e.InnerException != null ? (e.InnerException.InnerException != null ? e.InnerException.InnerException.Message : e.InnerException.Message) :  e.Message;
+                            var error = e.InnerException != null ? (e.InnerException.InnerException != null ? e.InnerException.InnerException.Message : e.InnerException.Message) : e.Message;
                             Console.WriteLine(error);
                             throw e;
                         }
@@ -90,29 +91,41 @@ namespace SeleniumLottoDataApp.Lib
 
         internal override void InsertLottoNumberTable()
         {
-            using(var db = new LottoDb())
+            using (var db = new LottoDb())
             {
                 var lotto = db.BC49.ToList().Last();
                 if (lotto.DrawNumber == db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.BC49).Select(x => x.DrawNumber).Last()) return;
                 var prevDraw = db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.BC49 && x.DrawNumber + 1 == lotto.DrawNumber).ToList();
 
-                for (int i = 1; i <= (int) LottoNumberRange.BC49; i++)
+                // Store to LottoType table
+                LottoType lottoType = new LottoType
                 {
-                    LottoNumber entity = new LottoNumber
-                    {                      
-                        LottoName = LottoNames.BC49,
-                        DrawNumber = lotto.DrawNumber,
-                        DrawDate = lotto.DrawDate,
-                        Number = i,
-                        Distance = (lotto.Number1 != i && 
+                    Id = Guid.NewGuid(),
+                    LottoName = (int)LottoNames.BC49,
+                    DrawNumber = lotto.DrawNumber,
+                    DrawDate = lotto.DrawDate,
+                    NumberRange = (int)LottoNumberRange.BC49,
+                };
+                db.LottoTypes.Add(lottoType);
+
+                //Store to Numbers table
+                List<Number> numbers = new List<Number>();
+                for (int i = 1; i <= (int)LottoNumberRange.BC49; i++)
+                {
+                    Number number = new Number
+                    {
+                        Id = Guid.NewGuid(),
+                        Value = i,
+                        LottoTypeId = lottoType.Id,
+                        Distance = (lotto.Number1 != i &&
                                     lotto.Number2 != i &&
                                     lotto.Number3 != i &&
                                     lotto.Number4 != i &&
                                     lotto.Number5 != i &&
                                     lotto.Number6 != i &&
-                                    lotto.Bonus != i) ? prevDraw[i-1].Distance + 1 : 0,   
+                                    lotto.Bonus != i) ? prevDraw[i - 1].Distance + 1 : 0,
 
-                        IsHit =    (lotto.Number1 == i ||
+                        IsHit = (lotto.Number1 == i ||
                                     lotto.Number2 == i ||
                                     lotto.Number3 == i ||
                                     lotto.Number4 == i ||
@@ -120,16 +133,15 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Number6 == i ||
                                     lotto.Bonus == i) ? true : false,
 
-                        NumberRange = LottoNumberRange.BC49,
 
-                        NumberofDrawsWhenHit = 
+                        NumberofDrawsWhenHit =
                                    (lotto.Number1 == i ||
                                     lotto.Number2 == i ||
                                     lotto.Number3 == i ||
                                     lotto.Number4 == i ||
                                     lotto.Number5 == i ||
                                     lotto.Number6 == i ||
-                                    lotto.Bonus == i) ? prevDraw[i-1].Distance + 1 : 0,
+                                    lotto.Bonus == i) ? prevDraw[i - 1].Distance + 1 : 0,
 
                         IsBonusNumber = lotto.Bonus == i ? true : false,
                         TotalHits = (lotto.Number1 == i ||
@@ -140,9 +152,16 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Number6 == i ||
                                     lotto.Bonus == i) ? prevDraw[i - 1].TotalHits + 1 : prevDraw[i - 1].TotalHits,
                     };
-
-                    db.LottoNumber.Add(entity);
+                    numbers.Add(number);
+                }
+                db.Numbers.AddRange(numbers);
+                try
+                {
                     db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    var error = ex.Message;
                 }
             }
         }

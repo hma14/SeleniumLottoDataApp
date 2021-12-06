@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lib\LottoGenBase.cs" />
     <Compile Include="Lib\LottoMaxDataGen.cs" />
     <Compile Include="Lib\Lotto649DataGen.cs" />
     <Compile Include="Lib\BC49DataGen.cs" />

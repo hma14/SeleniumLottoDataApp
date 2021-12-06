@@ -9,14 +9,14 @@ using static SeleniumLottoDataApp.BusinessModels.Constants;
 
 namespace SeleniumLottoDataGen.Lib
 {
-    public class LottoMaxDataGen
+    public class LottoMaxDataGen : LottoGenBase
     {
         public LottoMaxDataGen()
         {
 
         }
 
-        public void ParseData()
+        public override void ParseData()
         {
             var parent = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             var Path = parent + @"\Lotto.Data\LottoMax.csv";
@@ -89,18 +89,6 @@ namespace SeleniumLottoDataGen.Lib
             {
                 if (db.LottoMax.ToList().LastOrDefault()?.DrawNumber >= rows.FirstOrDefault().DrawNumber) return;
                 db.LottoMax.AddRange(rows);
-                db.SaveChanges();
-            }
-        }
-
-        public void InsertLottoNumberDb(List<List<LottoNumber>> rows)
-        {
-            using (var db = new LottoDb())
-            {
-                foreach (var rs in rows)
-                {
-                    db.LottoNumber.AddRange(rs);                   
-                }
                 db.SaveChanges();
             }
         }

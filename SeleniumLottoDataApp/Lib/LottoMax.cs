@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SeleniumLottoDataApp.BusinessModels;
+using SeleniumLottoDataApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoMAX()
         {
-            Driver.Url = "https://www.playnow.com/lottery/lotto-max-winning-numbers/";           
+            Driver.Url = "https://www.playnow.com/lottery/lotto-max-winning-numbers/";
         }
 
         private DateTime searchDrawDate()
@@ -94,14 +95,26 @@ namespace SeleniumLottoDataApp.Lib
                 if (lotto.DrawNumber == db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.LottoMax).Select(x => x.DrawNumber).Last()) return;
                 var prevDraw = db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.LottoMax && x.DrawNumber + 1 == lotto.DrawNumber).ToList();
 
+                // Store to LottoType table
+                LottoType lottoType = new LottoType
+                {
+                    Id = Guid.NewGuid(),
+                    LottoName = (int)LottoNames.LottoMax,
+                    DrawNumber = lotto.DrawNumber,
+                    DrawDate = lotto.DrawDate,
+                    NumberRange = (int)LottoNumberRange.LottoMax,
+                };
+                db.LottoTypes.Add(lottoType);
+
+                //Store to Numbers table
+                List<Number> numbers = new List<Number>();
                 for (int i = 1; i <= (int)LottoNumberRange.LottoMax; i++)
                 {
-                    LottoNumber entity = new LottoNumber
+                    Number number = new Number
                     {
-                        LottoName = LottoNames.LottoMax,
-                        DrawNumber = lotto.DrawNumber,
-                        DrawDate = lotto.DrawDate,
-                        Number = i,
+                        Id = Guid.NewGuid(),
+                        Value = i,
+                        LottoTypeId = lottoType.Id,
                         Distance = (lotto.Number1 != i &&
                                     lotto.Number2 != i &&
                                     lotto.Number3 != i &&
@@ -119,7 +132,6 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Number6 == i ||
                                     lotto.Number7 == i ||
                                     lotto.Bonus == i) ? true : false,
-                        NumberRange = LottoNumberRange.LottoMax,
 
                         NumberofDrawsWhenHit =
                                    (lotto.Number1 == i ||
@@ -142,9 +154,10 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Bonus == i) ? prevDraw[i - 1].TotalHits + 1 : prevDraw[i - 1].TotalHits,
                     };
 
-                    db.LottoNumber.Add(entity);
-                    db.SaveChanges();
+                    numbers.Add(number);
                 }
+                db.Numbers.AddRange(numbers);
+                db.SaveChanges();
             }
         }
     }

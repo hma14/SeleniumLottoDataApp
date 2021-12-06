@@ -1,5 +1,6 @@
 ﻿using SeleniumLottoDataApp;
 using SeleniumLottoDataApp.BusinessModels;
+using SeleniumLottoDataApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,14 +10,14 @@ using static SeleniumLottoDataApp.BusinessModels.Constants;
 
 namespace SeleniumLottoDataGen.Lib
 {
-    public class BC49DataGen
+    public class BC49DataGen : LottoGenBase
     {
         public BC49DataGen()
         {
 
         }
 
-        public void ParseData()
+        public override void ParseData()
         {
             var parent = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             var Path = parent + @"\Lotto.Data\BC49.csv";
@@ -89,17 +90,6 @@ namespace SeleniumLottoDataGen.Lib
             }
         }
 
-        public void InsertLottoNumberDb(List<List<LottoNumber>> rows)
-        {
-            using (var db = new LottoDb())
-            {
-                foreach (var rs in rows)
-                {
-                    db.LottoNumber.AddRange(rs);                   
-                }
-                db.SaveChanges();
-            }
-        }
 
         private List<LottoNumber> GetLottoNumberRecord(BC49 lotto)
         {

@@ -1,5 +1,6 @@
 ﻿using SeleniumLottoDataApp;
 using SeleniumLottoDataApp.BusinessModels;
+using SeleniumLottoDataApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,14 +10,14 @@ using static SeleniumLottoDataApp.BusinessModels.Constants;
 
 namespace SeleniumLottoDataGen.Lib
 {
-    public class Lotto649DataGen
+    public class Lotto649DataGen : LottoGenBase
     {
         public Lotto649DataGen()
         {
 
         }
 
-        public void ParseData()
+        public override void ParseData()
         {
             var parent = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             var Path = parent + @"\Lotto.Data\649.csv";
@@ -30,7 +31,7 @@ namespace SeleniumLottoDataGen.Lib
                 while ((line = reader.ReadLine()) != null)
                 {
                     string[] arr = line.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-                    DateTime dat = DateTime.Parse(arr[2].Trim('"'));
+                    DateTime dat = DateTime.Parse(arr[3].Trim('"'));
                     int pastDays = int.Parse(ConfigurationManager.AppSettings["HistoryDays"]);
                     if (dat < DateTime.Now.AddDays(-pastDays)) continue;
 
@@ -38,13 +39,13 @@ namespace SeleniumLottoDataGen.Lib
                     {
                         DrawNumber = int.Parse(arr[1]),
                         DrawDate = dat,
-                        Number1 = int.Parse(arr[3]),
-                        Number2 = int.Parse(arr[4]),
-                        Number3 = int.Parse(arr[5]),
-                        Number4 = int.Parse(arr[6]),
-                        Number5 = int.Parse(arr[7]),
-                        Number6 = int.Parse(arr[8]),
-                        Bonus = int.Parse(arr[9])
+                        Number1 = int.Parse(arr[4]),
+                        Number2 = int.Parse(arr[5]),
+                        Number3 = int.Parse(arr[6]),
+                        Number4 = int.Parse(arr[7]),
+                        Number5 = int.Parse(arr[8]),
+                        Number6 = int.Parse(arr[9]),
+                        Bonus = int.Parse(arr[10])
                     };
                     rows.Add(entity);
                     var lottoNumbers = GetLottoNumberRecord(entity);
@@ -86,18 +87,6 @@ namespace SeleniumLottoDataGen.Lib
             {
                 if (db.Lotto649.ToList().LastOrDefault()?.DrawNumber >= rows.FirstOrDefault().DrawNumber) return;
                 db.Lotto649.AddRange(rows);
-                db.SaveChanges();
-            }
-        }
-
-        public void InsertLottoNumberDb(List<List<LottoNumber>> rows)
-        {
-            using (var db = new LottoDb())
-            {
-                foreach (var rs in rows)
-                {
-                    db.LottoNumber.AddRange(rs);                   
-                }
                 db.SaveChanges();
             }
         }

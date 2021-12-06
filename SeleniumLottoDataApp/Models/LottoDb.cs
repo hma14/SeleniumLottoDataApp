@@ -1,6 +1,7 @@
 namespace SeleniumLottoDataApp
 {
     using SeleniumLottoDataApp.BusinessModels;
+    using SeleniumLottoDataApp.Models;
     using System.Data.Entity;
 
     public partial class LottoDb : DbContext
@@ -16,6 +17,8 @@ namespace SeleniumLottoDataApp
         public virtual DbSet<Cash4Life> Cash4Life { get; set; }
         public virtual DbSet<Cash4Life_CashBall> Cash4Life_CashBall { get; set; }
         public virtual DbSet<LottoNumber> LottoNumber { get; set; }
+        public virtual DbSet<Number> Numbers { get; set; }
+        public virtual DbSet<LottoType> LottoTypes { get; set; }
 #if false
         public virtual DbSet<BritishLotto> BritishLottoes { get; set; }
         public virtual DbSet<CaSuperlottoPlu> CaSuperlottoPlus { get; set; }
@@ -56,7 +59,7 @@ namespace SeleniumLottoDataApp
         public virtual DbSet<DailyGrand> DailyGrand { get; set; }
         public virtual DbSet<DailyGrand_GrandNumber> DailyGrand_GrandNumber { get; set; }
 #endif
-        
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
