@@ -92,8 +92,9 @@ namespace SeleniumLottoDataApp.Lib
             using (var db = new LottoDb())
             {
                 var lotto = db.LottoMax.ToList().Last();
-                if (lotto.DrawNumber == db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.LottoMax).Select(x => x.DrawNumber).Last()) return;
-                var prevDraw = db.LottoNumber.ToList().Where(x => x.LottoName == LottoNames.LottoMax && x.DrawNumber + 1 == lotto.DrawNumber).ToList();
+                var lastLottoType = db.LottoTypes.ToList().Where(x => x.LottoName == (int)LottoNames.LottoMax).OrderByDescending(d => d.DrawNumber).First();
+                if (lotto.DrawNumber == lastLottoType.DrawNumber) return;
+                var prevDraw = lastLottoType.Numbers.ToArray();
 
                 // Store to LottoType table
                 LottoType lottoType = new LottoType

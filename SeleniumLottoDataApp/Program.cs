@@ -81,13 +81,13 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
             obj.InsertLottoNumberTable();
 
-            obj = new Lottery649();
-            obj.InsertDb();
-            obj.InsertLottoNumberTable();
+            //obj = new Lottery649();
+            //obj.InsertDb();
+            //obj.InsertLottoNumberTable();
 
-            obj = new LottoMAX();
-            obj.InsertDb();
-            obj.InsertLottoNumberTable();
+            //obj = new LottoMAX();
+            //obj.InsertDb();
+            //obj.InsertLottoNumberTable();
 
             //obj = new LottoMegaMillions();
             //obj.InsertDb();
