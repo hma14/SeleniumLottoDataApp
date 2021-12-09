@@ -94,9 +94,15 @@ namespace SeleniumLottoDataApp.Lib
             using (var db = new LottoDb())
             {
                 var lotto = db.BC49.ToList().Last();
-                var lastLottoType = db.LottoTypes.ToList().Where(x => x.LottoName == (int)LottoNames.BC49).OrderByDescending(d => d.DrawNumber).First();
-                if (lotto.DrawNumber == lastLottoType.DrawNumber) return;                    
-                var prevDraw = lastLottoType.Numbers.ToArray();
+                var lastLottoType = db.LottoTypes
+                    .Where(x => x.LottoName == (int)LottoNames.BC49)
+                    .OrderByDescending(d => d.DrawNumber).First();
+
+                if (lotto.DrawNumber == lastLottoType.DrawNumber) return;
+
+                var prevDraw = db.Numbers
+                    .Where(x => x.LottoTypeId == lastLottoType.Id)
+                    .OrderBy(n => n.Value).ToArray(); 
 
 
                 // Store to LottoType table
