@@ -44,14 +44,12 @@ namespace SeleniumLottoDataApp.Lib
         {
             using (var db = new LottoDb())
             {
-                var list = db.LottoMax.ToList();
-                IList<Tuple<int, DateTime>> dates = list.Select(x => new Tuple<int, DateTime>(x.DrawNumber, x.DrawDate)).ToList();
-                var lastDrawDate = dates.LastOrDefault()?.Item2 ?? DateTime.Now.AddYears(-5);
+                var last = db.LottoMax.ToList().Last();
                 var currentDrawDate = searchDrawDate();
 
-                if (currentDrawDate > lastDrawDate)
+                if (currentDrawDate > last.DrawDate)
                 {
-                    var lastDrawNumber = dates.LastOrDefault()?.Item1 ?? 0;
+                    var lastDrawNumber = last.DrawNumber;
                     var numbers = searchDrawNumbers();
                     if (numbers != null)
                     {
