@@ -79,6 +79,7 @@
   <ItemGroup>
     <Content Include="Lotto.Data\FloridaFantasy5_Data.txt" />
     <Content Include="Lotto.Data\FloridaFantasy5_Data_old.txt" />
+    <Content Include="Lotto.Data\Lottery_Cash_4_Life_Winning_Numbers__Beginning_2014.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SeleniumLottoDataApp\SeleniumLottoDataApp.csproj">
