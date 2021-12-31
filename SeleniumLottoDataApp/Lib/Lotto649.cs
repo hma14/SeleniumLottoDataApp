@@ -84,7 +84,7 @@ namespace SeleniumLottoDataApp.Lib
             Driver.Quit();
         }
 
-        internal override void InsertLottoNumberTable()
+        internal override void InsertLottTypeTable()
         {
             using (var db = new LottoDb())
             {

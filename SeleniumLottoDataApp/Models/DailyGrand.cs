@@ -9,14 +9,11 @@ using System.Threading.Tasks;
 namespace SeleniumLottoDataApp.Models
 {
     [Table("DailyGrand")]
-    public partial class DailyGrand
+    public partial class DailyGrand : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int DrawNumber { get; set; }
 
-        [StringLength(25)]
-        public string DrawDate { get; set; }
+        public DateTime DrawDate { get; set; }
 
         public int? Number1 { get; set; }
 

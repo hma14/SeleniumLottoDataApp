@@ -1,5 +1,4 @@
 ﻿using SeleniumLottoDataApp;
-using SeleniumLottoDataApp.BusinessModels;
 using SeleniumLottoDataApp.Models;
 using System;
 using System.Collections.Generic;
@@ -10,9 +9,9 @@ using static SeleniumLottoDataApp.BusinessModels.Constants;
 
 namespace SeleniumLottoDataGen.Lib
 {
-    public class BC49DataGen : LottoGenBase
+    public class DailyGrand_GrandNumberGen : LottoGenBase
     {
-        public BC49DataGen()
+        public DailyGrand_GrandNumberGen()
         {
 
         }
@@ -20,14 +19,14 @@ namespace SeleniumLottoDataGen.Lib
         public override void ParseData()
         {
             var parent = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            var Path = parent + @"\Lotto.Data\BC49.csv";
+            var Path = parent + @"\Lotto.Data\DailyGrand.csv";
+            List<DailyGrand_GrandNumber> rows = new List<DailyGrand_GrandNumber>();
+            List<LottoType> lottoTypes = new List<LottoType>();
+            List<Number> numbers = new List<Number>();
+            int drawNumber = 1;
             using (StreamReader reader = new StreamReader(Path))
             {
-                string line = string.Empty;
-                List<BC49> rows = new List<BC49>(); 
-                List<LottoType> lottoTypes = new List<LottoType>();
-                List<Number> numbers = new List<Number>();
-
+                string line = String.Empty;
                 char[] separator = new[] { ',' };
                 List<Number> prevDraw = null;
                 while ((line = reader.ReadLine()) != null)
@@ -37,17 +36,12 @@ namespace SeleniumLottoDataGen.Lib
                     int pastDays = int.Parse(ConfigurationManager.AppSettings["HistoryDays"]);
                     if (dat < DateTime.Now.AddDays(-pastDays)) continue;
 
-                    var entity = new BC49()
+                    var entity = new DailyGrand_GrandNumber()
                     {
-                        DrawNumber = int.Parse(arr[1]),
+                        Id = Guid.NewGuid(),
+                        DrawNumber = drawNumber++,
                         DrawDate = dat,
-                        Number1 = int.Parse(arr[3]),
-                        Number2 = int.Parse(arr[4]),
-                        Number3 = int.Parse(arr[5]),
-                        Number4 = int.Parse(arr[6]),
-                        Number5 = int.Parse(arr[7]),
-                        Number6 = int.Parse(arr[8]),
-                        Bonus = int.Parse(arr[9])
+                        GrandNumber = int.Parse(arr[10]),
                     };
                     rows.Add(entity);
 
@@ -55,10 +49,10 @@ namespace SeleniumLottoDataGen.Lib
                     var lottoType = new LottoType
                     {
                         Id = Guid.NewGuid(),
-                        LottoName = (int)LottoNames.BC49,
+                        LottoName = (int)LottoNames.DailyGrand_GrandNumber,
                         DrawDate = entity.DrawDate,
                         DrawNumber = entity.DrawNumber,
-                        NumberRange = (int)LottoNumberRange.BC49,
+                        NumberRange = (int)LottoNumberRange.DailyGrand_GrandNumber,
                     };
                     lottoTypes.Add(lottoType);
 
@@ -73,13 +67,7 @@ namespace SeleniumLottoDataGen.Lib
                             LottoTypeId = lottoType.Id,
                         };
 
-                        if (number.Value == entity.Number1 ||
-                            number.Value == entity.Number2 ||
-                            number.Value == entity.Number3 ||
-                            number.Value == entity.Number4 ||
-                            number.Value == entity.Number5 ||
-                            number.Value == entity.Number6 ||
-                            number.Value == entity.Bonus)
+                        if (number.Value == entity.GrandNumber)                         
                         {
                             number.Distance = 0;
                             number.IsHit = true;
@@ -101,16 +89,15 @@ namespace SeleniumLottoDataGen.Lib
             }
         }
 
-        public void InsertDb(List<BC49> rows, List<LottoType> lottoTypes, List<Number> numbers)
+        public void InsertDb(List<DailyGrand_GrandNumber> rows, List<LottoType> lottoTypes, List<Number> numbers)
         {
             using (var db = new LottoDb())
             {
-                db.BC49.AddRange(rows);
+                db.DailyGrand_GrandNumber.AddRange(rows);
                 db.LottoTypes.AddRange(lottoTypes);
                 db.Numbers.AddRange(numbers);
                 db.SaveChanges();
             }
         }
-
     }
 }

@@ -12,9 +12,10 @@ using static SeleniumLottoDataApp.BusinessModels.Constants;
 
 namespace SeleniumLottoDataApp.Lib
 {
-    public class LottoDailyGrand : LottoBase
+    public class LottoDailyGrand_GrandNumber : LottoBase
     {
-        public LottoDailyGrand()
+#if false
+        public LottoDailyGrand_GrandNumber()
         {
             string url = "https://www.playnow.com/lottery/daily-grand-winning-numbers/";
             Driver.Navigate().GoToUrl(url);
@@ -55,7 +56,7 @@ namespace SeleniumLottoDataApp.Lib
         {
             using (var db = new LottoDb())
             {
-                var last = db.DailyGrand.ToList().OrderByDescending(x => x.DrawNumber).First();
+                var last = db.DailyGrand.ToList().Last();
                 var currentDrawDate = searchDrawDate();
 
                 if (currentDrawDate > last.DrawDate)
@@ -64,34 +65,29 @@ namespace SeleniumLottoDataApp.Lib
                     var numbers = searchDrawNumbers();
                     if (numbers != null)
                     {
-                        // DailyGrand table
-                        var entity = new DailyGrand()
-                        {
-                            Id = Guid.NewGuid(),
-                            DrawNumber = lastDrawNumber + 1,
-                            DrawDate = currentDrawDate,
-                            Number1 = int.Parse(numbers[0]),
-                            Number2 = int.Parse(numbers[1]),
-                            Number3 = int.Parse(numbers[2]),
-                            Number4 = int.Parse(numbers[3]),
-                            Number5 = int.Parse(numbers[4]),
-
-                        };
-
-                        // DailyGrand_GrandNumber table
-                        var grand = new DailyGrand_GrandNumber
-                        {
-                            Id = Guid.NewGuid(),
-                            DrawNumber = lastDrawNumber + 1,
-                            DrawDate = currentDrawDate,
-                            GrandNumber = int.Parse(numbers[5]),
-                        };
+                        var entity = new DailyGrand();
+                        entity.DrawNumber = lastDrawNumber + 1;
+                        entity.DrawDate = currentDrawDate;
+                        entity.Number1 = int.Parse(numbers[0]);
+                        entity.Number2 = int.Parse(numbers[1]);
+                        entity.Number3 = int.Parse(numbers[2]);
+                        entity.Number4 = int.Parse(numbers[3]);
+                        entity.Number5 = int.Parse(numbers[4]);
 
                         try
                         {
                             // save to db
                             db.DailyGrand.Add(entity);
+
+                            // save to GrandNumber
+                            var grand = new DailyGrand_GrandNumber();
+                            grand.DrawNumber = lastDrawNumber + 1;
+                            grand.DrawDate = currentDrawDate;
+                            grand.GrandNumber = int.Parse(numbers[5]);
+
                             db.DailyGrand_GrandNumber.Add(grand);
+
+
                             db.SaveChanges();
                         }
                         catch (Exception e)
@@ -106,15 +102,16 @@ namespace SeleniumLottoDataApp.Lib
             Driver.Close();
             Driver.Quit();
         }
+#endif
 
 
         internal override void InsertLottTypeTable()
         {
             using (var db = new LottoDb())
             {
-                var lotto = db.DailyGrand.ToList().OrderByDescending(x => x.DrawNumber).First();
+                var lotto = db.DailyGrand_GrandNumber.ToList().OrderByDescending(x => x.DrawNumber).First();
                 var lastLottoType = db.LottoTypes
-                    .Where(x => x.LottoName == (int)LottoNames.DailyGrand)
+                    .Where(x => x.LottoName == (int)LottoNames.DailyGrand_GrandNumber)
                     .OrderByDescending(d => d.DrawNumber).First();
 
                 if (lotto.DrawNumber == lastLottoType.DrawNumber) return;
@@ -126,47 +123,26 @@ namespace SeleniumLottoDataApp.Lib
                 LottoType lottoType = new LottoType
                 {
                     Id = Guid.NewGuid(),
-                    LottoName = (int)LottoNames.DailyGrand,
+                    LottoName = (int)LottoNames.DailyGrand_GrandNumber,
                     DrawNumber = lotto.DrawNumber,
                     DrawDate = lotto.DrawDate,
-                    NumberRange = (int)LottoNumberRange.DailyGrand,
+                    NumberRange = (int)LottoNumberRange.DailyGrand_GrandNumber,
                 };
 
 
                 //Store to Numbers table
                 List<Number> numbers = new List<Number>();
-                for (int i = 1; i <= (int)LottoNumberRange.DailyGrand; i++)
+                for (int i = 1; i <= (int)LottoNumberRange.DailyGrand_GrandNumber; i++)
                 {
                     Number number = new Number
                     {
                         Id = Guid.NewGuid(),
                         Value = i,
                         LottoTypeId = lottoType.Id,
-                        Distance = (lotto.Number1 != i &&
-                                    lotto.Number2 != i &&
-                                    lotto.Number3 != i &&
-                                    lotto.Number4 != i &&
-                                    lotto.Number5 != i) ? prevDraw[i - 1].Distance + 1 : 0,
-
-                        IsHit = (lotto.Number1 == i ||
-                                    lotto.Number2 == i ||
-                                    lotto.Number3 == i ||
-                                    lotto.Number4 == i ||
-                                    lotto.Number5 == i) ? true : false,
-
-
-                        NumberofDrawsWhenHit =
-                                   (lotto.Number1 == i ||
-                                    lotto.Number2 == i ||
-                                    lotto.Number3 == i ||
-                                    lotto.Number4 == i ||
-                                    lotto.Number5 == i) ? prevDraw[i - 1].Distance + 1 : 0,
-
-                        TotalHits = (lotto.Number1 == i ||
-                                    lotto.Number2 == i ||
-                                    lotto.Number3 == i ||
-                                    lotto.Number4 == i ||
-                                    lotto.Number5 == i) ? prevDraw[i - 1].TotalHits + 1 : prevDraw[i - 1].TotalHits,
+                        Distance = (lotto.GrandNumber != i) ? prevDraw[i - 1].Distance + 1 : 0,
+                        IsHit = (lotto.GrandNumber == i) ? true : false,
+                        NumberofDrawsWhenHit = (lotto.GrandNumber == i) ? prevDraw[i - 1].Distance + 1 : 0,
+                        TotalHits = (lotto.GrandNumber == i) ? prevDraw[i - 1].TotalHits + 1 : prevDraw[i - 1].TotalHits,
                     };
                     numbers.Add(number);
                 }

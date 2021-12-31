@@ -25,9 +25,11 @@ namespace SeleniumLottoDataGen.Lib
             {
                 string line = string.Empty;
                 List<Lotto649> rows = new List<Lotto649>();
-                List<List<LottoNumber>> rows2 = new List<List<LottoNumber>>();
+                List<LottoType> lottoTypes = new List<LottoType>();
+                List<Number> numbers = new List<Number>();
 
                 char[] separator = new[] { ',' };
+                List<Number> prevDraw = null;
                 while ((line = reader.ReadLine()) != null)
                 {
                     string[] arr = line.Split(separator, StringSplitOptions.RemoveEmptyEntries);
@@ -48,78 +50,66 @@ namespace SeleniumLottoDataGen.Lib
                         Bonus = int.Parse(arr[10])
                     };
                     rows.Add(entity);
-                    var lottoNumbers = GetLottoNumberRecord(entity);
-                    rows2.Add(lottoNumbers);
-                }
 
-                InsertDb(rows);
-
-                // Add distances to each Numbers
-
-                List<LottoNumber> prevRow = rows2.First();
-                foreach (var row in rows2)
-                {                 
-                    foreach(var n in row)
+                    // Create data list for LottoType table
+                    var lottoType = new LottoType
                     {
-                        if (n.IsHit == true)
-                        {                            
-                            n.NumberofDrawsWhenHit = prevRow[n.Number - 1].Distance + 1;
-                            n.Distance = 0;
-                            n.TotalHits = prevRow[n.Number - 1].TotalHits + 1;
+                        Id = Guid.NewGuid(),
+                        LottoName = (int)LottoNames.Lotto649,
+                        DrawDate = entity.DrawDate,
+                        DrawNumber = entity.DrawNumber,
+                        NumberRange = (int)LottoNumberRange.Lotto649,
+                    };
+                    lottoTypes.Add(lottoType);
+
+                    // Create data list for Number table
+                    List<Number> lottoNumbers = new List<Number>();
+                    for (int i = 1; i <= lottoType.NumberRange; i++)
+                    {
+                        var number = new Number
+                        {
+                            Id = Guid.NewGuid(),
+                            Value = i,
+                            LottoTypeId = lottoType.Id,
+                        };
+
+                        if (number.Value == entity.Number1 ||
+                            number.Value == entity.Number2 ||
+                            number.Value == entity.Number3 ||
+                            number.Value == entity.Number4 ||
+                            number.Value == entity.Number5 ||
+                            number.Value == entity.Number6 ||
+                            number.Value == entity.Bonus)
+                        {
+                            number.Distance = 0;
+                            number.IsHit = true;
+                            number.TotalHits = prevDraw != null ? prevDraw[number.Value - 1].TotalHits + 1 : 1;
+                            number.NumberofDrawsWhenHit = prevDraw != null ? prevDraw[number.Value - 1].Distance + 1 : 1;
                         }
                         else
                         {
-                            n.Distance = prevRow[n.Number - 1].Distance + 1;
-                            n.TotalHits = prevRow[n.Number - 1].TotalHits;
+                            number.IsHit = false;
+                            number.Distance = prevDraw != null ? prevDraw[number.Value - 1].Distance + 1 : 1;
+                            number.TotalHits = prevDraw != null ? prevDraw[number.Value - 1].TotalHits : 0;
                         }
+                        numbers.Add(number);
+                        lottoNumbers.Add(number);
                     }
-                    prevRow = row;
+                    prevDraw = lottoNumbers;
                 }
-                InsertLottoNumberDb(rows2);
+                InsertDb(rows, lottoTypes, numbers);
 
             }
         }
 
-        public void InsertDb(List<Lotto649> rows)
+        public void InsertDb(List<Lotto649> rows, List<LottoType> lottoTypes, List<Number> numbers)
         {
-            
             using (var db = new LottoDb())
             {
-                if (db.Lotto649.ToList().LastOrDefault()?.DrawNumber >= rows.FirstOrDefault().DrawNumber) return;
                 db.Lotto649.AddRange(rows);
+                db.LottoTypes.AddRange(lottoTypes);
+                db.Numbers.AddRange(numbers);
                 db.SaveChanges();
-            }
-        }
-
-        private List<LottoNumber> GetLottoNumberRecord(Lotto649 lotto)
-        {
-            using (var db = new LottoDb())
-            {
-                List<LottoNumber> rows = new List<LottoNumber>();
-                for (int i = 1; i <= (int)LottoNumberRange.Lotto649; i++)
-                {
-                    LottoNumber entity = new LottoNumber
-                    {
-                        LottoName = LottoNames.Lotto649,
-                        DrawNumber = lotto.DrawNumber,
-                        DrawDate = lotto.DrawDate,
-                        Number = i,
-                        Distance = 0,
-                        IsHit = (lotto.Number1 == i ||
-                                    lotto.Number2 == i ||
-                                    lotto.Number3 == i ||
-                                    lotto.Number4 == i ||
-                                    lotto.Number5 == i ||
-                                    lotto.Number6 == i ||
-                                    lotto.Bonus == i) ? true : false,
-                        NumberRange = LottoNumberRange.Lotto649,
-                        NumberofDrawsWhenHit = 0,
-                        IsBonusNumber = lotto.Bonus == i ? true : false,
-                        TotalHits = 0,
-                    };
-                    rows.Add(entity);
-                }
-                return rows;
             }
         }
     }

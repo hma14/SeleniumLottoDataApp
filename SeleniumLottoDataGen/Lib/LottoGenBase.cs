@@ -11,7 +11,7 @@ namespace SeleniumLottoDataGen.Lib
 {
     public abstract class LottoGenBase
     {
-        public void InsertLottoNumberDb(List<List<LottoNumber>> rows)
+        public void InsertLottoTypeDb(List<List<LottoNumber>> rows)
         {
             using (var db = new LottoDb())
             {

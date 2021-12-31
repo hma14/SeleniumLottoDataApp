@@ -61,6 +61,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lib\DailyGrand_GrandNumberGen.cs" />
+    <Compile Include="Lib\DailyGrandGen.cs" />
     <Compile Include="Lib\LottoGenBase.cs" />
     <Compile Include="Lib\LottoMaxDataGen.cs" />
     <Compile Include="Lib\Lotto649DataGen.cs" />
@@ -73,6 +75,7 @@
     <None Include="App.config" />
     <None Include="Lotto.Data\649.csv" />
     <None Include="Lotto.Data\BC49.csv" />
+    <None Include="Lotto.Data\DailyGrand.csv" />
     <None Include="Lotto.Data\LOTTOMAX.csv" />
     <None Include="packages.config" />
   </ItemGroup>

@@ -79,15 +79,25 @@ namespace SeleniumLottoDataApp
             // BC lotto
             LottoBase obj = new LottoBC49();
             obj.InsertDb();
-            obj.InsertLottoNumberTable();
+            obj.InsertLottTypeTable();
 
             obj = new Lottery649();
             obj.InsertDb();
-            obj.InsertLottoNumberTable();
+            obj.InsertLottTypeTable();
 
             obj = new LottoMAX();
             obj.InsertDb();
-            obj.InsertLottoNumberTable();
+            obj.InsertLottTypeTable();
+
+            obj = new LottoDailyGrand();
+            obj.InsertDb();  // also done for LottoDailyGrand_GrandNumber
+            obj.InsertLottTypeTable();
+
+            obj = new LottoDailyGrand_GrandNumber();
+            obj.InsertLottTypeTable();
+
+
+
 
             //obj = new LottoMegaMillions();
             //obj.InsertDb();
@@ -109,8 +119,6 @@ namespace SeleniumLottoDataApp
             //obj = new OZLottoSaturday();
             //obj.InsertDb();
 
-            //obj = new LottoDailyGrand();
-            //obj.InsertDb();
 
             ////////////////
 
