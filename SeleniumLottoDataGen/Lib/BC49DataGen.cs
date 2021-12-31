@@ -75,7 +75,7 @@ namespace SeleniumLottoDataGen.Lib
                     }
                     prevRow = row;
                 }
-                InsertLottoNumberDb(rows2);
+                InsertLottoTypeDb(rows2);
 
             }
         }

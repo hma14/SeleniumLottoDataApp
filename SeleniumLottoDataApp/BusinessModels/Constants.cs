@@ -13,8 +13,10 @@ namespace SeleniumLottoDataApp.BusinessModels
             BC49 = 1,
             Lotto649 = 2,
             LottoMax = 3,
-            LottoCash4Life = 4,
-            Cash4Life_CashBall = 5,
+            DailyGrand = 4,
+            DailyGrand_GrandNumber = 5,
+            //Cash4Life = 6,
+            //Cash4Life_CashBall = 7,
 
 
         }
@@ -24,7 +26,10 @@ namespace SeleniumLottoDataApp.BusinessModels
             Lotto649 = 49,
             LottoMax = 50,
             LottoCash4Life = 60,
-            Cash4Life_CashBall = 4,
+            DailyGrand = 49,
+            DailyGrand_GrandNumber = 7,
+            //Cash4Life = 6,
+            //Cash4Life_CashBall = 4,
         }
     }
 }

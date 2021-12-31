@@ -79,15 +79,15 @@ namespace SeleniumLottoDataApp
             // BC lotto
             LottoBase obj = new LottoBC49();
             obj.InsertDb();
-            obj.InsertLottoNumberTable();
+            obj.InsertLottTypeTable();
 
             obj = new Lottery649();
             obj.InsertDb();
-            obj.InsertLottoNumberTable();
+            obj.InsertLottTypeTable();
 
             obj = new LottoMAX();
             obj.InsertDb();
-            obj.InsertLottoNumberTable();
+            obj.InsertLottTypeTable();
 
             //obj = new LottoMegaMillions();
             //obj.InsertDb();

@@ -19,6 +19,9 @@ namespace SeleniumLottoDataApp
         public virtual DbSet<LottoNumber> LottoNumber { get; set; }
         public virtual DbSet<Number> Numbers { get; set; }
         public virtual DbSet<LottoType> LottoTypes { get; set; }
+        public virtual DbSet<DailyGrand> DailyGrand { get; set; }
+        public virtual DbSet<DailyGrand_GrandNumber> DailyGrand_GrandNumber { get; set; }
+
 #if false
         public virtual DbSet<BritishLotto> BritishLottoes { get; set; }
         public virtual DbSet<CaSuperlottoPlu> CaSuperlottoPlus { get; set; }
@@ -56,8 +59,6 @@ namespace SeleniumLottoDataApp
         public virtual DbSet<Lotto> Lottos { get; set; }
         public virtual DbSet<NewYorkTake5> NewYorkTake5 { get; set; }
         public virtual DbSet<TexasCashFive> TexasCashFive { get; set; }
-        public virtual DbSet<DailyGrand> DailyGrand { get; set; }
-        public virtual DbSet<DailyGrand_GrandNumber> DailyGrand_GrandNumber { get; set; }
 #endif
 
 
