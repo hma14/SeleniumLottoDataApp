@@ -98,10 +98,8 @@ namespace SeleniumLottoDataApp.Lib
 
                 if (lotto.DrawNumber == lastLottoType.DrawNumber) return;
 
-                var prevDraw = db.Numbers
-                    .Where(x => x.LottoTypeId == lastLottoType.Id)
-                    .OrderBy(n => n.Value).ToArray(); 
-
+                var prevDraw = db.Numbers.Where(x => x.LottoTypeId == lastLottoType.Id)
+                                          .OrderBy(n => n.Value).ToArray();
 
                 // Store to LottoType table
                 LottoType lottoType = new LottoType

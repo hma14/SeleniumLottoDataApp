@@ -89,6 +89,16 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
             obj.InsertLottTypeTable();
 
+            obj = new LottoDailyGrand();
+            obj.InsertDb();  // also done for LottoDailyGrand_GrandNumber
+            obj.InsertLottTypeTable();
+
+            obj = new LottoDailyGrand_GrandNumber();
+            obj.InsertLottTypeTable();
+
+
+
+
             //obj = new LottoMegaMillions();
             //obj.InsertDb();
 
@@ -109,8 +119,6 @@ namespace SeleniumLottoDataApp
             //obj = new OZLottoSaturday();
             //obj.InsertDb();
 
-            //obj = new LottoDailyGrand();
-            //obj.InsertDb();
 
             ////////////////
 

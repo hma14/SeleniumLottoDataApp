@@ -23,7 +23,7 @@ namespace SeleniumLottoDataGen.Lib
             List<DailyGrand> rows = new List<DailyGrand>();
             List<LottoType> lottoTypes = new List<LottoType>();
             List<Number> numbers = new List<Number>();
-            int drawNumber = 1;
+
             using (StreamReader reader = new StreamReader(Path))
             {
                 string line = String.Empty;
@@ -39,7 +39,7 @@ namespace SeleniumLottoDataGen.Lib
                     var entity = new DailyGrand()
                     {
                         Id = Guid.NewGuid(),
-                        DrawNumber = drawNumber++,
+                        DrawNumber = int.Parse(arr[1]),
                         DrawDate = dat,
                         Number1 = int.Parse(arr[5]),
                         Number2 = int.Parse(arr[6]),
