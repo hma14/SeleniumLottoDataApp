@@ -38,7 +38,7 @@ namespace SeleniumLottoDataGen.Lib
                     var entity1 = new Cash4Life()
                     {
                         DrawNumber = drawNumber,
-                        DrawDate = arr[0],
+                        DrawDate = DateTime.Parse(arr[0]),
                         Number1 = int.Parse(arr[1]),
                         Number2 = int.Parse(arr[2]),
                         Number3 = int.Parse(arr[3]),
@@ -49,7 +49,7 @@ namespace SeleniumLottoDataGen.Lib
                     var entity2 = new Cash4Life_CashBall()
                     {
                         DrawNumber = drawNumber,
-                        DrawDate = arr[0],                     
+                        DrawDate = DateTime.Parse(arr[0]),
                         CashBall = int.Parse(arr[6])
                     };
                     drawNumber--;

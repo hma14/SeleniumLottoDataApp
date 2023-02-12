@@ -9,7 +9,7 @@ namespace SeleniumLottoDataApp.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(SeleniumLottoDataApp.LottoDb context)
