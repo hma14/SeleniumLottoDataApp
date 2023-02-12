@@ -20,10 +20,10 @@ namespace SeleniumLottoDataApp.Lib
             //var trs = Driver.FindElementsByClassName("dateRow");
             var td = Driver.FindElementByClassName("date");
             var array = td.Text.Split('\n');
-            var dm = array[1].Split();
-            var day = dm[0];
+            var dm = array.First().Split();
+            var day = dm[1];
             day = day.Remove(day.Length - 2);           
-            var mon = DicDate[dm[1]];
+            var mon = DicDate[dm[2]];
             var year = DateTime.Now.Year;
 
             var da = $"{year}-{mon}-{day}";

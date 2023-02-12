@@ -28,20 +28,8 @@ namespace SeleniumLottoDataApp.Lib
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var div = Driver.FindElement(By.ClassName("latest-result-euro"));
-            var ul = div.FindElement(By.ClassName("jack-balls"));
-            var balls = ul.FindElements(By.ClassName("jack-ball"));
-            foreach (var ball in balls)
-            {
-                numbers.Add(ball.Text);
-            }
-            var euros = ul.FindElements(By.ClassName("jack-euro"));
-            foreach (var e in euros)
-            {
-                numbers.Add(e.Text);
-            }
-            
-
+            var ul = Driver.FindElement(By.ClassName("balls")).Text;
+            numbers = ul.Split().ToList();
             return numbers;
         }
 
