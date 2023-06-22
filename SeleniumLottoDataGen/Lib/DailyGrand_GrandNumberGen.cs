@@ -24,6 +24,8 @@ namespace SeleniumLottoDataGen.Lib
             List<LottoType> lottoTypes = new List<LottoType>();
             List<Number> numbers = new List<Number>();
             int drawNumber = 1;
+            int pastDays = int.Parse(ConfigurationManager.AppSettings["HistoryDays"]);
+
             using (StreamReader reader = new StreamReader(Path))
             {
                 string line = String.Empty;
@@ -32,8 +34,10 @@ namespace SeleniumLottoDataGen.Lib
                 while ((line = reader.ReadLine()) != null)
                 {
                     string[] arr = line.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                    if (int.Parse(arr[10]) == 0) continue;
+
                     DateTime dat = DateTime.Parse(arr[2].Trim('"'));
-                    int pastDays = int.Parse(ConfigurationManager.AppSettings["HistoryDays"]);
+                    
                     if (dat < DateTime.Now.AddDays(-pastDays)) continue;
 
                     var entity = new DailyGrand_GrandNumber()

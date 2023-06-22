@@ -21,6 +21,8 @@ namespace SeleniumLottoDataGen.Lib
         {
             var parent = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             var Path = parent + @"\Lotto.Data\LottoMax.csv";
+            int pastDays = int.Parse(ConfigurationManager.AppSettings["HistoryDays"]);
+
             using (StreamReader reader = new StreamReader(Path))
             {
                 string line = string.Empty;
@@ -33,11 +35,9 @@ namespace SeleniumLottoDataGen.Lib
                 while ((line = reader.ReadLine()) != null)
                 {
                     string[] arr = line.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-
                     if (int.Parse(arr[11]) == 0) continue;
 
-                    DateTime dat = DateTime.Parse(arr[3].Trim('"'));
-                    int pastDays = int.Parse(ConfigurationManager.AppSettings["HistoryDays"]);
+                    DateTime dat = DateTime.Parse(arr[3].Trim('"'));                   
                     if (dat < DateTime.Now.AddDays(-pastDays)) continue;
 
                     var entity = new LottoMax()
@@ -90,6 +90,7 @@ namespace SeleniumLottoDataGen.Lib
                             number.IsHit = true;
                             number.TotalHits = prevDraw != null ? prevDraw[number.Value - 1].TotalHits + 1 : 1;
                             number.NumberofDrawsWhenHit = prevDraw != null ? prevDraw[number.Value - 1].Distance + 1 : 1;
+                            number.IsBonusNumber = number.Value == entity.Bonus;
                         }
                         else
                         {
