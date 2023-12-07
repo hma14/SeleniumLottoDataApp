@@ -20,12 +20,12 @@ namespace SeleniumLottoDataApp.Lib
             Driver.Navigate().GoToUrl(url);
         }
 
-        private DateTime searchDrawDate()
+        private string searchDrawDate()
         {
             var dat = Driver.FindElements(By.ClassName("product-date-picker__draw-date"));
             var arr = dat[0].Text.Split();
             var da = arr[3] + '-' + DicDateShort3[arr[1].ToUpper()] + "-" + arr[2].Trim(',');
-            return DateTime.Parse(da);
+            return da;
         }
 
         private List<string> searchDrawNumbers()
@@ -48,11 +48,11 @@ namespace SeleniumLottoDataApp.Lib
             using (var db = new LottoDb())
             {
                 var list = db.BC49.ToList();
-                IList<Tuple<int, DateTime>> dates = list.Select(x => new Tuple<int, DateTime>(x.DrawNumber, x.DrawDate)).ToList();
-                var lastDrawDate = dates.LastOrDefault()?.Item2 ?? DateTime.Now.AddYears(-5);
+                IList<Tuple<int, string>> dates = list.Select(x => new Tuple<int, string>(x.DrawNumber, x.DrawDate)).ToList();
+                var lastDrawDate = dates.LastOrDefault().Item2;
                 var currentDrawDate = searchDrawDate();
 
-                if (currentDrawDate > lastDrawDate)
+                if (DateTime.Parse(currentDrawDate) > DateTime.Parse(lastDrawDate))
                 {
                     var lastDrawNumber = dates.LastOrDefault()?.Item1 ?? 0;
                     var numbers = searchDrawNumbers();
@@ -88,7 +88,7 @@ namespace SeleniumLottoDataApp.Lib
             Driver.Quit();
         }
 
-
+#if false
         internal override void InsertLottoNumberTable()
         {
             using (var db = new LottoDb())
@@ -103,7 +103,7 @@ namespace SeleniumLottoDataApp.Lib
                     Id = Guid.NewGuid(),
                     LottoName = (int)LottoNames.BC49,
                     DrawNumber = lotto.DrawNumber,
-                    DrawDate = lotto.DrawDate,
+                    DrawDate = DateTime.Parse(lotto.DrawDate),
                     NumberRange = (int)LottoNumberRange.BC49,
                 };
                 db.LottoTypes.Add(lottoType);
@@ -165,5 +165,6 @@ namespace SeleniumLottoDataApp.Lib
                 }
             }
         }
+#endif
     }
 }

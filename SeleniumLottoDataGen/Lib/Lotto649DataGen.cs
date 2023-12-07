@@ -31,9 +31,9 @@ namespace SeleniumLottoDataGen.Lib
                 while ((line = reader.ReadLine()) != null)
                 {
                     string[] arr = line.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-                    DateTime dat = DateTime.Parse(arr[3].Trim('"'));
+                    string dat = arr[0].Trim('"');
                     int pastDays = int.Parse(ConfigurationManager.AppSettings["HistoryDays"]);
-                    if (dat < DateTime.Now.AddDays(-pastDays)) continue;
+                    if (DateTime.Parse(dat) < DateTime.Now.AddDays(-pastDays)) continue;
 
                     var entity = new Lotto649()
                     {
@@ -102,7 +102,7 @@ namespace SeleniumLottoDataGen.Lib
                     {
                         LottoName = LottoNames.Lotto649,
                         DrawNumber = lotto.DrawNumber,
-                        DrawDate = lotto.DrawDate,
+                        DrawDate = DateTime.Parse(lotto.DrawDate),
                         Number = i,
                         Distance = 0,
                         IsHit = (lotto.Number1 == i ||

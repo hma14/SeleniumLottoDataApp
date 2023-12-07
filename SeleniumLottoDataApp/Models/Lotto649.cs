@@ -15,7 +15,7 @@ namespace SeleniumLottoDataApp
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
-        public DateTime DrawDate { get; set; }
+        public string DrawDate { get; set; }
 
         public int? Number1 { get; set; }
 

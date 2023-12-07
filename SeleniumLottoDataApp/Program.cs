@@ -11,46 +11,45 @@ namespace SeleniumLottoDataApp
     {
         static void Main(string[] args)
         {
+            LottoBase obj = new LottoFloridaFantasy5();
+            obj.InsertDb();
 
-            //LottoBase obj = new LottoNewYorkTake5();
+#if false
+            obj = new LottoBC49();
+            obj.InsertDb();
+            obj.InsertLottoNumberTable();
+
+            obj = new Lottery649();
+            obj.InsertDb();
+            obj.InsertLottoNumberTable();
+
+            obj = new LottoMAX();
+            obj.InsertDb();
+            obj.InsertLottoNumberTable();
+
+            obj = new LottoCash4Life();
+            obj.InsertDb();
+            obj.InsertLottoNumberTable();
+
+            
+
+            obj = new LottoFloridaLotto();
+            obj.InsertDb();
+
+            obj = new LottoFloridaLucky();
+            obj.InsertDb();
+#endif
+           
+
+            //obj = new LottoNewYorkTake5();
             //obj.InsertDb();
 
             //obj = new LottoNYLotto();
             //obj.InsertDb();
 
-            //obj = new LottoCash4Life();
-            //obj.InsertDb();
-            //obj.InsertLottoNumberTable();
+           
 
-            //try
-            //{
-            //    obj = new LottoFloridaFantasy5();
-            //    obj.InsertDb();
-            //}
-            //catch
-            //{
 
-            //}
-
-            //try
-            //{
-            //    obj = new LottoFloridaLotto();
-            //    obj.InsertDb();
-            //}
-            //catch
-            //{
-
-            //}
-
-            //try
-            //{
-            //    obj = new LottoFloridaLucky();
-            //    obj.InsertDb();
-            //}
-            //catch
-            //{
-
-            //}
 
             //obj = new LottoColorado();
             //obj.InsertDb();
@@ -77,17 +76,7 @@ namespace SeleniumLottoDataApp
 
 
             // BC lotto
-            LottoBase obj = new LottoBC49();
-            obj.InsertDb();
-            obj.InsertLottoNumberTable();
 
-            obj = new Lottery649();
-            obj.InsertDb();
-            obj.InsertLottoNumberTable();
-
-            obj = new LottoMAX();
-            obj.InsertDb();
-            obj.InsertLottoNumberTable();
 
             //obj = new LottoMegaMillions();
             //obj.InsertDb();

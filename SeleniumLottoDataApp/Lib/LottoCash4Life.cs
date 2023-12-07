@@ -17,7 +17,7 @@ namespace SeleniumLottoDataApp.Lib
            
         }
 
-        private DateTime searchDrawDate()
+        private string searchDrawDate()
         {
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(60);
             var ps = Driver.FindElements(By.XPath("//div[@class='gamePageNumbers']/p"));
@@ -26,7 +26,7 @@ namespace SeleniumLottoDataApp.Lib
             var arr = txt.Split();
             //var da = arr[3] + '-' + DicDate[arr[1]] + "-" + arr[2];
             var da = DicDate[arr[1]] + "/" + arr[2] + "/" + arr[3];
-            return DateTime.Parse(da);
+            return da;
         }
 
         private List<string> searchDrawNumbers()
@@ -52,11 +52,11 @@ namespace SeleniumLottoDataApp.Lib
             using (var db = new LottoDb())
             {
                 var list = db.Cash4Life.ToList();
-                IList<Tuple<int, DateTime>> dates = list.Select(x => new Tuple<int, DateTime>(x.DrawNumber, x.DrawDate)).ToList();
-                var lastDrawDate = dates.LastOrDefault()?.Item2 ?? DateTime.Now.AddYears(-5); 
+                IList<Tuple<int, string>> dates = list.Select(x => new Tuple<int, string>(x.DrawNumber, x.DrawDate)).ToList();
+                var lastDrawDate = dates.LastOrDefault()?.Item2; 
                 var currentDrawDate = searchDrawDate();
 
-                if (currentDrawDate > lastDrawDate)
+                if (DateTime.Parse(currentDrawDate) > DateTime.Parse(lastDrawDate))
                 {
                     var lastDrawNumber = dates.LastOrDefault()?.Item1 ?? 0;
                     var numbers = searchDrawNumbers();
@@ -90,6 +90,7 @@ namespace SeleniumLottoDataApp.Lib
             Driver.Quit();
         }
 
+#if false
         internal override void InsertLottoNumberTable()
         {
             using (var db = new LottoDb())
@@ -107,7 +108,7 @@ namespace SeleniumLottoDataApp.Lib
                     {
                         LottoName = LottoNames.LottoCash4Life,
                         DrawNumber = lotto.DrawNumber,
-                        DrawDate = lotto.DrawDate,
+                        DrawDate = DateTime.Parse(lotto.DrawDate),
                         Number = i,
                         Distance = (lotto.Number1 != i &&
                                     lotto.Number2 != i &&
@@ -134,5 +135,6 @@ namespace SeleniumLottoDataApp.Lib
                 }
             }
         }
+#endif
     }
 }

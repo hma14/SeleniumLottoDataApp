@@ -28,14 +28,10 @@ namespace SeleniumLottoDataApp.Lib
 
         private List<string> searchDrawNumbers()
         {
-            List<string> numbers = new List<string>();
-            var spans = Driver.FindElements(By.XPath("//div[@class='gamePageBalls']/p/span"));
-            foreach (var span in spans)
-            {
-                var num = span.GetAttribute("title");
-                if (num != string.Empty)
-                numbers.Add(num);
-            }
+            var divs = Driver.FindElements(By.ClassName("gamePageBalls"));
+            var txt = divs[1].Text;
+            var numbers = txt.Replace("\r", "-").Split('-').Take(5).ToList();
+            
             return numbers;
         }
 
