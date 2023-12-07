@@ -35,7 +35,7 @@ namespace SeleniumLottoDataApp.Lib
             {
                 "--silent-launch",
                 "--no-startup-window",
-                "no-sandbox",
+                "--no-sandbox",
                 "--window-size=1920,1080",
                 "--disable-gpu",
                 "--disable-extensions",
@@ -47,11 +47,12 @@ namespace SeleniumLottoDataApp.Lib
 
             var chromeDriverService = ChromeDriverService.CreateDefaultService();
             chromeDriverService.HideCommandPromptWindow = true;    // This is to hidden the console.
-            Driver = new ChromeDriver(chromeDriverService, chromeOptions);
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(120);
+            Driver = new ChromeDriver(chromeDriverService, chromeOptions, TimeSpan.FromMinutes(2));
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMinutes(2);
+            Driver.Manage().Timeouts().PageLoad = TimeSpan.FromMinutes(2);
 
         }
-        
+
         public void CloseDriver()
         {
             Driver.Quit();
