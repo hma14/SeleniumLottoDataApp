@@ -247,3 +247,5 @@ ModelManifest.xml
 SeleniumLottoDataApp/App.config
 SeleniumLottoDataApp/chromedriver
 SeleniumLottoDataApp/chromedriver.exe
+SeleniumLottoDataApp/packages.config
+SeleniumLottoDataGen/packages.config

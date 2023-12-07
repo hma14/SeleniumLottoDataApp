@@ -19,7 +19,7 @@ namespace SeleniumLottoDataApp
         public virtual DbSet<LottoNumber> LottoNumber { get; set; }
         public virtual DbSet<Number> Numbers { get; set; }
         public virtual DbSet<LottoType> LottoTypes { get; set; }
-#if false
+#if true
         public virtual DbSet<BritishLotto> BritishLottoes { get; set; }
         public virtual DbSet<CaSuperlottoPlu> CaSuperlottoPlus { get; set; }
         public virtual DbSet<CaSuperlottoPlus_Mega> CaSuperlottoPlus_Mega { get; set; }
