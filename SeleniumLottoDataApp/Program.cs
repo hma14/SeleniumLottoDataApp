@@ -17,19 +17,19 @@ namespace SeleniumLottoDataApp
 
             obj = new LottoBC49();
             obj.InsertDb();
-            obj.InsertLottoNumberTable();
+            //obj.InsertLottoNumberTable();
 
             obj = new Lottery649();
             obj.InsertDb();
-            obj.InsertLottoNumberTable();
+            //obj.InsertLottoNumberTable();
 
             obj = new LottoMAX();
             obj.InsertDb();
-            obj.InsertLottoNumberTable();
+            //obj.InsertLottoNumberTable();
 
             obj = new LottoCash4Life();
             obj.InsertDb();
-            obj.InsertLottoNumberTable();
+            //obj.InsertLottoNumberTable();
 
             obj = new LottoDailyGrand();
             obj.InsertDb();
