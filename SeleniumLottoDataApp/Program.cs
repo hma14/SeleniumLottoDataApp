@@ -14,7 +14,7 @@ namespace SeleniumLottoDataApp
             LottoBase obj = new LottoFloridaFantasy5();
             obj.InsertDb();
 
-#if false
+
             obj = new LottoBC49();
             obj.InsertDb();
             obj.InsertLottoNumberTable();
@@ -38,7 +38,7 @@ namespace SeleniumLottoDataApp
 
             obj = new LottoFloridaLucky();
             obj.InsertDb();
-#endif
+
            
 
             //obj = new LottoNewYorkTake5();
