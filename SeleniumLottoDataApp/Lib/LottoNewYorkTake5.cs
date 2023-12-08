@@ -17,7 +17,6 @@ namespace SeleniumLottoDataApp.Lib
 
         private string searchDrawDate()
         {
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(60);
             var hds = Driver.FindElements(By.ClassName("fprWXx"));
             var hd = hds[0];
             var dat = hd.Text.Split();
