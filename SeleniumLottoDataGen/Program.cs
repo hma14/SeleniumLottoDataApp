@@ -6,10 +6,10 @@ namespace SeleniumLottoDataGen
     {
         static void Main(string[] args)
         {
-            //LottoGenBase obj = new LottoMaxDataGen();
-            //obj.ParseData();
+            LottoGenBase obj = new LottoMaxDataGen();
+            obj.ParseData();
 
-            LottoGenBase obj = new Lotto649DataGen();
+            obj = new Lotto649DataGen();
             obj.ParseData();
 
             obj = new BC49DataGen();
