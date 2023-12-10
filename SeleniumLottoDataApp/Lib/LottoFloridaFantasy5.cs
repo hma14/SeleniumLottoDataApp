@@ -9,6 +9,7 @@ namespace SeleniumLottoDataApp.Lib
 {
     public class LottoFloridaFantasy5 : LottoBase
     {
+        public string Numbers { get; set; }
         public LottoFloridaFantasy5()
         {
             Driver.Url = "http://flalottery.com/fantasy5.do";
@@ -20,21 +21,29 @@ namespace SeleniumLottoDataApp.Lib
             //Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(60);
             var divs = Driver.FindElements(By.ClassName("gamePageNumbers"));
             var ps = divs[1].FindElements(By.TagName("p"));
-            var txt = ps[1].Text;
-            txt = txt.Replace(",", "");
-            var arr = txt.Split();
-            var da = arr[3] + '-' + DicDate[arr[1]] + "-" + arr[2];
+            string da = string.Empty;
+            try
+            {
+                var txt = ps[3].Text;
+                txt = txt.Replace(",", "");
+                var arr = txt.Split();
+                da = arr[3] + '-' + DicDate[arr[1]] + "-" + arr[2];
+                Numbers = ps[4].Text;
+            }
+            catch {
+                var txt = ps[1].Text;
+                txt = txt.Replace(",", "");
+                var arr = txt.Split();
+                da = arr[3] + '-' + DicDate[arr[1]] + "-" + arr[2];
+                Numbers = ps[2].Text;
+            }
             return da;
         }
 
         private List<string> searchDrawNumbers()
         {
-            //var divs = Driver.FindElements(By.ClassName("gamePageBalls"));
-            var divs = Driver.FindElements(By.ClassName("gamePageNumbers"));
-            var ps = divs[1].FindElements(By.TagName("p"));
-            var txt = ps[2].Text;
-            var numbers = txt.Replace("\r", "-").Split('-').Take(5).ToList();
-            
+            var numbers = Numbers.Replace("\r", "-").Split('-').Take(5).ToList();
+           
             return numbers;
         }
 
