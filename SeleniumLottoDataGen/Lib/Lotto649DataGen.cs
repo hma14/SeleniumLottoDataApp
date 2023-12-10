@@ -28,10 +28,11 @@ namespace SeleniumLottoDataGen.Lib
                 List<List<LottoNumber>> rows2 = new List<List<LottoNumber>>();
 
                 char[] separator = new[] { ',' };
+                reader.ReadLine();
                 while ((line = reader.ReadLine()) != null)
                 {
                     string[] arr = line.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-                    string dat = arr[0].Trim('"');
+                    string dat = arr[3].Trim('"');
                     int pastDays = int.Parse(ConfigurationManager.AppSettings["HistoryDays"]);
                     if (DateTime.Parse(dat) < DateTime.Now.AddDays(-pastDays)) continue;
 
