@@ -12,38 +12,49 @@ namespace SeleniumLottoDataApp.Lib
         public string Numbers { get; set; }
         public LottoFloridaFantasy5()
         {
-            Driver.Url = "http://flalottery.com/fantasy5.do";
+            Driver.Url = "http://flalottery.com/fantasy5";
            
         }
 
         private string searchDrawDate()
         {
             //Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(60);
-            var divs = Driver.FindElements(By.ClassName("gamePageNumbers"));
-            var ps = divs[1].FindElements(By.TagName("p"));
+            var ps = Driver.FindElements(By.ClassName("draw-date--fantasy5"));
+            
             string da = string.Empty;
             try
             {
-                var txt = ps[3].Text;
-                txt = txt.Replace(",", "");
-                var arr = txt.Split();
-                da = arr[3] + '-' + DicDate[arr[1]] + "-" + arr[2];
-                Numbers = ps[4].Text;
-            }
-            catch {
+                // Evening 
                 var txt = ps[1].Text;
                 txt = txt.Replace(",", "");
                 var arr = txt.Split();
-                da = arr[3] + '-' + DicDate[arr[1]] + "-" + arr[2];
-                Numbers = ps[2].Text;
+                da = arr[3] + '-' + DicDateShort2[arr[1]] + "-" + arr[2];
+            }
+            catch
+            {
+                //var txt = ps[1].Text;
+                //txt = txt.Replace(",", "");
+                //var arr = txt.Split();
+                //da = arr[3] + '-' + DicDate[arr[1]] + "-" + arr[2];
+                //Numbers = ps[2].Text;
+                throw new Exception("Couldn't find draw date for Florida Fantasy 5");
             }
             return da;
         }
 
         private List<string> searchDrawNumbers()
         {
-            var numbers = Numbers.Replace("\r", "-").Split('-').Take(5).ToList();
-           
+            // var numbers = Numbers.Replace("\r", "-").Split('-').Take(5).ToList();
+            List<string> numbers = new List<string>();
+
+            var lis = Driver.FindElements(By.ClassName("game-numbers__number"));
+            var arr = lis.Skip(5).Take(5).ToList();
+            foreach (var item in arr)
+            {
+                var num = item.FindElement(By.TagName("span")).Text;
+                numbers.Add(num);
+            }
+
             return numbers;
         }
 
