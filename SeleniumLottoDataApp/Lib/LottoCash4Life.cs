@@ -19,31 +19,26 @@ namespace SeleniumLottoDataApp.Lib
 
         private string searchDrawDate()
         {
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(60);
-            var ps = Driver.FindElements(By.XPath("//div[@class='gamePageNumbers']/p"));
-            var txt = ps[1].Text;
+            var p = Driver.FindElement(By.ClassName("draw-date"));
+            var txt = p.Text;
             txt = txt.Replace(",", "");
             var arr = txt.Split();
-            //var da = arr[3] + '-' + DicDate[arr[1]] + "-" + arr[2];
-            var da = DicDate[arr[1]] + "/" + arr[2] + "/" + arr[3];
-            return da;
+            var date = arr[3] + "-" + DicDateShort2[arr[1]] + "-" + arr[2];
+
+            return date;
         }
 
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var balls = Driver.FindElements(By.XPath("//div[@class='gamePageBalls']/p/span[@class='balls']"));
-            foreach (var ball in balls)
-            {
-                var num = ball.GetAttribute("title");
-                if (num != string.Empty)
-                numbers.Add(num);
-            }
+            //var spans = Driver.FindElements(By.XPath("//div[@class='gamePageBalls']/p/span"));
 
-            // get Cash Ball
-            var cb = Driver.FindElements(By.XPath("//div[@class='gamePageBalls']/p/span[@class='balls c4lCBBall']"));
-            var cashBall = cb.First().Text;
-            numbers.Add(cashBall);
+            var lis = Driver.FindElements(By.ClassName("game-numbers__number"));
+            var arr = lis.Take(6).ToList();
+            foreach (var a in arr)
+            {
+                numbers.Add(a.FindElement(By.TagName("span")).Text);
+            }
             return numbers;
         }
 

@@ -11,16 +11,16 @@ namespace SeleniumLottoDataApp.Lib
     {
         public LottoFloridaLotto()
         {
-            Driver.Url = "http://flalottery.com/lotto.do";
+            Driver.Url = "http://flalottery.com/lotto";
         }
 
         private string searchDrawDate()
         {
-            var ps = Driver.FindElements(By.XPath("//div[@class='gamePageNumbers']/p"));
-            var txt = ps[1].Text;
+            var p = Driver.FindElement(By.ClassName("draw-date"));
+            var txt = p.Text;
             txt = txt.Replace(",", "");
             var arr = txt.Split();
-            var date = arr[3] + "-" + DicDate[arr[1]] + "-" + arr[2];
+            var date = arr[3] + "-" + DicDateShort2[arr[1]] + "-" + arr[2];
 
             return date;
         }
@@ -30,16 +30,12 @@ namespace SeleniumLottoDataApp.Lib
             List<string> numbers = new List<string>();
             //var spans = Driver.FindElements(By.XPath("//div[@class='gamePageBalls']/p/span"));
 
-            var div = Driver.FindElements(By.ClassName("gamePageBalls")).First();
-            var spans = div.FindElements(By.ClassName("balls"));
-            foreach (var span in spans)
+            var lis = Driver.FindElements(By.ClassName("game-numbers__number"));
+            var arr = lis.Take(6).ToList();
+            foreach (var a in arr)
             {
-                if (Char.IsDigit(span.Text[0]) == true)
-                numbers.Add(span.Text);
+                numbers.Add(a.FindElement(By.TagName("span")).Text);
             }
-            //var mb = Driver.FindElement(By.ClassName("multiplier"));
-            //numbers.Add(mb.Text[1].ToString());
-
             return numbers;
         }
 
