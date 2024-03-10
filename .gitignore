@@ -249,3 +249,8 @@ SeleniumLottoDataApp/chromedriver
 SeleniumLottoDataApp/chromedriver.exe
 SeleniumLottoDataApp/packages.config
 SeleniumLottoDataGen/packages.config
+chromedriver.exe
+LICENSE.chromedriver
+SeleniumLottoDataApp/LICENSE.chromedriver
+SeleniumLottoDataApp/chromedriver-win64/chromedriver.exe
+SeleniumLottoDataApp/chromedriver-win64/LICENSE.chromedriver

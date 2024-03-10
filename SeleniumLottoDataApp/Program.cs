@@ -50,8 +50,8 @@ namespace SeleniumLottoDataApp
             obj = new LottoGermanLotto();
             obj.InsertDb();
 
-            obj = new LottoConnecticutLotto();
-            obj.InsertDb();         
+            //obj = new LottoConnecticutLotto();
+            //obj.InsertDb();         
 
             obj = new LottoEuroMillions();
             obj.InsertDb();

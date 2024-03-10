@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+
 namespace SeleniumLottoDataApp.Lib
 {
 
@@ -28,7 +29,7 @@ namespace SeleniumLottoDataApp.Lib
 
             var chromeOptions = new ChromeOptions
             {
-                BinaryLocation = @"C:\Program Files (x86)\google\chrome\Application\chrome.exe",
+                BinaryLocation = @"C:\Program Files\google\chrome\Application\chrome.exe",
             };
 
             chromeOptions.AddArguments(new List<string>()
@@ -47,6 +48,7 @@ namespace SeleniumLottoDataApp.Lib
 
             var chromeDriverService = ChromeDriverService.CreateDefaultService();
             chromeDriverService.HideCommandPromptWindow = true;    // This is to hidden the console.
+
             Driver = new ChromeDriver(chromeDriverService, chromeOptions);
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(120);
 
