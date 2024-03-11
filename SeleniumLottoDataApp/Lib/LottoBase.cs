@@ -28,7 +28,7 @@ namespace SeleniumLottoDataApp.Lib
 
             var chromeOptions = new ChromeOptions
             {
-                BinaryLocation = @"C:\Program Files (x86)\google\chrome\Application\chrome.exe",
+                BinaryLocation = @"C:\Program Files\google\chrome\Application\chrome.exe",
             };
 
             chromeOptions.AddArguments(new List<string>()
