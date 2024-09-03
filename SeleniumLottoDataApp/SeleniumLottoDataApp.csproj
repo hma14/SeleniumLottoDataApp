@@ -190,7 +190,7 @@
       <Version>6.4.4</Version>
     </PackageReference>
     <PackageReference Include="Selenium.WebDriver.ChromeDriver">
-      <Version>122.0.6261.11100</Version>
+      <Version>128.0.6613.11900</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
