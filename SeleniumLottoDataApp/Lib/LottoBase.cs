@@ -28,22 +28,24 @@ namespace SeleniumLottoDataApp.Lib
 
             var chromeOptions = new ChromeOptions
             {
-                BinaryLocation = @"C:\Program Files (x86)\google\chrome\Application\chrome.exe",
+                BinaryLocation = @"C:\Program Files\google\chrome\Application\chrome.exe",
             };
 
-            chromeOptions.AddArguments(new List<string>()
-            {
-                "--silent-launch",
-                "--no-startup-window",
-                "--no-sandbox",
-                "--window-size=1920,1080",
-                "--disable-gpu",
-                "--disable-extensions",
-                "--proxy-server='direct://'",
-                "--proxy-bypass-list=*",
-                "--start-maximized",
-                "--headless",
-            });
+            //chromeOptions.AddArguments(new List<string>()
+            //{
+            //    "--silent-launch",
+            //    "--no-startup-window",
+            //    "--no-sandbox",
+            //    "--window-size=1920,1080",
+            //    "--disable-gpu",
+            //    "--disable-extensions",
+            //    "--proxy-server='direct://'",
+            //    "--proxy-bypass-list=*",
+            //    "--start-maximized",
+            //    "--headless",
+            //});
+
+            chromeOptions.AddArguments("--start-maximized");
 
             var chromeDriverService = ChromeDriverService.CreateDefaultService();
             chromeDriverService.HideCommandPromptWindow = true;    // This is to hidden the console.
