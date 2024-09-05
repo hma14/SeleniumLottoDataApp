@@ -46,8 +46,6 @@ namespace SeleniumLottoDataApp.Lib
             //    "--headless",
             //});
 
-            chromeOptions.AddArguments();
-
             chromeOptions.AddArguments("--start-maximized");
 
 
@@ -57,6 +55,7 @@ namespace SeleniumLottoDataApp.Lib
 
             Driver = new ChromeDriver(chromeDriverService, chromeOptions, TimeSpan.FromMinutes(2));
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(120);
+            Driver.Manage().Timeouts().PageLoad = TimeSpan.FromMinutes(2);
 
         }
         
