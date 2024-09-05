@@ -54,7 +54,7 @@ namespace SeleniumLottoDataApp.Lib
             chromeDriverService.HideCommandPromptWindow = true;    // This is to hidden the console.
 
             Driver = new ChromeDriver(chromeDriverService, chromeOptions, TimeSpan.FromMinutes(2));
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(120);
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMinutes(2);
             Driver.Manage().Timeouts().PageLoad = TimeSpan.FromMinutes(2);
 
         }
