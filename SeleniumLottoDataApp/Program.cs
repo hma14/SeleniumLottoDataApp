@@ -33,8 +33,8 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
             //obj.InsertLottoNumberTable();
 
-            obj = new LottoDailyGrand();
-            obj.InsertDb();
+            //obj = new LottoDailyGrand();
+            //obj.InsertDb();
 
            
 
