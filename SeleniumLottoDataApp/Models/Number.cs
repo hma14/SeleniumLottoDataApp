@@ -32,5 +32,8 @@ namespace SeleniumLottoDataApp.Models
 
         public bool IsBonusNumber { get; set; }
         public int TotalHits { get; set; }
+
+        //  1 - 5
+        public int Probability { get; set; }
     }
 }
