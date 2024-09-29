@@ -15,7 +15,7 @@ namespace SeleniumLottoDataApp.Lib
 
         private string searchDrawDate()
         {
-            var da = Driver.FindElementByXPath("//time[@class='c-result-card__title']");
+            var da = Driver.FindElement(By.XPath("//time[@class='c-result-card__title']"));
             var txt = da.Text;
             txt = txt.Replace(',', ' ');
             var arr = txt.Split(' ');
