@@ -29,8 +29,8 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
             //obj.InsertLottoNumberTable();
 
-            obj = new LottoCash4Life();
-            obj.InsertDb();
+            //obj = new LottoCash4Life();
+            //obj.InsertDb();
             //obj.InsertLottoNumberTable();
 
             //obj = new LottoDailyGrand();

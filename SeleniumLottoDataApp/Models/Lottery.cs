@@ -6,8 +6,8 @@ namespace SeleniumLottoDataApp
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Lotto649")]
-    public partial class Lotto649
+    [Table("Lottery")]
+    public partial class Lottery
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

@@ -24,7 +24,7 @@ namespace SeleniumLottoDataGen.Lib
             using (StreamReader reader = new StreamReader(Path))
             {
                 string line = string.Empty;
-                List<Lotto649> rows = new List<Lotto649>();
+                List<Lottery> rows = new List<Lottery>();
                 List<List<LottoNumber>> rows2 = new List<List<LottoNumber>>();
 
                 char[] separator = new[] { ',' };
@@ -36,7 +36,7 @@ namespace SeleniumLottoDataGen.Lib
                     int pastDays = int.Parse(ConfigurationManager.AppSettings["HistoryDays"]);
                     if (DateTime.Parse(dat) < DateTime.Now.AddDays(-pastDays)) continue;
 
-                    var entity = new Lotto649()
+                    var entity = new Lottery()
                     {
                         DrawNumber = int.Parse(arr[1]),
                         DrawDate = dat,
@@ -81,18 +81,18 @@ namespace SeleniumLottoDataGen.Lib
             }
         }
 
-        public void InsertDb(List<Lotto649> rows)
+        public void InsertDb(List<Lottery> rows)
         {
             
             using (var db = new LottoDb())
             {
-                if (db.Lotto649.ToList().LastOrDefault()?.DrawNumber >= rows.FirstOrDefault().DrawNumber) return;
-                db.Lotto649.AddRange(rows);
+                if (db.Lottery.ToList().LastOrDefault()?.DrawNumber >= rows.FirstOrDefault().DrawNumber) return;
+                db.Lottery.AddRange(rows);
                 db.SaveChanges();
             }
         }
 
-        private List<LottoNumber> GetLottoNumberRecord(Lotto649 lotto)
+        private List<LottoNumber> GetLottoNumberRecord(Lottery lotto)
         {
             using (var db = new LottoDb())
             {

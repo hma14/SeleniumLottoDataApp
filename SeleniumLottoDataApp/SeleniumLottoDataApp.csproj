@@ -129,7 +129,7 @@
     <Compile Include="Models\FloridaLucky.cs" />
     <Compile Include="Models\GermanLotto.cs" />
     <Compile Include="Models\Lotto.cs" />
-    <Compile Include="Models\Lotto649.cs" />
+    <Compile Include="Models\Lottery.cs" />
     <Compile Include="Models\LottoDb.cs" />
     <Compile Include="Models\LottoMax.cs" />
     <Compile Include="Models\LottoName.cs" />

@@ -12,7 +12,7 @@ namespace SeleniumLottoDataApp
         }
 
         public virtual DbSet<BC49> BC49 { get; set; }
-        public virtual DbSet<Lotto649> Lotto649 { get; set; }
+        public virtual DbSet<Lottery> Lottery { get; set; }
         public virtual DbSet<LottoMax> LottoMax { get; set; }
         public virtual DbSet<Cash4Life> Cash4Life { get; set; }
         public virtual DbSet<Cash4Life_CashBall> Cash4Life_CashBall { get; set; }

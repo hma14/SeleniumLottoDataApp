@@ -44,7 +44,7 @@ namespace SeleniumLottoDataApp.Lib
         {
             using (var db = new LottoDb())
             {
-                var list = db.Lotto649.ToList();
+                var list = db.Lottery.ToList();
                 IList<Tuple<int, string>> dates = list.Select(x => new Tuple<int, string>(x.DrawNumber, x.DrawDate)).ToList();
                 var lastDrawDate = dates.LastOrDefault().Item2;
                 var currentDrawDate = searchDrawDate();
@@ -55,7 +55,7 @@ namespace SeleniumLottoDataApp.Lib
                     var numbers = searchDrawNumbers();
                     if (numbers != null)
                     {
-                        var entity = new Lotto649();
+                        var entity = new Lottery();
                         entity.DrawNumber = lastDrawNumber + 1;
                         entity.DrawDate = currentDrawDate;
                         entity.Number1 = int.Parse(numbers[0]);
@@ -70,7 +70,7 @@ namespace SeleniumLottoDataApp.Lib
                         try
                         {
                             // save to db
-                            db.Lotto649.Add(entity);
+                            db.Lottery.Add(entity);
                             db.SaveChanges();
                         }
                         catch (Exception e)
