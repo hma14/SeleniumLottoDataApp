@@ -1,8 +1,11 @@
-﻿using SeleniumLottoDataApp;
+﻿using iText.Kernel.Pdf.Canvas.Parser;
+using iText.Kernel.Pdf;
+using SeleniumLottoDataApp;
 using SeleniumLottoDataApp.BusinessModels;
 using SeleniumLottoDataApp.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +62,22 @@ namespace SeleniumLottoDataGen.Lib
                     var error = ex.Message;
                 }
             }
+        }
+
+        public string ConvertPdfToText(string pdfPath, string txtPath)
+        {
+            using (PdfReader pdfReader = new PdfReader(pdfPath))
+            using (PdfDocument pdfDoc = new PdfDocument(pdfReader))
+            using (StreamWriter sw = new StreamWriter(txtPath))
+            {
+                for (int page = 1; page <= pdfDoc.GetNumberOfPages(); page++)
+                {
+                    // Extract text from the current page
+                    string pageText = PdfTextExtractor.GetTextFromPage(pdfDoc.GetPage(page));
+                    sw.WriteLine(pageText);
+                }
+            }
+            return txtPath;
         }
 
         public  virtual void ParseData()

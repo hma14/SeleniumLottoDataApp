@@ -1,4 +1,5 @@
 ﻿using SeleniumLottoDataApp;
+using SeleniumLottoDataApp.Lib;
 using SeleniumLottoDataApp.Models;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ using System.Linq;
 
 namespace SeleniumLottoDataGen.Lib
 {
-    public class FloridaFantasy5Gen
+    public class FloridaLottoGen : LottoGenBase
     {
-        public FloridaFantasy5Gen()
+        public FloridaLottoGen()
         {
 
         }
@@ -21,7 +22,10 @@ namespace SeleniumLottoDataGen.Lib
         public void ParseData()
         {
             var parent = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            var filePath = parent + @"\Lotto.Data\fantasy-5-data.txt";
+            var pdfPath = parent + @"\Lotto.Data\florida-lotto-data.pdf";
+            var txtPath = parent + @"\Lotto.Data\florida-lotto-data.txt";
+
+            var filePath = ConvertPdfToText(pdfPath, txtPath);
 
             // Read all lines from the file
             string[] lines = File.ReadAllLines(filePath);
@@ -31,7 +35,7 @@ namespace SeleniumLottoDataGen.Lib
 
             // We will parse the data two lines at a time (one for the date, one for the numbers)
 
-            List<FloridaFantasy5> rows = new List<FloridaFantasy5>();
+            List<FloridaLotto> rows = new List<FloridaLotto>();
             int drawNumber = 271;
             string day = string.Empty;
             string month = string.Empty;
@@ -54,7 +58,7 @@ namespace SeleniumLottoDataGen.Lib
                     numbers = lines[i].Split().ToArray();
                 }
                
-                FloridaFantasy5 entity = new FloridaFantasy5
+                FloridaLotto entity = new FloridaLotto
                 {
                     DrawNumber = drawNumber--,
                     DrawDate = $"{year}-{month}-{day}",
@@ -73,15 +77,15 @@ namespace SeleniumLottoDataGen.Lib
 
 #else
 
-        public void ParseData()
+                public void ParseData()
         {
             var parent = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             var Path = parent + @"\Lotto.Data\fantasy-5-data.txt";
             using (StreamReader reader = new StreamReader(Path))
             {
                 string line = string.Empty;
-                List<FloridaFantasy5> cols1 = new List<FloridaFantasy5>();
-                List<FloridaFantasy5> cols2 = new List<FloridaFantasy5>();
+                List<FloridaLotto> cols1 = new List<FloridaLotto>();
+                List<FloridaLotto> cols2 = new List<FloridaLotto>();
                 List<List<string>> rows = new List<List<string>>();
                 char[] separator = new[] { '\t' };
                 int drawNumber1 = 3654;
@@ -90,7 +94,7 @@ namespace SeleniumLottoDataGen.Lib
                 {
                     string[] arr = line.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
-                    var entity1 = new FloridaFantasy5()
+                    var entity1 = new FloridaLotto()
                     {
                         DrawNumber = drawNumber1,
                         DrawDate = arr[0],
@@ -102,7 +106,7 @@ namespace SeleniumLottoDataGen.Lib
                     };
                     drawNumber1--;
 
-                    //var entity2 = new FloridaFantasy5()
+                    //var entity2 = new FloridaLotto()
                     //{
                     //    DrawNumber = drawNumber2,
                     //    DrawDate = arr[10],
@@ -126,11 +130,11 @@ namespace SeleniumLottoDataGen.Lib
         }
 #endif
 
-        public void InsertDb(List<FloridaFantasy5> rows)
+public void InsertDb(List<FloridaLotto> rows)
         {
             using (var db = new LottoDb())
             {
-                db.FloridaFantasy5.AddRange(rows);
+                db.FloridaLottoes.AddRange(rows);
                 db.SaveChanges();
             }
         }       

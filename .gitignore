@@ -254,3 +254,6 @@ LICENSE.chromedriver
 SeleniumLottoDataApp/LICENSE.chromedriver
 SeleniumLottoDataApp/chromedriver-win64/chromedriver.exe
 SeleniumLottoDataApp/chromedriver-win64/LICENSE.chromedriver
+SeleniumLottoDataGen/Lotto.Data/florida-lotto-data.pdf
+SeleniumLottoDataGen/Lotto.Data/florida-lotto-data.txt
+SeleniumLottoDataGen/Lotto.Data/fantasy-5-data.txt

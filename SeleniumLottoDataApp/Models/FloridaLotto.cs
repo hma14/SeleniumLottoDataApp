@@ -28,6 +28,5 @@ namespace SeleniumLottoDataApp
 
         public int? Number6 { get; set; }
 
-        public int? Xtra { get; set; }
     }
 }

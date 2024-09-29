@@ -62,7 +62,6 @@ namespace SeleniumLottoDataApp.Lib
                     entity.Number4 = int.Parse(numbers[3]);
                     entity.Number5 = int.Parse(numbers[4]);
                     entity.Number6 = int.Parse(numbers[5]);
-                    entity.Xtra = 0;
 
                     // save to db
                     db.FloridaLottoes.Add(entity);
