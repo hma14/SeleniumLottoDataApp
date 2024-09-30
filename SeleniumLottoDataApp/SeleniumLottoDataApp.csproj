@@ -149,6 +149,10 @@
     <Compile Include="Migrations\202112310348350_merge6.designer.cs">
       <DependentUpon>202112310348350_merge6.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202409300559521_merge7.cs" />
+    <Compile Include="Migrations\202409300559521_merge7.Designer.cs">
+      <DependentUpon>202409300559521_merge7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\BC49.cs" />
@@ -207,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112310348350_merge6.resx">
       <DependentUpon>202112310348350_merge6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409300559521_merge7.resx">
+      <DependentUpon>202409300559521_merge7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

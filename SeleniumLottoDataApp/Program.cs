@@ -98,7 +98,6 @@ namespace SeleniumLottoDataApp
 
 
 
-
             //obj = new LottoMegaMillions();
             //obj.InsertDb();
 
