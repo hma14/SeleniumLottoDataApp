@@ -37,14 +37,14 @@ namespace SeleniumLottoDataApp.Lib
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
-            var td = Driver.FindElementsByClassName("product-winning-numbers__numbers-list").First();
+            var td = Driver.FindElements(By.ClassName("product-winning-numbers__numbers-list")).First();
             var lis = td.FindElements(By.TagName("li"));
             foreach (var li in lis)
             {
                 numbers.Add(li.Text);
             }
 
-            var grand = Driver.FindElementsByClassName("product-winning-numbers__bonus-number_dgrd").First();
+            var grand = Driver.FindElements(By.ClassName("product-winning-numbers__bonus-number_dgrd")).First();
             numbers.Add(grand.Text);
             return numbers;
 

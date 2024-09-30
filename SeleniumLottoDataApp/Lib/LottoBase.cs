@@ -44,14 +44,20 @@ namespace SeleniumLottoDataApp.Lib
             //    "--start-maximized",
             //    "--headless",
             //});
+<<<<<<< HEAD
+
+            chromeOptions.AddArguments("--start-maximized");
+=======
+>>>>>>> daf86354538a799113ac787a3f10fb2a2c0fb253
 
             chromeOptions.AddArguments("--start-maximized");
 
-            var chromeDriverService = ChromeDriverService.CreateDefaultService();
+
+           var chromeDriverService = ChromeDriverService.CreateDefaultService();
             chromeDriverService.HideCommandPromptWindow = true;    // This is to hidden the console.
             Driver = new ChromeDriver(chromeDriverService, chromeOptions, TimeSpan.FromMinutes(2));
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMinutes(2);
-            Driver.Manage().Timeouts().PageLoad = TimeSpan.FromMinutes(2);
+            //Driver.Manage().Timeouts().PageLoad = TimeSpan.FromMinutes(2);
 
         }
 
