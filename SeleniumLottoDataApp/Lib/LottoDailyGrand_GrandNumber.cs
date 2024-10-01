@@ -143,6 +143,9 @@ namespace SeleniumLottoDataApp.Lib
                         IsHit = (lotto.GrandNumber == i) ? true : false,
                         NumberofDrawsWhenHit = (lotto.GrandNumber == i) ? prevDraw[i - 1].Distance + 1 : 0,
                         TotalHits = (lotto.GrandNumber == i) ? prevDraw[i - 1].TotalHits + 1 : prevDraw[i - 1].TotalHits,
+
+                        // probability
+                        Probability = CalculateProbability(LottoNames.DailyGrand_GrandNumber, i).Result,
                     };
                     numbers.Add(number);
                 }

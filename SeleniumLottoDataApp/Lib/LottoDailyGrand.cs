@@ -167,6 +167,9 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Number3 == i ||
                                     lotto.Number4 == i ||
                                     lotto.Number5 == i) ? prevDraw[i - 1].TotalHits + 1 : prevDraw[i - 1].TotalHits,
+
+                        // probability
+                        Probability = CalculateProbability(LottoNames.DailyGrand, i).Result,
                     };
                     numbers.Add(number);
                 }

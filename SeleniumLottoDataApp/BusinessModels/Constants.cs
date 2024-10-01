@@ -31,5 +31,12 @@ namespace SeleniumLottoDataApp.BusinessModels
             //Cash4Life = 6,
             //Cash4Life_CashBall = 4,
         }
+
+        public const int COLD_POINT = 15;
+        public const int HOT_POINT = 5;
+
+        public const int HOT_RANGE = 5;
+        public const int NORMAL_RANGE = 10;
+
     }
 }

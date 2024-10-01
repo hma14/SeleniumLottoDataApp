@@ -156,6 +156,9 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Number6 == i ||
                                     lotto.Number7 == i ||
                                     lotto.Bonus == i) ? prevDraw[i - 1].TotalHits + 1 : prevDraw[i - 1].TotalHits,
+
+                        // probability
+                        Probability = CalculateProbability(LottoNames.LottoMax, i).Result,
                     };
 
                     numbers.Add(number);

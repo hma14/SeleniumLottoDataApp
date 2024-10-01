@@ -109,6 +109,8 @@
   <ItemGroup>
     <Compile Include="BusinessModels\Constants.cs" />
     <Compile Include="BusinessModels\LottoNumber.cs" />
+    <Compile Include="Dto\LottoTypeDto.cs" />
+    <Compile Include="Dto\NumberDto.cs" />
     <Compile Include="Lib\LottoDailyGrand_GrandNumber.cs" />
     <Compile Include="Lib\LottoDailyGrand.cs" />
     <Compile Include="Lib\LottoMAX.cs" />
