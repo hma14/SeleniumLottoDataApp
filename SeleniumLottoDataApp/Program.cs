@@ -81,7 +81,7 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
             obj.InsertLottTypeTable();
 
-#if false
+#if true
             obj = new Lottery649();
             obj.InsertDb();
             obj.InsertLottTypeTable();

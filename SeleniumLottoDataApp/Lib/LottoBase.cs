@@ -141,7 +141,8 @@ namespace SeleniumLottoDataApp.Lib
             
             if (hits[1].NumberofDrawsWhenHit > Constants.COLD_POINT &&
                 hits[0].DrawNumber < hits[1].DrawNumber + Constants.NORMAL_RANGE &&
-                numbers[0].Distance < Constants.NORMAL_RANGE) probability++;
+                numbers[0].Distance < Constants.NORMAL_RANGE &&
+                numbers[0].IsHit == false) probability++;
 
 
 
