@@ -7,18 +7,16 @@ namespace SeleniumLottoDataGen
         static void Main(string[] args)
         {
 
-            LottoGenBase obj = new Lotto649DataGen();
+            LottoGenBase obj = new BC49DataGen();
             obj.ParseData();
-             
+
+#if false
 
             obj = new LottoMaxDataGen();
             obj.ParseData();
 
             obj = new Lotto649DataGen();
-            obj.ParseData();
-
-            obj = new BC49DataGen();
-            obj.ParseData();
+            obj.ParseData();          
 
             obj = new DailyGrandGen();
             obj.ParseData();
@@ -31,6 +29,7 @@ namespace SeleniumLottoDataGen
 
             obj = new DailyGrand_GrandNumberGen();
             obj.ParseData();
+#endif
 
             
 #if false

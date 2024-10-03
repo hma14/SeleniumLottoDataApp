@@ -112,6 +112,10 @@
     <Compile Include="Migrations\202409240521328_add_Probability_Number.Designer.cs">
       <DependentUpon>202409240521328_add_Probability_Number.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202410020037087_merge.cs" />
+    <Compile Include="Migrations\202410020037087_merge.Designer.cs">
+      <DependentUpon>202410020037087_merge.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\BC49.cs" />
@@ -189,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409240521328_add_Probability_Number.resx">
       <DependentUpon>202409240521328_add_Probability_Number.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410020037087_merge.resx">
+      <DependentUpon>202410020037087_merge.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

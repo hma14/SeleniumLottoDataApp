@@ -121,17 +121,28 @@ namespace SeleniumLottoDataApp.Lib
 
             var hits = numbers.Where(x => x.IsHit == true).ToList();
 
-            if ((hits[0].NumberofDrawsWhenHit > Constants.COLD_POINT || 
+            if ((hits[0].NumberofDrawsWhenHit >= Constants.COLD_POINT ||
                 hits[1].NumberofDrawsWhenHit > Constants.COLD_POINT) &&
                 numbers[0].Distance <= Constants.HOT_RANGE) probability++;
 
+            if (hits[0].NumberofDrawsWhenHit >= Constants.COLD_POINT &&
+                numbers[0].Distance > Constants.NORMAL_RANGE) probability++;
+
             if (hits[0].DrawNumber == hits[1].DrawNumber + 1 &&
-                numbers[0].Distance <= Constants.NORMAL_RANGE) probability++;
+                numbers[0].Distance < Constants.NORMAL_RANGE) probability++;
 
             if ((hits[0].DrawNumber == hits[1].DrawNumber + 2 ||
                 hits[0].DrawNumber == hits[1].DrawNumber + 3) &&
                 numbers[0].IsHit == false &&
-                numbers[0].Distance <= Constants.NORMAL_RANGE) probability++;
+                numbers[0].Distance < Constants.NORMAL_RANGE) probability++;
+
+            if (hits[0].Distance >= Constants.COLD_POINT &&
+                numbers[0].Distance > Constants.NORMAL_RANGE) probability++;
+            
+            if (hits[1].NumberofDrawsWhenHit > Constants.COLD_POINT &&
+                hits[0].DrawNumber < hits[1].DrawNumber + Constants.NORMAL_RANGE &&
+                numbers[0].Distance < Constants.NORMAL_RANGE) probability++;
+
 
 
             return probability;

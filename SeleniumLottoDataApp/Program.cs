@@ -81,6 +81,7 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
             obj.InsertLottTypeTable();
 
+#if false
             obj = new Lottery649();
             obj.InsertDb();
             obj.InsertLottTypeTable();
@@ -96,7 +97,7 @@ namespace SeleniumLottoDataApp
             obj = new LottoDailyGrand_GrandNumber();
             obj.InsertLottTypeTable();
 
-
+#endif
 
 
             //obj = new LottoMegaMillions();

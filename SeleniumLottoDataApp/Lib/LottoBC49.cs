@@ -157,7 +157,7 @@ namespace SeleniumLottoDataApp.Lib
                                     lotto.Bonus == i) ? prevDraw[i - 1].TotalHits + 1 : prevDraw[i - 1].TotalHits,
 
                         // probability
-                        Probability = CalculateProbability(LottoNames.BC49, i).Result,
+                        Probability = CalculateProbability(LottoNames.BC49, i)?.Result ?? 0,
                     };
                     numbers.Add(number);
                 }
