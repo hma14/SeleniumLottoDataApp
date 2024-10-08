@@ -121,11 +121,12 @@ namespace SeleniumLottoDataApp.Lib
 
             var hits = numbers.Where(x => x.IsHit == true).ToList();
 
-            if ((hits[0].NumberofDrawsWhenHit >= Constants.COLD_POINT ||
+            if ((hits[0].NumberofDrawsWhenHit > Constants.COLD_POINT ||
                 hits[1].NumberofDrawsWhenHit > Constants.COLD_POINT) &&
-                numbers[0].Distance <= Constants.HOT_RANGE) probability++;
+                numbers[0].Distance < Constants.NORMAL_RANGE &&
+                numbers[0].Distance >= Constants.HOT_POINT) probability++;
 
-            if (hits[0].NumberofDrawsWhenHit >= Constants.COLD_POINT &&
+            if (hits[0].NumberofDrawsWhenHit > Constants.COLD_POINT &&
                 numbers[0].Distance > Constants.NORMAL_RANGE) probability++;
 
             if (hits[0].DrawNumber == hits[1].DrawNumber + 1 &&
@@ -144,9 +145,33 @@ namespace SeleniumLottoDataApp.Lib
                 numbers[0].Distance < Constants.NORMAL_RANGE &&
                 numbers[0].IsHit == false) probability++;
 
+            if (hits[0].NumberofDrawsWhenHit == hits[1].NumberofDrawsWhenHit &&
+                numbers[0].IsHit == false)
+            {
+                if(numbers[0].Distance + 1 == hits[0].NumberofDrawsWhenHit ||
+                   numbers[0].Distance == hits[0].NumberofDrawsWhenHit)
+                {
+                    probability++;
+                }
+                else if (IsInRange(numbers[0].Distance, hits[0].NumberofDrawsWhenHit, Constants.NORMAL_RANGE))
+                {
+                    probability++;
+                }
+            }
+
+            if (hits[0].NumberofDrawsWhenHit <= Constants.HOT_POINT &&
+                hits[1].NumberofDrawsWhenHit <= Constants.HOT_POINT &&
+                hits[2].NumberofDrawsWhenHit <= Constants.HOT_POINT &&
+                hits[3].NumberofDrawsWhenHit <= Constants.NORMAL_RANGE &&
+                numbers[0].IsHit == false) probability++;
 
 
             return probability;
+        }
+
+        private bool IsInRange(int num, int start, int end)
+        {
+            return num >= start && num <= end;
         }
 
 
