@@ -77,7 +77,7 @@ namespace SeleniumLottoDataApp
 
 
             // BC lotto
-            LottoBase obj = new LottoBC49();
+            LottoBase obj = new LottoMAX();
             obj.InsertDb();
             obj.InsertLottTypeTable();
 
@@ -86,7 +86,7 @@ namespace SeleniumLottoDataApp
             obj.InsertDb();
             obj.InsertLottTypeTable();
 
-            obj = new LottoMAX();
+            obj = new LottoBC49();
             obj.InsertDb();
             obj.InsertLottTypeTable();
 

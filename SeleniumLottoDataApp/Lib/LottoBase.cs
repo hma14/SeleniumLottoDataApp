@@ -126,6 +126,11 @@ namespace SeleniumLottoDataApp.Lib
                 numbers[0].Distance < Constants.NORMAL_RANGE &&
                 numbers[0].Distance >= Constants.HOT_POINT) probability++;
 
+            if ((hits[0].NumberofDrawsWhenHit > Constants.COLD_POINT &&
+                hits[1].NumberofDrawsWhenHit > Constants.NORMAL_RANGE) &&
+                numbers[0].Distance < Constants.NORMAL_RANGE &&
+                numbers[0].Distance >= Constants.HOT_POINT - 2) probability++;
+
             if (hits[0].NumberofDrawsWhenHit > Constants.COLD_POINT &&
                 numbers[0].Distance > Constants.NORMAL_RANGE) probability++;
 
@@ -164,6 +169,17 @@ namespace SeleniumLottoDataApp.Lib
                 hits[2].NumberofDrawsWhenHit <= Constants.HOT_POINT &&
                 hits[3].NumberofDrawsWhenHit <= Constants.NORMAL_RANGE &&
                 numbers[0].IsHit == false) probability++;
+
+            if (numbers[0].Distance + 1 == hits[0].NumberofDrawsWhenHit)
+                probability++;
+
+
+            if (numbers[0].Distance >= Constants.COLD_POINT &&
+                hits[0].DrawNumber == hits[1].DrawNumber + 1)
+                probability++;
+
+
+
 
 
             return probability;

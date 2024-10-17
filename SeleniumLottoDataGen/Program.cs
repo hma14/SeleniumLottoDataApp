@@ -10,7 +10,7 @@ namespace SeleniumLottoDataGen
             LottoGenBase obj = new BC49DataGen();
             obj.ParseData();
 
-#if false
+#if true
 
             obj = new LottoMaxDataGen();
             obj.ParseData();
