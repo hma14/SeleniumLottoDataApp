@@ -144,6 +144,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lib\MegaMillionGen.cs" />
+    <Compile Include="Lib\PowerBallGen.cs" />
     <Compile Include="Lib\Constants.cs" />
     <Compile Include="Lib\FloridaLottoGen.cs" />
     <Compile Include="Lib\FloridaFantasy5Gen.cs" />
