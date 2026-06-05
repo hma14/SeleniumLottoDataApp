@@ -1,4 +1,5 @@
-﻿using SeleniumLottoDataApp.Lib;
+﻿using SeleniumLottoDataApp;
+using SeleniumLottoDataApp.Lib;
 using SeleniumLottoDataGen.Lib;
 using System;
 using System.Collections.Generic;
@@ -12,17 +13,20 @@ namespace SeleniumLottoDataGen
     {
         static void Main(string[] args)
         {
-            //DailyGrandGen obj4 = new DailyGrandGen();
-            //obj4.ParseCsv();
+			//DailyGrandGen obj = new DailyGrandGen();
+			//obj.ParseCsv();
 
-            //NewYorkTake5Gen obj1 = new NewYorkTake5Gen();
-            //obj1.ParseCsv();
+			//NewYorkTake5Gen obj = new NewYorkTake5Gen();
+			//obj.ParseCsv();
 
-            //TexasCashFiveGen obj2 = new TexasCashFiveGen();
-            //obj2.ParseCsv();
+			//TexasCashFiveGen obj = new TexasCashFiveGen();
+			//obj.ParseCsv();
 
-            FloridaFantasy5Gen obj3 = new FloridaFantasy5Gen();
-            obj3.ParseData();
-        }
-    }
+			//FloridaFantasy5Gen obj = new FloridaFantasy5Gen();
+			//obj.ParseData();
+
+			FloridaPick3Gen obj = new FloridaPick3Gen();
+			obj.ParseData();
+		}
+	}
 }

@@ -53,6 +53,7 @@ namespace SeleniumLottoDataApp
         public virtual DbSet<TexasCashFive> TexasCashFive { get; set; }
         public virtual DbSet<DailyGrand> DailyGrand { get; set; }
         public virtual DbSet<DailyGrand_GrandNumber> DailyGrand_GrandNumber { get; set; }
+        public virtual DbSet<FloridaPick3> FloridaPick3 { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -196,9 +197,9 @@ namespace SeleniumLottoDataApp
                 .Property(e => e.DrawDate)
                 .IsUnicode(false);
 
-            //modelBuilder.Entity<DailyGrand>()
-            //    .Property(e => e.DrawDate)
-            //    .IsUnicode(false);
+            modelBuilder.Entity<FloridaPick3>()
+                .Property(e => e.DrawDate)
+                .IsUnicode(false);
         }
     }
 }
