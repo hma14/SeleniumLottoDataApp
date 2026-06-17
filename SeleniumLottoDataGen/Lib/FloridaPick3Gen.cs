@@ -24,8 +24,8 @@ namespace SeleniumLottoDataGen.Lib
                 List<FloridaPick3> cols = new List<FloridaPick3>();
                 List<List<string>> rows = new List<List<string>>();
                 char[] separator = new[] { ' ' };
-                int drawNumber1 = 1000;
-                while ((line = reader.ReadLine()) != null && drawNumber1 > 0)
+                int drawNumber1 = 1011;
+                while ((line = reader.ReadLine()) != null && drawNumber1 > 1000)
                 {                
                     string[] arr = line.Split(separator, StringSplitOptions.RemoveEmptyEntries);
                     if (arr.Length == 15 && arr[13] == "FB")

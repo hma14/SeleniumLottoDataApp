@@ -26,9 +26,36 @@ namespace SeleniumLottoDataApp.Lib
 
             //Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(60));
 
+            Console.WriteLine(typeof(ChromeDriver).Assembly.Location);
+
+            var options = new ChromeOptions();
+
+            options.AddArguments(new []
+            {
+                "--silent-launch",
+                "--no-startup-window",
+                "--no-sandbox",
+                "--window-size=1920,1080",
+                "--disable-gpu",
+                "--disable-extensions",
+                "--proxy-server='direct://'",
+                "--proxy-bypass-list=*",
+                //"--start-maximized",
+                "--headless=new",
+            });
+
+            //options.AddArgument("--headless=new");
+            //options.AddArgument("--window-size=1920,1080");
+
+            var service = ChromeDriverService.CreateDefaultService();
+            service.HideCommandPromptWindow = true;
+
+            Driver = new ChromeDriver(service, options);
+
+            /*
             var chromeOptions = new ChromeOptions
             {
-                BinaryLocation = @"C:\Program Files (x86)\google\chrome\Application\chrome.exe", 
+                BinaryLocation = @"C:\Program Files\Google\Chrome\Application\chrome.exe", 
                 //DebuggerAddress = "127.0.0.1:9222"
             };
 
@@ -36,20 +63,21 @@ namespace SeleniumLottoDataApp.Lib
             {
                 "--silent-launch",
                 "--no-startup-window",
-                "no-sandbox",
+                "--no-sandbox",
                 "--window-size=1920,1080",
                 "--disable-gpu",
                 "--disable-extensions",
                 "--proxy-server='direct://'",
                 "--proxy-bypass-list=*",
                 "--start-maximized",
-                "--headless",
+                "--headless=new",
             });
 
             var chromeDriverService = ChromeDriverService.CreateDefaultService();
             chromeDriverService.HideCommandPromptWindow = true;    // This is to hidden the console.
             Driver = new ChromeDriver(chromeDriverService, chromeOptions);
-            
+            */
+
         }
         
         public void CloseDriver()

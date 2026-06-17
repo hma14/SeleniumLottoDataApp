@@ -14,6 +14,9 @@ namespace SeleniumLottoDataApp
 
             LottoBase obj = new LottoNewYorkTake5();
             obj.InsertDb();
+            /*
+            obj = new LottoNewYorkTake5();
+            obj.InsertDb();
 
             obj = new LottoNYLotto();
             obj.InsertDb();
@@ -85,6 +88,7 @@ namespace SeleniumLottoDataApp
 
             obj = new LottoDailyGrand();
             obj.InsertDb();
+            */
 
             ////////////////
 

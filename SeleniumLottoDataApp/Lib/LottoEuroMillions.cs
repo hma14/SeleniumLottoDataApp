@@ -18,7 +18,7 @@ namespace SeleniumLottoDataApp.Lib
         {
             List<string> numbers = new List<string>();
             //var trs = Driver.FindElementsByClassName("dateRow");
-            var td = Driver.FindElementByClassName("date");
+            var td = Driver.FindElement(By.Name("date"));
             var array = td.Text.Split('\n');
             var dm = array[1].Split();
             var day = dm[0];
