@@ -5,41 +5,50 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace SeleniumLottoDataApp.Lib
 {
     public class LottoFloridaPick3 : LottoBase
     {
         public LottoFloridaPick3()
         {
-            Driver.Url = "http://flalottery.com/lotto.do";
+            Driver.Url = "https://floridalottery.com/games/draw-games/pick-3";
         }
 
         private string searchDrawDate()
         {
-            var ps = Driver.FindElements(By.XPath("//div[@class='gamePageNumbers']/p"));
+            var ps = Driver.FindElements(By.ClassName("draw-date--pick3"));
             var txt = ps[1].Text;
-            txt = txt.Replace(",", "");
-            var arr = txt.Split();
-            var date = arr[3] + "-" + DicDate[arr[1]] + "-" + arr[2];
-
-            return date;
+            var txts = txt.Split(','); // Fix: Changed the argument from ',' (string) to ',' (char)
+            var monthDay = txts[1].Split(' '); // Fix: Added a space character (' ') as the argument for Split
+            var year = txts[2];
+            var month = monthDay[1];
+            var day = monthDay[2];
+            var da = year + '-' + DicDateShort2[month] + "-" + day;
+            return da;
         }
+        
 
         private List<string> searchDrawNumbers()
         {
             List<string> numbers = new List<string>();
             //var spans = Driver.FindElements(By.XPath("//div[@class='gamePageBalls']/p/span"));
 
-            var div = Driver.FindElements(By.ClassName("gamePageBalls")).First();
-            var spans = div.FindElements(By.ClassName("balls"));
-            foreach (var span in spans)
+            var divs = Driver.FindElements(By.ClassName("game-numbers--pick3"));
+            var div = divs[1];
+            var lis = div.FindElements(By.ClassName("game-numbers__number"));
+            foreach (var li in lis)
             {
-                if (Char.IsDigit(span.Text[0]) == true)
-                numbers.Add(span.Text);
+                if (Char.IsDigit(li.Text[0]) == true)
+                numbers.Add(li.Text);
             }
-            //var mb = Driver.FindElement(By.ClassName("multiplier"));
-            //numbers.Add(mb.Text[1].ToString());
-
+            var l = div.FindElement(By.ClassName("game-numbers__bonus"));
+            var sp = l.FindElement(By.ClassName("game-numbers__bonus-text"));
+            if (Char.IsDigit(sp.Text[0]) == true)
+            {
+                numbers.Add(sp.Text);
+            }
+                
             return numbers;
         }
 

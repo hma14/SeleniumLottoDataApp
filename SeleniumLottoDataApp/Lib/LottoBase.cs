@@ -14,72 +14,40 @@ namespace SeleniumLottoDataApp.Lib
 
         public LottoBase()
         {
-            //PhantomJSDriverService service = PhantomJSDriverService.CreateDefaultService();
-            //service.IgnoreSslErrors = true;
-            //service.LoadImages = false;
-            //service.ProxyType = "none";
-            //service.SuppressInitialDiagnosticInformation = true;
-            //service.AddArgument("--webdriver-loglevel=NONE");
-
-            //Driver = new PhantomJSDriver(service);
-            //Driver.Manage().Window.Size = new Size(1024, 768);
-
-            //Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(60));
-
-            Console.WriteLine(typeof(ChromeDriver).Assembly.Location);
-
-            var options = new ChromeOptions();
-
-            options.AddArguments(new []
-            {
-                "--silent-launch",
-                "--no-startup-window",
-                "--no-sandbox",
-                "--window-size=1920,1080",
-                "--disable-gpu",
-                "--disable-extensions",
-                "--proxy-server='direct://'",
-                "--proxy-bypass-list=*",
-                //"--start-maximized",
-                "--headless=new",
-            });
-
-            //options.AddArgument("--headless=new");
-            //options.AddArgument("--window-size=1920,1080");
-
-            var service = ChromeDriverService.CreateDefaultService();
-            service.HideCommandPromptWindow = true;
-
-            Driver = new ChromeDriver(service, options);
-
-            /*
             var chromeOptions = new ChromeOptions
             {
-                BinaryLocation = @"C:\Program Files\Google\Chrome\Application\chrome.exe", 
-                //DebuggerAddress = "127.0.0.1:9222"
+                BinaryLocation = @"C:\Program Files\google\chrome\Application\chrome.exe",
             };
 
-            chromeOptions.AddArguments(new List<string>()
-            {
-                "--silent-launch",
-                "--no-startup-window",
-                "--no-sandbox",
-                "--window-size=1920,1080",
-                "--disable-gpu",
-                "--disable-extensions",
-                "--proxy-server='direct://'",
-                "--proxy-bypass-list=*",
-                "--start-maximized",
-                "--headless=new",
-            });
+            //chromeOptions.AddArguments(new List<string>()
+            //{
+            //    "--silent-launch",
+            //    "--no-startup-window",
+            //    "no-sandbox",
+            //    "--window-size=1920,1080",
+            //    "--disable-gpu",
+            //    "--disable-extensions",
+            //    "--proxy-server='direct://'",
+            //    "--proxy-bypass-list=*",
+            //    "--start-maximized",
+            //    "--headless",
+            //});
+
+            chromeOptions.AddArguments("--start-maximized");
+            chromeOptions.AddArguments("----disable-gpu");
+            chromeOptions.AddArguments("--no-sandbox");
+            chromeOptions.AddArguments("--disable-dev-shm-usage");
 
             var chromeDriverService = ChromeDriverService.CreateDefaultService();
             chromeDriverService.HideCommandPromptWindow = true;    // This is to hidden the console.
-            Driver = new ChromeDriver(chromeDriverService, chromeOptions);
-            */
+
+            Driver = new ChromeDriver(chromeDriverService, chromeOptions, TimeSpan.FromMinutes(5));
+            Driver.Manage().Timeouts().PageLoad = TimeSpan.FromMinutes(5);
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMinutes(5);
+
 
         }
-        
+
         public void CloseDriver()
         {
             Driver.Quit();
